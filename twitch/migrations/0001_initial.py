@@ -7,15 +7,27 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Twitch_model',
+            name="Twitch_model",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('streamer', models.CharField(max_length=30, unique=True, verbose_name='Калал твича')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "streamer",
+                    models.CharField(
+                        max_length=30, unique=True, verbose_name="Калал твича"
+                    ),
+                ),
             ],
         ),
     ]

@@ -7,18 +7,30 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Anime',
+            name="Anime",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title_anime', models.CharField(max_length=50, unique=True, verbose_name='Название и серия')),
-                ('link_anime', models.URLField(verbose_name='Ссылка на anime')),
-                ('date_added', models.DateTimeField(auto_now_add=True)),
-                ('_is_expired', models.BooleanField(default=False)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "title_anime",
+                    models.CharField(
+                        max_length=50, unique=True, verbose_name="Название и серия"
+                    ),
+                ),
+                ("link_anime", models.URLField(verbose_name="Ссылка на anime")),
+                ("date_added", models.DateTimeField(auto_now_add=True)),
+                ("_is_expired", models.BooleanField(default=False)),
             ],
         ),
     ]

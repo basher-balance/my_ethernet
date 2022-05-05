@@ -7,18 +7,25 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='New',
+            name="New",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('news', models.TextField(max_length=200, verbose_name='Новость')),
-                ('link_news', models.URLField(verbose_name='Ссылка на новость')),
-                ('date_added', models.DateTimeField(auto_now_add=True)),
-                ('_is_expired', models.BooleanField(default=False)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("news", models.TextField(max_length=200, verbose_name="Новость")),
+                ("link_news", models.URLField(verbose_name="Ссылка на новость")),
+                ("date_added", models.DateTimeField(auto_now_add=True)),
+                ("_is_expired", models.BooleanField(default=False)),
             ],
         ),
     ]

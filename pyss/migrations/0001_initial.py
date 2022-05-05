@@ -7,32 +7,58 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='News',
+            name="News",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('news', models.TextField(max_length=50, verbose_name='Новость')),
-                ('link_news', models.URLField(verbose_name='Ссылка на новость')),
-                ('date_added', models.DateTimeField(auto_now_add=True)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("news", models.TextField(max_length=50, verbose_name="Новость")),
+                ("link_news", models.URLField(verbose_name="Ссылка на новость")),
+                ("date_added", models.DateTimeField(auto_now_add=True)),
             ],
         ),
         migrations.CreateModel(
-            name='Serials',
+            name="Serials",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.TextField(max_length=50, verbose_name='Название сериала')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "title",
+                    models.TextField(max_length=50, verbose_name="Название сериала"),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='Weather',
+            name="Weather",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('weather_daily', models.JSONField()),
-                ('diagrams', models.TextField(verbose_name='Тег диаграммы')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("weather_daily", models.JSONField()),
+                ("diagrams", models.TextField(verbose_name="Тег диаграммы")),
             ],
         ),
     ]

@@ -6,18 +6,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('manga', '0001_initial'),
+        ("manga", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='manga',
-            name='_is_expired',
+            model_name="manga",
+            name="_is_expired",
             field=models.BooleanField(default=False),
         ),
         migrations.AlterField(
-            model_name='manga',
-            name='link',
-            field=models.URLField(unique=True, verbose_name='Ссылка на аниме'),
+            model_name="manga",
+            name="link",
+            field=models.URLField(unique=True, verbose_name="Ссылка на аниме"),
         ),
     ]

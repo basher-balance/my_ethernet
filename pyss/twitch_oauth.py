@@ -9,7 +9,7 @@ refresh_token_tw = r"C:\Users\Alexey\Documents\py\pyss\refresh_token_tw.pickle"
 
 twitch = Twitch(my_app_key, my_app_secret)
 target_scope = [AuthScope.USER_READ_FOLLOWS]
-#auth = UserAuthenticator(twitch, target_scope, force_verify=False)
+# auth = UserAuthenticator(twitch, target_scope, force_verify=False)
 
 with open(token_tw, "rb") as t:
     token = pickle.load(t)
@@ -30,4 +30,3 @@ with open(refresh_token_tw, "rb") as r_t:
 # add User authentication
 twitch.set_user_authentication(token, target_scope, refresh_token)
 online = twitch.get_followed_streams(my_id)
-

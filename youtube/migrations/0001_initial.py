@@ -7,16 +7,28 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Youtube_model',
+            name="Youtube_model",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('iframe', models.CharField(max_length=300, unique=True, verbose_name='Айфрейм')),
-                ('_is_expired', models.BooleanField(default=False)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "iframe",
+                    models.CharField(
+                        max_length=300, unique=True, verbose_name="Айфрейм"
+                    ),
+                ),
+                ("_is_expired", models.BooleanField(default=False)),
             ],
         ),
     ]

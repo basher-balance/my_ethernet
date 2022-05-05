@@ -2,9 +2,10 @@ from django.db import models
 
 
 class New(models.Model):
-    '''Новости с mail.ru'''
-    news = models.TextField('Новость', max_length=200, unique=True)
-    link_news = models.URLField('Ссылка на новость')
+    """Новости с mail.ru"""
+
+    news = models.TextField("Новость", max_length=200, unique=True)
+    link_news = models.URLField("Ссылка на новость")
     date_added = models.DateTimeField(auto_now_add=True)
     _is_expired = models.BooleanField(default=False)
 

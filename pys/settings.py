@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-1wel6b#x*!ll1ou00p8iy5^!ps4d&g$q(h(0d$2tslit2)qqer'
+SECRET_KEY = "django-insecure-1wel6b#x*!ll1ou00p8iy5^!ps4d&g$q(h(0d$2tslit2)qqer"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -34,88 +34,88 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     # Мои приложения
-    'pyss',
+    "pyss",
     # Новости
-    'news',
+    "news",
     # Погода
-    'weathers',
+    "weathers",
     # Валюта
-    'currencies',
+    "currencies",
     # Манга
-    'manga',
+    "manga",
     # Вконтакет
-    'vk',
+    "vk",
     # Аниме
-    'anime',
+    "anime",
     # Твитч
-    'twitch',
+    "twitch",
     # Ютуб
-    'youtube',
+    "youtube",
     # Сериалы
-    'serials',
-    #Торренты
-    'torrents',
+    "serials",
+    # Торренты
+    "torrents",
     # Вакаснии
-    'hh',
+    "hh",
     # Основное приложение-планировщик
-    'django_dramatiq',
-    'task_scheduler.apps.TaskSchedulerConfig',
+    "django_dramatiq",
+    "task_scheduler.apps.TaskSchedulerConfig",
     # Приложения django по умолчанию.
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
 ]
 
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
 
-ROOT_URLCONF = 'pys.urls'
+ROOT_URLCONF = "pys.urls"
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
             ],
         },
     },
 ]
 
-WSGI_APPLICATION = 'pys.wsgi.application'
+WSGI_APPLICATION = "pys.wsgi.application"
 
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-        'OPTIONS': {
-        'timeout': 20,  # in seconds
-        # see also
-        # https://docs.python.org/3.7/library/sqlite3.html#sqlite3.connect
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
+        "OPTIONS": {
+            "timeout": 20,  # in seconds
+            # see also
+            # https://docs.python.org/3.7/library/sqlite3.html#sqlite3.connect
+        },
     }
 }
-    }
 
 
 DRAMATIQ_REDIS_URL = os.getenv("REDIS_URL", "redis://127.0.0.1:6379/0")
@@ -130,7 +130,7 @@ DRAMATIQ_BROKER = {
         "dramatiq.middleware.Retries",
         "django_dramatiq.middleware.AdminMiddleware",
         "django_dramatiq.middleware.DbConnectionsMiddleware",
-    ]
+    ],
 }
 
 # Password validation
@@ -138,16 +138,16 @@ DRAMATIQ_BROKER = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
 
@@ -155,9 +155,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = 'Asia/Dhaka'
+TIME_ZONE = "Asia/Dhaka"
 
 USE_I18N = True
 
@@ -169,14 +169,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = "/static/"
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
-STATIC_ROOT = os.path.join(PROJECT_ROOT, 'pyss/static')
+STATIC_ROOT = os.path.join(PROJECT_ROOT, "pyss/static")
 
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
