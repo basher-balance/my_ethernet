@@ -1,4 +1,4 @@
 from django.contrib import admin
-from .models import Hh 
+from .models import Hh
 
 admin.site.register(Hh)

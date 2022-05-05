@@ -6,13 +6,15 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('torrents', '0001_initial'),
+        ("torrents", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='torrent',
-            name='link',
-            field=models.PositiveIntegerField(unique=True, verbose_name='ID на ссылку торрента'),
+            model_name="torrent",
+            name="link",
+            field=models.PositiveIntegerField(
+                unique=True, verbose_name="ID на ссылку торрента"
+            ),
         ),
     ]

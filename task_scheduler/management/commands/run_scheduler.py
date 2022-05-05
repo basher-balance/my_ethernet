@@ -10,7 +10,7 @@ from task_scheduler.currency_periodic_tasks import currency_parse
 from task_scheduler.manga_periodic_tasks import manga_parse
 from task_scheduler.vk_periodic_tasks import posts_vk_group
 from task_scheduler.anime_periodic_tasks import last_series_anime
-from task_scheduler.twitch_periodic_tasks import twitch_parse 
+from task_scheduler.twitch_periodic_tasks import twitch_parse
 from task_scheduler.youtube_periodic_tasks import youtube_parse
 from task_scheduler.serials_periodic_tasks import parse_serials
 from task_scheduler.torrents_periodic_tasks import torrents_parse
@@ -18,10 +18,10 @@ from task_scheduler.hh_periodic_tasks import hh_parse
 
 
 class Command(BaseCommand):
-    help = 'Run blocking scheduler to create periodical tasks'
+    help = "Run blocking scheduler to create periodical tasks"
 
     def handle(self, *args, **options):
-        self.stdout.write(self.style.NOTICE('Preparing scheduler'))
+        self.stdout.write(self.style.NOTICE("Preparing scheduler"))
         scheduler = BlockingScheduler(timezone=pytz.UTC)
         # Запускаю функции парсинга при запуске планировщика
         hh_parse()
@@ -46,8 +46,8 @@ class Command(BaseCommand):
         time_update_weather = IntervalTrigger(minutes=60)
         time_update_currency = IntervalTrigger(minutes=60)
         time_update_manga = IntervalTrigger(minutes=100)
-        time_update_anime= IntervalTrigger(minutes=100)
-        
+        time_update_anime = IntervalTrigger(minutes=100)
+
         # Добавляю в планировщик с установленными интервалами
         scheduler.add_job(hh_parse, time_update_hh)
         scheduler.add_job(torrents_parse, time_update_torrents)
@@ -60,5 +60,5 @@ class Command(BaseCommand):
         scheduler.add_job(weather_pars, time_update_weather)
         scheduler.add_job(parse_news, time_update_news)
         scheduler.add_job(currency_parse, time_update_currency)
-        self.stdout.write(self.style.NOTICE('Start scheduler'))
+        self.stdout.write(self.style.NOTICE("Start scheduler"))
         scheduler.start()

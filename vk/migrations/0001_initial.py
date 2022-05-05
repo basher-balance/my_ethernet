@@ -7,19 +7,35 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Vk',
+            name="Vk",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('data_post', models.CharField(max_length=20, verbose_name='Дата публикации')),
-                ('text_post', models.TextField(unique=True, verbose_name='Заголовок поста')),
-                ('link_post', models.URLField(verbose_name='Ссылка на публикацию')),
-                ('link_image_post', models.URLField(verbose_name='Ссысылка на картинку')),
-                ('_is_expired', models.BooleanField(default=False)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "data_post",
+                    models.CharField(max_length=20, verbose_name="Дата публикации"),
+                ),
+                (
+                    "text_post",
+                    models.TextField(unique=True, verbose_name="Заголовок поста"),
+                ),
+                ("link_post", models.URLField(verbose_name="Ссылка на публикацию")),
+                (
+                    "link_image_post",
+                    models.URLField(verbose_name="Ссысылка на картинку"),
+                ),
+                ("_is_expired", models.BooleanField(default=False)),
             ],
         ),
     ]

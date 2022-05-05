@@ -6,13 +6,17 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('serials', '0001_initial'),
+        ("serials", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='serial',
-            name='title',
-            field=models.CharField(max_length=100, unique=True, verbose_name='Название сериала, сезон и серия'),
+            model_name="serial",
+            name="title",
+            field=models.CharField(
+                max_length=100,
+                unique=True,
+                verbose_name="Название сериала, сезон и серия",
+            ),
         ),
     ]

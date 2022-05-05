@@ -7,18 +7,39 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Serial',
+            name="Serial",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=100, verbose_name='Название сериала, сезон и серия')),
-                ('img', models.PositiveIntegerField(verbose_name='ID картинки сериала')),
-                ('data', models.DateTimeField(auto_now_add=True, verbose_name='Автоматически созданная дата после загрузки элемента базы')),
-                ('_is_expired', models.BooleanField(default=False)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "title",
+                    models.CharField(
+                        max_length=100, verbose_name="Название сериала, сезон и серия"
+                    ),
+                ),
+                (
+                    "img",
+                    models.PositiveIntegerField(verbose_name="ID картинки сериала"),
+                ),
+                (
+                    "data",
+                    models.DateTimeField(
+                        auto_now_add=True,
+                        verbose_name="Автоматически созданная дата после загрузки элемента базы",
+                    ),
+                ),
+                ("_is_expired", models.BooleanField(default=False)),
             ],
         ),
     ]

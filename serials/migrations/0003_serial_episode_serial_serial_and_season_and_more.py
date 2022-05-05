@@ -6,25 +6,33 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('serials', '0002_alter_serial_title'),
+        ("serials", "0002_alter_serial_title"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='serial',
-            name='episode',
-            field=models.CharField(default=1, max_length=20, verbose_name='Количество серий либо сезон полностью'),
+            model_name="serial",
+            name="episode",
+            field=models.CharField(
+                default=1,
+                max_length=20,
+                verbose_name="Количество серий либо сезон полностью",
+            ),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name='serial',
-            name='serial_and_season',
-            field=models.CharField(default=1, max_length=100, verbose_name='Название сериала и сезона'),
+            model_name="serial",
+            name="serial_and_season",
+            field=models.CharField(
+                default=1, max_length=100, verbose_name="Название сериала и сезона"
+            ),
             preserve_default=False,
         ),
         migrations.AlterField(
-            model_name='serial',
-            name='title',
-            field=models.CharField(max_length=100, unique=True, verbose_name='Название сериала'),
+            model_name="serial",
+            name="title",
+            field=models.CharField(
+                max_length=100, unique=True, verbose_name="Название сериала"
+            ),
         ),
     ]
