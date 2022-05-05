@@ -14,7 +14,6 @@ pyss/twitch_api_key.py
 client_secret_58918943854-9hjriblddqin622i9a74ahifk0erskrn.apps.googleusercontent.com.json
 task_scheduler/keys.py
 task_scheduler/__pycache__
-pyproject.toml
 Procfile
 poetry.lock
 mysqlite.db
