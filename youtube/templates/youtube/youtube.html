@@ -1,0 +1,20 @@
+{% extends "pyss/home.html" %}
+{% block title %}YOUTUBE{% endblock %}
+{% block title_title %}Ютуб{% endblock %}
+{% block subtitle %}Источник: <a href="https://www.youtube.com/">YouTube</a>{% endblock %}</p>
+{% block content %}
+<div id="youtube">
+  <section class="section">
+    {% for video in list_video %}
+      <p> 
+        <a class="button is-danger is-outlined" href="{% url 'youtube:hidden_video' pk=video.id %}">
+          <span class="icon is-small">
+            <i class="fas fa-times"></i>
+          </span>
+        </a>
+      </p>
+        {{ video.iframe | safe }}
+    {% endfor %}
+  </section>
+</div>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "pyss/home.html" %}
+{% block title %}Сериалы{% endblock %}
+{% block title_title %}Сериалы{% endblock %}
+{% block subtitle %}Источник: <a href="http://seasonvar.ru/">Seasonvar</a>{% endblock %}
+{% block content %}
+<div calss="container">
+  {% for serial in serials_list %}
+    <article class="message is-success">
+      <div class="message-body">
+        <p>
+          <a class="button is-danger is-outlined" href="{% url 'serials:hidden_serial' pk=serial.id %}">
+            <span class="icon is-small">
+                <i class="fas fa-times"></i>
+            </span>
+          </a>
+          <img src="http://cdn.bigsv.ru/oblojka/{{ serial.img }}.jpg">
+          {{ serial.serial_and_season }}, {{ serial.episode }} серия - {{ serial.data }}
+        </p>
+      </div>
+    </article>
+  {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends "pyss/home.html" %}
+{% block title %}ВАЛЮТА{% endblock %}
+{% block title_title %}Валюта{% endblock %}
+{% block subtitle %}
+  Источник: <a href="https://www.currencyconverterapi.com/">Currconv.com</a></a>
+{% endblock %}
+{% block content %}
+  {% for k, v in currency_last.items %}
+    <h1 class="is-size-6 subtitle">{{ k }}</h1>
+    <b>{{ v }}<br></b>
+  {% endfor %}
+{% endblock %}

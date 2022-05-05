@@ -1,0 +1,36 @@
+{% extends "pyss/home.html" %}
+{% block title %}TWITCH{% endblock %}
+{% block title_title %}Стримы{% endblock %}
+{% block subtitle %}Источник: <a href="https://www.twitch.tv/">Twitch TV</a>{% endblock %}
+{% block content %}
+  <section class="section">
+    <div class"columns">
+      <div id="twitch-embed">
+        {% for stream in streamers %}
+          <!-- Add a placeholder for the Twitch embed -->
+        <a class="button is-danger is-outlined" href="{% url 'twitch:delete_streamer' pk=stream.id %}">
+          <span class="icon is-small">
+            <i class="fas fa-times"></i>
+          </span>
+        </a>
+
+      <!-- Load the Twitch embed JavaScript file -->
+      <script src="https://embed.twitch.tv/embed/v1.js"></script>
+
+      <!-- Create a Twitch.Embed object that will render within the "twitch-embed" element -->
+
+      <script type="text/javascript">
+          new Twitch.Embed("twitch-embed", {
+              theme: 'dark',
+              autoplay: false,
+              muted: true,
+              width: 854,
+              height: 480,
+              channel: '{{ stream.streamer }}'
+                                    });
+
+      </script>
+
+{% endfor %}
+      </div></div></section>
+  {% endblock %}

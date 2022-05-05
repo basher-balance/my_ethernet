@@ -1,0 +1,41 @@
+{% extends "pyss/home.html" %}
+{% block title %}ПОГОДА{% endblock %}
+{% block title_title %}Погода Петропавловск{% endblock %}
+{% block subtitle %}Источник: <a href="https://openweathermap.org/api">Weather API</a>{% endblock %}
+{% block content %}
+  <section class="section">
+    <b>Облачность: </b>{{ weather_today.cloud }}<br>
+    <b>Дата: </b> {{ weather_today.datetime }}<br>
+    <b>Влажность: </b>{{ weather_today.humidity }}<br>
+    <b>Фаза луны: </b>{{ weather_today.moon_phase }}<br>
+    <b>Вероятность влаги: </b>{{ weather_today.pup }}<br>
+    <b>Давление: </b>{{ weather_today.pressure }}<br>
+    <b>Восход: </b>{{ weather_today.sunrise }}<br>
+    <b>Закат: </b>{{ weather_today.sunset }}<br>
+    <b>Температура дневная: </b>{{ weather_today.temp.day }}<sup>o</sup><br></b>
+    <b>Температура минимальная: </b>{{ weather_today.temp.min }}<sup>o</sup><br></b>
+    <b>Температура ночная: </b>{{ weather_today.temp.night }}<sup>o</sup><br></b>
+    <b>Температура на кануне: </b>{{ weather_today.temp.eve }}<sup>o</sup><br></b>
+    <b>Температура утром: </b>{{ weather_today.temp.morn }}<sup>o</sup><br></b>
+    <b>Ультрафиолетовый индекс: </b>{{ weather_today.uvi }}<br>
+    <b>Состояние погоды: </b>{{ weather_today.weather_description }}<br>
+    <img src="http://openweathermap.org/img/w/{{ weather_today.weather_icon }}.png" alt="Фото погоды"><br>
+    <b>Группа погодных параметров: </b>{{ weather_today.weather_main }}<br>
+  </section>
+            <section class="section">
+                <div class="columns">
+        {% for x in weather_week %}
+            <div class="column is-2">
+                <h1 class="is-size-6 subtitle">{{ x.item1 }}</h1>
+                <b>t: </b>{{ x.item6 }}<sup>o</sup><br>
+                <b>Восход:</b> {{ x.item2 }}<br>
+                <b>Закат:</b> {{ x.item3 }}<br>
+                <b>min t: {{ x.item4 }}<sup>o</sup><br></b>
+                <b>max t: {{ x.item5 }}<sup>o</sup><br></b>
+                <img src="http://openweathermap.org/img/w/{{ x.item7 }}.png" alt="Фото погоды">
+            </div>
+          {% endfor %}
+          </div>
+            </section>
+        </div>
+{% endblock %}

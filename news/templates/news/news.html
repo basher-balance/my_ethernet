@@ -1,0 +1,20 @@
+{% extends "pyss/home.html" %}
+{% block title %}НОВОСТИ{% endblock %}
+{% block title_title %}Новости{% endblock %}
+{% block subtitle %}Источник: <a href="https://mail.ru/">Майл ру</a>{% endblock %}</p>
+{% block content %}
+<div class="container">
+    {% for news in list_news %}
+    <p> 
+        <a class="button is-danger is-outlined" href="{% url 'news:hidden_news' pk=news.id %}">
+    <span class="icon is-small">
+      <i class="fas fa-times"></i>
+    </span>
+  </a>{{ news.id }}.
+        <a href="{{ news.link_news }}">{{ news.news }}</a> - 
+        {{ news.date_added }}
+    </p><br align="center" width="400" size="3" color="#0000dd" />
+    {% endfor %}
+    <p><a href="{% url 'news:delete_news' %}">Очистить БД новостей</a></p>
+</div>
+{% endblock %}

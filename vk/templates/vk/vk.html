@@ -1,0 +1,26 @@
+{% extends "pyss/home.html" %}
+{% block title %}ПОСТЫ ВК{% endblock %}
+{% block title_title %}Лента ВКонтакте{% endblock %}
+{% block subtitle %}Источник: <a href="https://vk.com/basherbalance">VK.COM</a>{% endblock %}
+{% block content %}
+                {% for k in list_post_vk %}
+<article class="message is-info">
+  <div class="message-body">
+      <p>{{ k.data_post }}</p>
+      <p>{{ k.text_post }}</p>
+      <p>
+        <a href='{{ k.link_post }}'>{{ k.link_post }}</a>
+      </p>
+      <img src={{ k.link_image_post }}/>
+    <p> 
+        <a class="button is-danger is-outlined" href="{% url 'vk:hidden_post' pk=k.id %}">
+        <span class="icon is-small">
+          <i class="fas fa-times"></i>
+        </span>
+      </a>
+      </p>
+       </div>
+</article>
+                {% endfor %}
+        <p><a href="{% url 'vk:delete_post' %}">Очистить БД постов ВК</a></p>
+{% endblock %}

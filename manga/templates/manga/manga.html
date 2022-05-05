@@ -1,0 +1,16 @@
+{% extends "pyss/home.html" %}
+{% block title %}МАНГА{% endblock %}
+{% block title_title %}Манга{% endblock %}
+{% block subtitle %}Источник: <a href="https://mangalib.me/">Mangalib</a>{% endblock %}
+{% block content %}
+    {% for m in name_and_link %}
+      <p> 
+          <a class="button is-danger is-outlined" href="{% url 'manga:hidden_manga' pk=m.id %}">
+          <span class="icon is-small">
+            <i class="fas fa-times"></i>
+          </span>
+        </a>
+        </p>
+<a href={{ m.link }}>{{ m.name }}</a>
+    {% endfor %}
+{% endblock %}
