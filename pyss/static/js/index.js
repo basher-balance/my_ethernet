@@ -1,5 +1,4 @@
 const container = document.querySelector('#twitch')
-const TOKEN = 'YOUR_TOKEN'
 async function deleteChannel (channelId) {
   try {
     const res = await fetch('/twitch/channels', {
