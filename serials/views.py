@@ -15,3 +15,8 @@ def get_fresh_serials(request):
 def hidden_serial(request, pk):
     Serial.hidden(pk)
     return redirect("serials:serials")
+
+
+def del_serial(request, pk):
+    Serial.d_serial(pk)
+    return redirect("serials:serials")

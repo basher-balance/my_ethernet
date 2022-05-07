@@ -19,6 +19,9 @@ class Serial(models.Model):
         r._is_expired = True
         r.save()
 
+    def d_serial(pk):
+        r = Serial.objects.get(pk=pk)
+        r.delete()
 
 #
 #
