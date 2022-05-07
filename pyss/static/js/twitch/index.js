@@ -1,27 +1,13 @@
 const container = document.querySelector('#twitch')
-function getCookie(name) {
-    let cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        const cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-            const cookie = cookies[i].trim();
-            // Does this cookie string begin with the name we want?
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-}
-const csrftoken = getCookie('csrftoken');
-async function deleteChannel (channelId) {
+const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value
+
+async function deleteChannel(channelId) {
   try {
     const res = await fetch('/twitch/channels', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
-        'X-CSRFToken': csrftoken,
+        'X-CSRFToken': csrfToken
       },
       body: JSON.stringify({ id: channelId })
     })
@@ -32,7 +18,7 @@ async function deleteChannel (channelId) {
   }
 }
 
-async function main () {
+async function main() {
   const res = await fetch('/twitch/channels', {
     method: 'GET'
   })
@@ -52,10 +38,15 @@ async function main () {
     icon.classList.add('fas', 'fa-times')
 
     button.addEventListener('click', () => {
-      const res = deleteChannel(channel.id)
-      embed.pause()
-      embed.disableCaptions()
-      player.remove()
+      deleteChannel(channel.id)
+        .then(() => {
+          embed.pause()
+          embed.disableCaptions()
+          player.remove()
+        })
+        .catch((err) => {
+          console.error(err)
+        })
     })
 
     const embed = new Twitch.Embed(player, {
