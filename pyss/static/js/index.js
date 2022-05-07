@@ -4,7 +4,10 @@ async function deleteChannel (channelId) {
   try {
     const res = await fetch('/twitch/channels', {
       method: 'DELETE',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': getCookie('csrftoken')
+      },
       body: JSON.stringify({ id: channelId })
     })
 
@@ -16,8 +19,7 @@ async function deleteChannel (channelId) {
 
 async function main () {
   const res = await fetch('/twitch/channels', {
-    method: 'GET',
-    hedears: { 'X-CSRFToken': getCookie('csrftoken') }
+    method: 'GET'
   })
   const channels = await res.json()
 
