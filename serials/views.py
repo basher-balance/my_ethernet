@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Serial
+from operator import itemgetter
 
 
 def get_fresh_serials(request):

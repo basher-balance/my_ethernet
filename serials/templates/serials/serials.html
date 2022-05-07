@@ -7,15 +7,22 @@
   {% for serial in serials_list %}
     <article class="message is-success">
       <div class="message-body">
-        <p>
-          <a class="button is-danger is-outlined" href="{% url 'serials:hidden_serial' pk=serial.id %}">
-            <span class="icon is-small">
-                <i class="fas fa-times"></i>
-            </span>
-          </a>
-          <img src="http://cdn.bigsv.ru/oblojka/{{ serial.img }}.jpg">
-          {{ serial.serial_and_season }}, {{ serial.episode }} серия - {{ serial.data }}
-        </p>
+        <div class="columns">
+          <div class="column is-1">
+            <a class="button is-danger is-outlined" href="{% url 'serials:hidden_serial' pk=serial.id %}">
+              <span class="icon is-small">
+                  <i class="fas fa-times"></i>
+              </span>
+            </a>
+          </div>
+          <div class="column is-2">
+            <img src="http://cdn.bigsv.ru/oblojka/{{ serial.img }}.jpg">
+          </div>
+          <div class="column">
+            <p>{{ serial.serial_and_season }}, {{ serial.episode }} серия</p>
+            <p>{{ serial.data }}</p>
+          </div>
+        </div>
       </div>
     </article>
   {% endfor %}

@@ -5,16 +5,20 @@
 {% block content %}
 <div id="youtube">
   <section class="section">
-    {% for video in list_video %}
-      <p> 
-        <a class="button is-danger is-outlined" href="{% url 'youtube:hidden_video' pk=video.id %}">
-          <span class="icon is-small">
-            <i class="fas fa-times"></i>
-          </span>
-        </a>
-      </p>
-        {{ video.iframe | safe }}
-    {% endfor %}
+    <div class="columns">
+      {% for video in list_video %}
+        <div class="column is-one-third">
+          <p> 
+            <a class="button is-danger is-outlined" href="{% url 'youtube:hidden_video' pk=video.id %}">
+              <span class="icon is-small">
+                <i class="fas fa-times"></i>
+              </span>
+            </a>
+          </p>
+          {{ video.iframe | safe }}
+        </div>
+      {% endfor %}
+    </div>
   </section>
 </div>
 {% endblock %}

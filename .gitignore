@@ -15,7 +15,6 @@ client_secret_58918943854-9hjriblddqin622i9a74ahifk0erskrn.apps.googleuserconten
 task_scheduler/keys.py
 task_scheduler/__pycache__
 Procfile
-poetry.lock
 mysqlite.db
 dump.rdb
 db.sqlite3
