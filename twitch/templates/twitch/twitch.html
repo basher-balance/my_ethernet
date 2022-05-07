@@ -3,34 +3,70 @@
 {% block title_title %}Стримы{% endblock %}
 {% block subtitle %}Источник: <a href="https://www.twitch.tv/">Twitch TV</a>{% endblock %}
 {% block content %}
-  <section class="section">
-    <div class"columns">
-      <div id="twitch-embed">
-        {% for stream in streamers %}
-          <!-- Add a placeholder for the Twitch embed -->
-        <a class="button is-danger is-outlined" href="{% url 'twitch:delete_streamer' pk=stream.id %}">
-          <span class="icon is-small">
-            <i class="fas fa-times"></i>
-          </span>
-        </a>
+<section class="section">
+  <div id="twitch" class="columns is-multiline is-2"></div>
+  <script src="https://embed.twitch.tv/embed/v1.js"></script>
+  <script>
+    const container = document.querySelector('#twitch')
 
-      <!-- Load the Twitch embed JavaScript file -->
-      <script src="https://embed.twitch.tv/embed/v1.js"></script>
+    async function deleteChannel(channelId) {
+      try {
+        const res = await fetch('/twitch/channels', {
+          method: 'DELETE',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id: channelId })
+        })
 
-      <!-- Create a Twitch.Embed object that will render within the "twitch-embed" element -->
+        return await res.json()
+      } catch (err) {
+        console.error(err.message)
+      }
+    }
 
-      <script type="text/javascript">
-          new Twitch.Embed("twitch-embed", {
-              theme: 'dark',
-              autoplay: false,
-              muted: true,
-              width: 854,
-              height: 480,
-              channel: '{{ stream.streamer }}'
-                                    });
+    async function main() {
+      const res = await fetch('/twitch/channels', {
+        method: 'GET'
+      })
+      const channels = await res.json()
 
-      </script>
+      for (const channel of channels.streamers) {
+        const player = document.createElement('div')
+        player.classList.add('column')
 
-{% endfor %}
-      </div></div></section>
-  {% endblock %}
+        const button = document.createElement('button')
+        button.classList.add('button', 'is-danger', 'is-outlined')
+
+        const span = document.createElement('span')
+        span.classList.add('icon', 'is-small')
+
+        const icon = document.createElement('i')
+        icon.classList.add('fas', 'fa-times')
+
+        button.addEventListener('click', () => {
+          const res = deleteChannel(channel.id)
+          embed.pause()
+          embed.disableCaptions()
+          player.remove()
+        })
+
+        const embed = new Twitch.Embed(player, {
+          theme: 'dark',
+          autoplay: false,
+          muted: true,
+          width: 854,
+          height: 480,
+          channel: channel.streamer
+        })
+
+        player.appendChild(embed._iframe)
+        span.appendChild(icon)
+        button.appendChild(span)
+        player.appendChild(button)
+        container.appendChild(player)
+      }
+    }
+
+    main()
+  </script>
+</section>
+{% endblock %}
