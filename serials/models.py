@@ -11,6 +11,9 @@ class Serial(models.Model):
     )
     _is_expired = models.BooleanField(default=False)
 
+    class Meta:
+        ordering = ('-data',)
+
     def hidden(pk):
         r = Serial.objects.get(pk=pk)
         r._is_expired = True
