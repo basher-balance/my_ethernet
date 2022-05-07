@@ -1,41 +1,40 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  {% load static %}
+    {% load static %}
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}НЕВАЖНО{% endblock %}</title>
     <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'bulma.min.css' %}">
-    <script src="https://kit.fontawesome.com/af8a5becde.js" crossorigin="anonymous"></script>
-    <html class="has-navbar-fixed-top">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/fontawesome.min.css" integrity="sha512-xX2rYBFJSj86W54Fyv1de80DWBq7zYLn2z0I9bIhQG+rxIF6XVJUpdGnsNHWRa6AvP89vtFupEPDP8eZAtu9qA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/solid.min.css" integrity="sha512-qzgHTQ60z8RJitD5a28/c47in6WlHGuyRvMusdnuWWBB6fZ0DWG/KyfchGSBlLVeqAz+1LzNq+gGZkCSHnSd3g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
-        body
-            {
-            background: #000 url({% static 'image.jpg' %}); /* Фоновый цвет и фоновый рисунок*/
-            background-attachment: fixed; /* Фон страницы фиксируется */
-            color: red;
-            background-repeat: repeat-x; /* Изображение повторяется по горизонтали */
-            font-family:Gentium;  
-            src: url(fonts/gentium.otf), monospace, sans-serif;
-            }
-        p
-            {
-            font-size: 36px;
-            }
-        A
-            {
-            color: green;
-            background-repeat: repeat-x; /* Изображение повторяется по горизонтали */
-            font-family:Gentium;  
-            src: url(fonts/gentium.otf), monospace, sans-serif;
-            }
-        A:hover
-            {
-            background: yellow; /* Цвет фона при наведении на ссылку курсора */
-            color: red; /* Новый цвет текста */
-            }
-      </style>
+      body {
+        background: #000 url({% static 'image.jpg' %}); /* Фоновый цвет и фоновый рисунок*/
+        background-attachment: fixed; /* Фон страницы фиксируется */
+        color: red;
+        background-repeat: repeat-x; /* Изображение повторяется по горизонтали */
+        font-family:Gentium;
+        src: url(fonts/gentium.otf), monospace, sans-serif;
+      }
+
+      p {
+        font-size: 36px;
+      }
+
+      a {
+        color: green;
+        background-repeat: repeat-x; /* Изображение повторяется по горизонтали */
+        font-family:Gentium;
+        src: url(fonts/gentium.otf), monospace, sans-serif;
+      }
+
+      a:hover {
+        background: yellow; /* Цвет фона при наведении на ссылку курсора */
+        color: red; /* Новый цвет текста */
+      }
+    </style>
 </head>
 <body>
   <nav class="navbar is-fixed-top is-white has-shadow" role="navigation" aria-label="main navigation">
@@ -44,11 +43,12 @@
         <img src="{% static 'avatar.png' %}">
       </a>
     </div>
-    <div id="navbarBasicExample" class="navbar-menu is-active">
+    <div class="navbar-menu is-active">
       <div class="navbar-start">
         <div class="buttons">
           <a href="{% url  'pyss:home' %}"class="button is-danger"><strong>
-              <i class="fa-solid fa-house"></i></strong></a>
+            <i class="fa-solid fa-house"></i></strong>
+          </a>
           <a href="{% url  'news:news' %}"class="button is-danger"><strong>Новости</strong></a>
           <a href="{% url  'weathers:weather' %}"class="button is-danger"><strong>Погода</strong></a>
           <a href="{% url  'torrents:torrents' %}"class="button is-danger"><strong>Торренты</strong></a>
@@ -64,18 +64,17 @@
       </div>
     </div>
   </nav>
-<section class="hero is-small is-white">
-  <div class="hero-body">
-    <p class="title">{% block title_title %}{% endblock %}</p> 
-    <p class="subtitle">{% block subtitle %}{% endblock %}</p>
-  </div>
-</section>
-{% block content %}{% endblock %}
-    <!--footer-->
-    <footer class="footer">
-        <div class="content has-text-centered">
-            <p>I <3 my chat on Twitch</p>
-        </div>
-    </footer>
+  <section class="hero is-small is-white">
+    <div class="hero-body">
+      <p class="title">{% block title_title %}{% endblock %}</p>
+      <p class="subtitle">{% block subtitle %}{% endblock %}</p>
+    </div>
+  </section>
+  {% block content %}{% endblock %}
+  <footer class="footer">
+      <div class="content has-text-centered">
+          <p>I &lt;3 my chat on Twitch</p>
+      </div>
+  </footer>
 </body>
 </html>
