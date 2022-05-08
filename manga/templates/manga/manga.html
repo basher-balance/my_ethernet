@@ -4,13 +4,25 @@
 {% block subtitle %}Источник: <a href="https://mangalib.me/">Mangalib</a>{% endblock %}
 {% block content %}
 {% for m in name_and_link %}
-<p>
-  <a class="button is-danger is-outlined" href="{% url 'manga:hidden_manga' pk=m.id %}">
-    <span class="icon is-small">
-      <i class="fas fa-times"></i>
-    </span>
-  </a>
-</p>
-<a href={{ m.link }}>{{ m.name }}</a>
+<article class="message is-dark" style="background-color: transparent;">
+  <div class="message-header" style="border-radius: 4px;">
+    <p>
+      {{ m.name }}
+    </p>
+    <div>
+      <a class="button is-success is-outlined" target="_blank" href="{{ m.link }}">
+        <span class="icon is-small">
+          <i class="fa-solid fa-up-right-from-square"></i>
+        </span>
+      </a>
+      <a class="button is-danger is-outlined" href="{% url 'manga:hidden_manga' pk=m.id %}">
+        <span class="icon is-small">
+          <i class="fas fa-trash"></i>
+        </span>
+      </a>
+    </div>
+  </div>
+  <!-- <div class="message-body"></div> -->
+</article>
 {% endfor %}
 {% endblock %}
