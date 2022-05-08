@@ -32,5 +32,7 @@ footer {
 }
 
 iframe {
+  height: 100% !important;
+  width: 100% !important;
   aspect-ratio: 16 / 9;
 }
