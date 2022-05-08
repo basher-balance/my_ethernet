@@ -3,23 +3,27 @@
 {% block title_title %}Торренты{% endblock %}
 {% block subtitle %}Источник: <a href="http://rutor.info/">Rutor.ru</a>{% endblock %}
 {% block content %}
-<div class="columns">
-  {% for torrent in torrents_list %}
-  <p class="exampleTitle">
-  <article class="message is-success">
-    <div class="message-body">
-      <p>
-        <a class="button is-danger is-outlined" href="{% url 'torrents:hidden_torrent' pk=torrent.id %}">
-          <span class="icon is-small">
-            <i class="fas fa-times"></i>
-          </span>
-        </a>
-        <a href="http://d.rutor.info/download/{{ torrent.link }}">{{ torrent.title }}</a> - {{ torrent.published }}
-      </p>
-      {% endfor %}
+{% for torrent in torrents_list %}
+<article class="message is-dark" style="background-color: transparent;">
+  <div class="message-header" style="border-radius: 4px;">
+    <p>
+      {{ torrent.title }} — {{ torrent.published }}
+    </p>
+    <div>
+      <a class="button is-success is-outlined" target="_blank" href="http://d.rutor.info/download/{{ torrent.link }}">
+        <span class="icon is-small">
+          <i class="fa-solid fa-up-right-from-square"></i>
+        </span>
+      </a>
+      <a class="button is-danger is-outlined" href="{% url 'torrents:hidden_torrent' pk=torrent.id %}">
+        <span class="icon is-small">
+          <i class="fas fa-trash"></i>
+        </span>
+      </a>
     </div>
-  </article>
-  </p>
-</div>
+  </div>
+  <!-- <div class="message-body"></div> -->
+</article>
+{% endfor %}
 <script src="https://vjs.zencdn.net/7.18.1/video.min.js"></script>
 {% endblock %}
