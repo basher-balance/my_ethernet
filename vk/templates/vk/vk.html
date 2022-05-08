@@ -3,31 +3,30 @@
 {% block title_title %}Лента ВКонтакте{% endblock %}
 {% block subtitle %}Источник: <a href="https://vk.com/basherbalance">VK.COM</a>{% endblock %}
 {% block content %}
-                {% for k in list_post_vk %}
-<article class="message is-info">
-  <div class="message-body">
-    <div class="columns">
-      <div class="column is-three-quarters">
-        <p>
-          <a class="button is-danger is-outlined" href="{% url 'vk:hidden_post' pk=k.id %}">
-            <span class="icon is-small">
-            <i class="fas fa-times"></i>
-          </span>
-          </a>
-          {{ k.data_post }}</p>
-        <p>
-          {{ k.text_post }}
-        </p>
-        <p>
-          <a href='{{ k.link_post }}'>{{ k.link_post }}</a>
-        </p>
-      </div>
-    <div class=column">
-      <img src={{ k.link_image_post }}/>
+<a href="{% url 'vk:delete_post' %}" class="button is-danger mb-5">
+  Очистить БД постов ВК
+</a>
+{% for k in list_post_vk %}
+<article class="message is-dark">
+  <div class="message-header">
+    <p>{{ k.data_post }}</p>
+    <div>
+      <a class="button is-success is-outlined" target="_blank" href="{{ k.link_post }}">
+        <span class="icon is-small">
+          <i class="fa-solid fa-up-right-from-square"></i>
+        </span>
+      </a>
+      <a class="button is-danger is-outlined" href="{% url 'vk:hidden_post' pk=k.id %}">
+        <span class="icon is-small">
+          <i class="fas fa-trash"></i>
+        </span>
+      </a>
     </div>
   </div>
- </div>
+  <div class="message-body">
+    <p>{{ k.text_post }}</p>
+    <img src={{ k.link_image_post }} />
+  </div>
 </article>
-                {% endfor %}
-        <p><a href="{% url 'vk:delete_post' %}">Очистить БД постов ВК</a></p>
+{% endfor %}
 {% endblock %}

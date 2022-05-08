@@ -3,18 +3,31 @@
 {% block title_title %}Новости{% endblock %}
 {% block subtitle %}Источник: <a href="https://mail.ru/">Майл ру</a>{% endblock %}</p>
 {% block content %}
-<div class="container">
-    {% for news in list_news %}
-    <p> 
-        <a class="button is-danger is-outlined" href="{% url 'news:hidden_news' pk=news.id %}">
-    <span class="icon is-small">
-      <i class="fas fa-times"></i>
-    </span>
-  </a>{{ news.id }}.
-        <a href="{{ news.link_news }}">{{ news.news }}</a> - 
-        {{ news.date_added }}
-    </p><br align="center" width="400" size="3" color="#0000dd" />
-    {% endfor %}
-    <p><a href="{% url 'news:delete_news' %}">Очистить БД новостей</a></p>
-</div>
+<a href="{% url 'news:delete_news' %}" class="button is-danger mb-5">
+  Очистить БД новостей
+</a>
+{% for news in list_news %}
+<article class="message is-dark">
+  <div class="message-header">
+    <p>
+      {{ news.id }}. {{ news.date_added }}
+    </p>
+    <div>
+      <a class="button is-success is-outlined" target="_blank" href="{{ news.link_news }}">
+        <span class="icon is-small">
+          <i class="fa-solid fa-up-right-from-square"></i>
+        </span>
+      </a>
+      <a class="button is-danger is-outlined" href="{% url 'news:hidden_news' pk=news.id %}">
+        <span class="icon is-small">
+          <i class="fa-solid fa-trash"></i>
+        </span>
+      </a>
+    </div>
+  </div>
+  <div class="message-body">
+    {{ news.news }}
+  </div>
+</article>
+{% endfor %}
 {% endblock %}

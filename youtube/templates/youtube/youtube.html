@@ -3,22 +3,23 @@
 {% block title_title %}Ютуб{% endblock %}
 {% block subtitle %}Источник: <a href="https://www.youtube.com/">YouTube</a>{% endblock %}</p>
 {% block content %}
-<div id="youtube">
-  <section class="section">
-    <div class="columns is-multiline">
-      {% for video in list_video %}
-        <div class="column is-one-third">
-          <p> 
-            <a class="button is-danger is-outlined" href="{% url 'youtube:hidden_video' pk=video.id %}">
-              <span class="icon is-small">
-                <i class="fas fa-times"></i>
-              </span>
-            </a>
-          </p>
-          {{ video.iframe | safe }}
-        </div>
-      {% endfor %}
+{% for video in list_video %}
+<article class="message is-dark">
+  <div class="message-header">
+    <p>
+      TODO: date, title
+    </p>
+    <div>
+      <a class="button is-danger is-outlined" href="{% url 'youtube:hidden_video' pk=video.id %}">
+        <span class="icon is-small">
+          <i class="fas fa-trash"></i>
+        </span>
+      </a>
     </div>
-  </section>
-</div>
+  </div>
+  <div class="message-body">
+    {{ video.iframe | safe }}
+  </div>
+</article>
+{% endfor %}
 {% endblock %}

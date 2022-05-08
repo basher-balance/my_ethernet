@@ -9,7 +9,7 @@
       <div class="tile is-parent is-2,5">
         <article class="tile is-child notification is-success">
           <div class="content is-4 is-vertical is-parent">
-          <h1 class="is-size-4 subtitle">{{ weather_today.datetime }}</h1>
+            <h1 class="is-size-4 subtitle">{{ weather_today.datetime }}</h1>
             <!--<b>Фаза луны: </b>{{ weather_today.moon_phase }}<br>-->
             <!--<b>Давление: </b>{{ weather_today.pressure }}<br>-->
             <b>t утром: </b>{{ weather_today.temp.morn }}<sup>o</sup><br></b>
@@ -22,14 +22,14 @@
             <b>Вероятность влаги: </b>{{ weather_today.pup }}<br>
             <b>Влажность: </b>{{ weather_today.humidity }}<br>
             <b>Облачность: </b>{{ weather_today.cloud }}<br>
-          <!--<b>Ультрафиолетовый индекс: </b>{{ weather_today.uvi }}<br>-->
+            <!--<b>Ультрафиолетовый индекс: </b>{{ weather_today.uvi }}<br>-->
             <b>Состояние: </b>{{ weather_today.weather_description }}<br>
             <img src="http://openweathermap.org/img/w/{{ weather_today.weather_icon }}.png" alt="Фото погоды"><br>
             <!--<b>Группа погодных параметров: </b>{{ weather_today.weather_main }}<br>-->
           </div>
         </article>
       </div>
-    {% for x in weather_week %}
+      {% for x in weather_week %}
       <div class="tile is-2 is-vertical is-parent">
         <article class="tile is-child notification is-info">
           <h1 class="is-size-4 subtitle">{{ x.item1 }}</h1>
@@ -44,7 +44,7 @@
           </figure>
         </article>
       </div>
-    {% endfor %}
+      {% endfor %}
     </div>
   </div>
 </div>
