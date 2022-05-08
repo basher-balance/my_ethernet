@@ -4,6 +4,7 @@
 <head>
   {% load static %}
   <meta charset="utf-8">
+  <meta name="darkreader" content="NO-DARKREADER-PLUGIN">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% block title %}НЕВАЖНО{% endblock %}</title>
   <link rel="shortcut icon" type="image/png" href="static/favicon.ico" />
@@ -101,7 +102,8 @@
       <p class="is-size-3">I &lt;3 my chat on Twitch</p>
     </div>
   </footer>
-  <script src="{% static 'js/index.js' %}"></script>
+  <script src="static/js/disable-dark-reader.js"></script>
+  <script src="static/js/index.js"></script>
 </body>
 
 </html>
