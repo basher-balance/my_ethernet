@@ -5,48 +5,50 @@
 {% block content %}
 <div id="hh">
   <table class="table">
-  <thead>
-    <tr>
-      <th><abbr title="Hidden">СКРЫТЬ</abbr></th>
-      <th><abbr title="Name">ДОЛЖНОСТЬ</abbr></th>
-      <th><abbr title="URL">ССЫЛКА</abbr></th>
-      <th><abbr title="Published">ВРЕМЯ ПУБЛИКАЦИИ</abbr></th>
-      <th><abbr title="Salary">ОТ</abbr></th>
-      <th><abbr title="Salary env">ОКЛАД</abbr></th>
-      <th><abbr title="Currency">ВАЛЮТА</abbr></th>
-      <th><abbr title="Requirement">Подробности</abbr></th>
-    </tr>
-  </thead>
-  <tfoot>
-    <tr>
-      <th><abbr title="Hidden">СКРЫТЬ</abbr></th>
-      <th><abbr title="Name">ДОЛЖНОСТЬ</abbr></th>
-      <th><abbr title="URL">ССЫЛКА</abbr></th>
-      <th><abbr title="Published">ВРЕМЯ ПУБЛИКАЦИИ</abbr></th>
-      <th><abbr title="Salary">ОТ</abbr></th>
-      <th><abbr title="Salary env">ОКЛАД</abbr></th>
-      <th><abbr title="Currency">ВАЛЮТА</abbr></th>
-      <th><abbr title="Requirement">Подробности</abbr></th>
-    </tr>
-  </tfoot>
-  <tbody>
-        {% for k in hh_list %}
-          <tr>
-            <th>
-      <a class="button is-danger is-outlined" href="{% url 'hh:hidden_hh' pk=k.id %}">
-          <span class="icon is-small">
+    <thead>
+      <tr>
+        <th><abbr title="Hidden">СКРЫТЬ</abbr></th>
+        <th><abbr title="Name">ДОЛЖНОСТЬ</abbr></th>
+        <th><abbr title="URL">ССЫЛКА</abbr></th>
+        <th><abbr title="Published">ВРЕМЯ ПУБЛИКАЦИИ</abbr></th>
+        <th><abbr title="Salary">ОТ</abbr></th>
+        <th><abbr title="Salary env">ОКЛАД</abbr></th>
+        <th><abbr title="Currency">ВАЛЮТА</abbr></th>
+        <th><abbr title="Requirement">Подробности</abbr></th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr>
+        <th><abbr title="Hidden">СКРЫТЬ</abbr></th>
+        <th><abbr title="Name">ДОЛЖНОСТЬ</abbr></th>
+        <th><abbr title="URL">ССЫЛКА</abbr></th>
+        <th><abbr title="Published">ВРЕМЯ ПУБЛИКАЦИИ</abbr></th>
+        <th><abbr title="Salary">ОТ</abbr></th>
+        <th><abbr title="Salary env">ОКЛАД</abbr></th>
+        <th><abbr title="Currency">ВАЛЮТА</abbr></th>
+        <th><abbr title="Requirement">Подробности</abbr></th>
+      </tr>
+    </tfoot>
+    <tbody>
+      {% for k in hh_list %}
+      <tr>
+        <th>
+          <a class="button is-danger is-outlined" href="{% url 'hh:hidden_hh' pk=k.id %}">
+            <span class="icon is-small">
               <i class="fas fa-times"></i>
-          </span>
-      </a></th>
-      <th>{{ k.name }}</th>
-      <td><a href=https://hh.ru/vacancy/{{ k.url_id }}>ССЫЛКА</a></td>
-      <td>{{ k.published }}</td>
-      <td>{{ k.salary.from }}</td>
-      <td>{{ k.salary.to }}</td>
-      <td>{{ k.salary.currency }}</td>
-      <td>{{ k.requirement }}</td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+            </span>
+          </a>
+        </th>
+        <th>{{ k.name }}</th>
+        <td><a href=https://hh.ru/vacancy/{{ k.url_id }}>ССЫЛКА</a></td>
+        <td>{{ k.published }}</td>
+        <td>{{ k.salary.from }}</td>
+        <td>{{ k.salary.to }}</td>
+        <td>{{ k.salary.currency }}</td>
+        <td>{{ k.requirement }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
 {% endblock %}

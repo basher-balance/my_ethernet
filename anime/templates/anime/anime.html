@@ -3,18 +3,16 @@
 {% block title_title %}Аниме{% endblock %}
 {% block subtitle %}Источник: <a href="https://naruto-base.su">Naruto-base</a>{% endblock %}
 {% block content %}
-  <section class="section">
-    {% for k in list_anime %}
-      <p> 
-        <a class="button is-danger is-outlined" href="{% url 'anime:hidden_anime' pk=k.id %}">
-          <span class="icon is-small">
-            <i class="fas fa-times"></i>
-          </span>
-        </a>
-      </p>
-      <p>{{ k.title_anime }}</p>
-      <p>{{ k.date_added }}</p>
-      <iframe width="1280" height="720" src={{ k.link_anime }}></iframe>
-    {% endfor %}
-  </section>
+{% for k in list_anime %}
+<p>
+  <a class="button is-danger is-outlined" href="{% url 'anime:hidden_anime' pk=k.id %}">
+    <span class="icon is-small">
+      <i class="fas fa-times"></i>
+    </span>
+  </a>
+</p>
+<p>{{ k.title_anime }}</p>
+<p>{{ k.date_added }}</p>
+<iframe width="1280" height="720" src={{ k.link_anime }}></iframe>
+{% endfor %}
 {% endblock %}

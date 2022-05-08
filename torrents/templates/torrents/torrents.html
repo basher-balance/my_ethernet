@@ -1,24 +1,25 @@
 {% extends "pyss/home.html" %}
 {% block title %}ТОРРЕНТЫ{% endblock %}
 {% block title_title %}Торренты{% endblock %}
-{% block subtitle %}Источник: <a href="http://rutor.info/">Rutor ru</a>{% endblock %}
+{% block subtitle %}Источник: <a href="http://rutor.info/">Rutor.ru</a>{% endblock %}
 {% block content %}
-    <section class="section">
-        <div class="columns">
-            {% for torrent in torrents_list %}
-                <p class="exampleTitle">
-                    <article class="message is-success">
-                        <div class="message-body">
-                            <p>
-                                <a class="button is-danger is-outlined" href="{% url 'torrents:hidden_torrent' pk=torrent.id %}">
-                                    <span class="icon is-small">
-                                        <i class="fas fa-times"></i>
-                                    </span>
-                                </a>
-                                <a href="http://d.rutor.info/download/{{ torrent.link }}">{{ torrent.title }}</a> - {{ torrent.published }}
-                            </p>
-            {% endfor %}
-        </div>
-    </section>
-  <script src="https://vjs.zencdn.net/7.18.1/video.min.js"></script>
+<div class="columns">
+  {% for torrent in torrents_list %}
+  <p class="exampleTitle">
+  <article class="message is-success">
+    <div class="message-body">
+      <p>
+        <a class="button is-danger is-outlined" href="{% url 'torrents:hidden_torrent' pk=torrent.id %}">
+          <span class="icon is-small">
+            <i class="fas fa-times"></i>
+          </span>
+        </a>
+        <a href="http://d.rutor.info/download/{{ torrent.link }}">{{ torrent.title }}</a> - {{ torrent.published }}
+      </p>
+      {% endfor %}
+    </div>
+  </article>
+  </p>
+</div>
+<script src="https://vjs.zencdn.net/7.18.1/video.min.js"></script>
 {% endblock %}

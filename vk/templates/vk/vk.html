@@ -3,7 +3,7 @@
 {% block title_title %}Лента ВКонтакте{% endblock %}
 {% block subtitle %}Источник: <a href="https://vk.com/basherbalance">VK.COM</a>{% endblock %}
 {% block content %}
-                {% for k in list_post_vk %}
+{% for k in list_post_vk %}
 <article class="message is-info">
   <div class="message-body">
     <div class="columns">
@@ -11,10 +11,11 @@
         <p>
           <a class="button is-danger is-outlined" href="{% url 'vk:hidden_post' pk=k.id %}">
             <span class="icon is-small">
-            <i class="fas fa-times"></i>
-          </span>
+              <i class="fas fa-times"></i>
+            </span>
           </a>
-          {{ k.data_post }}</p>
+          {{ k.data_post }}
+        </p>
         <p>
           {{ k.text_post }}
         </p>
@@ -22,12 +23,14 @@
           <a href='{{ k.link_post }}'>{{ k.link_post }}</a>
         </p>
       </div>
-    <div class=column">
-      <img src={{ k.link_image_post }}/>
+      <div class="column">
+        <img src={{ k.link_image_post }} />
+      </div>
     </div>
   </div>
- </div>
 </article>
-                {% endfor %}
-        <p><a href="{% url 'vk:delete_post' %}">Очистить БД постов ВК</a></p>
+{% endfor %}
+<a href="{% url 'vk:delete_post' %}"class="button is-danger">
+  Очистить БД постов ВК
+</a>
 {% endblock %}
