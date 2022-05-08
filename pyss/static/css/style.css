@@ -30,3 +30,7 @@ body > .section {
 footer {
   padding: 1rem;
 }
+
+iframe {
+  aspect-ratio: 16 / 9;
+}
