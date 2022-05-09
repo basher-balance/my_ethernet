@@ -34,8 +34,3 @@ body > .section {
 footer {
   padding: 1rem;
 }
-
-iframe {
-  height: 100% !important;
-  width: 100% !important;
-}
