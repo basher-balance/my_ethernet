@@ -3,29 +3,57 @@
 {% block title_title %}Сериалы{% endblock %}
 {% block subtitle %}Источник: <a href="http://seasonvar.ru/">Seasonvar</a>{% endblock %}
 {% block content %}
-{% for serial in serials_list %}
-<article class="message is-dark">
-  <div class="message-header">
-    <p>
-      {{ serial.data }} — {{ serial.serial_and_season }}, {{ serial.episode }} серия
-    </p>
-    <div>
-      <a class="button is-warning is-outlined" href="{% url 'serials:hidden_serial' pk=serial.id %}">
-        <span class="icon is-small">
-          <i class="fas fa-eye-slash"></i>
-        </span>
-      </a>
-      <a class="button is-danger is-outlined" href="{% url 'serials:del_serial' pk=serial.id %}">
-        <span class="icon is-small">
-          <i class="fas fa-trash"></i>
-        </span>
-      </a>
-    </div>
+<div class="columns is-multiline">
+  {% for serial in serials_list %}
+  <div class="serial-card column is-half-tablet is-one-third-desktop is-one-quarter-widescreen">
+    <article class="message is-dark" style="background-color: unset !important;">
+      <div class="message-header">
+        <div style="overflow: hidden;">
+          <p class="is-size-5 title-ellipsis" title="{{ serial.serial_and_season }}">
+            {{ serial.serial_and_season }}
+          </p>
+          <p class="is-size-6 has-text-weight-light">{{ serial.episode }} серия</p>
+        </div>
+        <div>
+          <div class="dropdown is-right">
+            <div class="dropdown-trigger">
+              <button class="button is-dark has-text-white" aria-haspopup="true" aria-controls="dropdown-menu">
+                <span class="icon is-small">
+                  <i class="fa-solid fa-ellipsis-vertical"></i>
+                </span>
+              </button>
+            </div>
+            <div class="serials dropdown-menu" id="dropdown-menu" role="menu">
+              <div class="dropdown-content">
+                <div class="dropdown-item">
+                  <p>Добавлено: {{ serial.data }}</p>
+                </div>
+                <hr class="dropdown-divider">
+                <a class="dropdown-item" href="{% url 'serials:hidden_serial' pk=serial.id %}">
+                  <span class="icon is-small">
+                    <i class="fas fa-eye-slash"></i>
+                  </span>
+                  Скрыть
+                </a>
+                <hr class="dropdown-divider">
+                <a class="dropdown-item has-text-danger" href="{% url 'serials:del_serial' pk=serial.id %}">
+                  <span class="icon is-small">
+                    <i class="fa-solid fa-trash"></i>
+                  </span>
+                  Удалить
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="serial-cover">
+        <img src="http://cdn.bigsv.ru/oblojka/large/{{ serial.img }}.jpg">
+      </div>
+    </article>
   </div>
-  <div class="message-body">
-    <!-- TODO: add description -->
-    <img src="http://cdn.bigsv.ru/oblojka/{{ serial.img }}.jpg">
-  </div>
-</article>
-{% endfor %}
+  {% endfor %}
+  <script src="static/js/serials/index.js"></script>
+  <script>loadCSS('static/css/serials.css');</script>
+</div>
 {% endblock %}

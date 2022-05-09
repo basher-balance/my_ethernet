@@ -18,7 +18,7 @@ async function deleteChannel(channelId) {
   }
 }
 
-async function main() {
+async function bootstrap() {
   const res = await fetch('/twitch/channels', {
     method: 'GET'
   })
@@ -66,4 +66,4 @@ async function main() {
   }
 }
 
-main()
+bootstrap()
