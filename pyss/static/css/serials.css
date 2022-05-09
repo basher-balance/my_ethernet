@@ -1,0 +1,17 @@
+.serial-cover > img {
+  width: 100%;
+  height: 400px;
+  vertical-align: middle;
+  object-fit: cover;
+  border-radius: 0px 0px 4px 4px;
+}
+
+.title-ellipsis {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.serials .dropdown-menu {
+  min-width: 200px;
+}

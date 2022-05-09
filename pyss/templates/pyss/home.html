@@ -10,7 +10,7 @@
   <link rel="shortcut icon" type="image/png" href="static/favicon.ico" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Gentium+Basic&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/fontawesome.min.css"
     integrity="sha512-xX2rYBFJSj86W54Fyv1de80DWBq7zYLn2z0I9bIhQG+rxIF6XVJUpdGnsNHWRa6AvP89vtFupEPDP8eZAtu9qA=="
@@ -18,14 +18,17 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/solid.min.css"
     integrity="sha512-qzgHTQ60z8RJitD5a28/c47in6WlHGuyRvMusdnuWWBB6fZ0DWG/KyfchGSBlLVeqAz+1LzNq+gGZkCSHnSd3g=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="stylesheet" href="static/font/stylesheet.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/brands.min.css"
+    integrity="sha512-OivR4OdSsE1onDm/i3J3Hpsm5GmOVvr9r49K3jJ0dnsxVzZgaOJ5MfxEAxCyGrzWozL9uJGKz6un3A7L+redIQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="static/css/style.css">
+  <script src="static/js/index.js"></script>
 </head>
 
 <body>
   <nav class="navbar is-fixed-top is-dark" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
-      <a class="navbar-item" href="https://twitch.tv/ucsm">
+      <a class="navbar-item" href="https://twitch.tv/ucsm" target="_blank">
         <img src="static/avatar.png">
       </a>
 
@@ -40,47 +43,85 @@
       <div class="navbar-start">
         <div class="navbar-item">
           <div class="buttons">
-            <a href="{% url 'pyss:home' %}" class="button is-danger"><strong>
-                <i class="fa-solid fa-house"></i></strong>
+            <a href="{% url 'pyss:home' %}" class="button is-danger">
+              <span class="icon is-small">
+                <i class="fa-solid fa-house"></i>
+              </span>
             </a>
             <a href="{% url 'news:news' %}" class="button is-danger">
-              <strong>Новости</strong>
+              <span class="icon is-small">
+                <i class="fa-solid fa-newspaper"></i>
+              </span>
+              <span>Новости</span>
             </a>
             <a href="{% url 'weathers:weather' %}" class="button is-danger">
-              <strong>Погода</strong>
-            </a>
-            <a href="{% url 'torrents:torrents' %}" class="button is-danger">
-              <strong>Торренты</strong>
+              <span class="icon is-small">
+                <i class="fa-solid fa-cloud-sun"></i>
+              </span>
+              <span>Погода</span>
             </a>
             <a href="{% url 'currencies:currency' %}" class="button is-danger">
-              <strong>Валюта</strong>
+              <span class="icon is-small">
+                <i class="fa-solid fa-tenge-sign"></i>
+              </span>
+              <span>Валюта</span>
             </a>
-            <a href="{% url 'twitch:twitch' %}" class="button is-danger">
-              <strong>Twitch</strong>
-            </a>
-            <a href="{% url 'manga:manga' %}" class="button is-danger">
-              <strong>Манга</strong>
-            </a>
-            <a href="{% url 'anime:anime' %}" class="button is-danger">
-              <strong>Аниме</strong>
-            </a>
-            <a href="{% url 'vk:vk' %}" class="button is-danger">
-              <strong>Вконтакт</strong>
+            <a href="{% url 'torrents:torrents' %}" class="button is-danger">
+              <span class="icon is-small">
+                <i class="fa-solid fa-network-wired"></i>
+              </span>
+              <span>Торренты</span>
             </a>
             <a href="{% url 'hh:hh' %}" class="button is-danger">
-              <strong>Вакансии HH</strong>
+              <span class="icon is-small">
+                <i class="fa-solid fa-person-digging"></i>
+              </span>
+              <span>Вакансии</span>
             </a>
-            <a href="{% url 'youtube:youtube' %}" class="button is-danger">
-              <strong>YouTube</strong>
+            <a href="{% url 'vk:vk' %}" class="button is-danger">
+              <span class="icon is-small">
+                <i class="fa-brands fa-vk"></i>
+              </span>
+              <span>ВКонтакте</span>
             </a>
             <a href="{% url 'serials:serials' %}" class="button is-danger">
-              <strong>Сериалы</strong>
+              <span class="icon is-small">
+                <i class="fa-solid fa-film"></i>
+              </span>
+              <span>Сериалы</span>
+            </a>
+            <a href="{% url 'manga:manga' %}" class="button is-danger">
+              <span class="icon is-small">
+                <i class="fa-solid fa-book"></i>
+              </span>
+              <span>Манга</span>
+            </a>
+            <a href="{% url 'anime:anime' %}" class="button is-danger">
+              <span class="icon is-small">
+                <i class="fa-solid fa-person-praying"></i>
+              </span>
+              <span>Аниме</span>
+            </a>
+            <a href="{% url 'twitch:twitch' %}" class="button is-danger">
+              <span class="icon is-small">
+                <i class="fa-brands fa-twitch"></i>
+              </span>
+              <span>Twitch</span>
+            </a>
+            <a href="{% url 'youtube:youtube' %}" class="button is-danger">
+              <span class="icon is-small">
+                <i class="fa-brands fa-youtube"></i>
+              </span>
+              <span>
+                YouTube
+              </span>
             </a>
           </div>
         </div>
       </div>
     </div>
   </nav>
+  {% if not request.get_full_path == "/" %}
   <section class="hero is-small is-dark">
     <div class="hero-body">
       <p class="title">
@@ -93,6 +134,7 @@
       </p>
     </div>
   </section>
+  {% endif %}
   <section class="section">
     {% block content %}
     {% endblock %}
@@ -103,7 +145,6 @@
     </div>
   </footer>
   <script src="static/js/disable-dark-reader.js"></script>
-  <script src="static/js/index.js"></script>
 </body>
 
 </html>
