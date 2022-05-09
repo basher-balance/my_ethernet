@@ -30,13 +30,23 @@ def parse_serials():
         else:
             ep = z["title"].split(" серия")[0].split(",")[-1].lstrip()
             try:
-                new_serial = Serial.objects.create(
+                obj, created = Serial.objects.update_or_create(
                     title=z["title"].split(",")[0].split("(")[0].rstrip(),
-                    img=z["link"].split("-")[1],
-                    serial_and_season="".join(z["title"].split(",")[:-1]),
-                    episode=ep,
-                )
-                new_serial.save()
+                    defaults={
+                        'img': z["link"].split("-")[1],
+                        'serial_and_season': "".join(z["title"].split(",")[:-1]),
+                        'episode': ep
+                        },
+                    )
+
+
+                #                new_serial = Serial.objects.create(
+#                    title=z["title"].split(",")[0].split("(")[0].rstrip(),
+#                    img=z["link"].split("-")[1],
+#                    serial_and_season="".join(z["title"].split(",")[:-1]),
+#                    episode=ep,
+#                )
+#                new_serial.save(force_cteate=True)
             except IntegrityError:
                 pass
             finally:

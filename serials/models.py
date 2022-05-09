@@ -7,7 +7,7 @@ class Serial(models.Model):
     serial_and_season = models.CharField("Название сериала и сезона", max_length=100)
     episode = models.CharField("Количество серий либо сезон полностью", max_length=20)
     data = models.DateTimeField(
-        "Автоматически созданная дата после загрузки элемента базы", auto_now_add=True
+        "Автоматически созданная дата после загрузки элемента базы", auto_now=True
     )
     _is_expired = models.BooleanField(default=False)
 
