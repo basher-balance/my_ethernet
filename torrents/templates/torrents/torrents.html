@@ -5,25 +5,24 @@
 {% block content %}
 {% for torrent in torrents_list %}
 <article class="message is-dark" style="background-color: transparent;">
-  <div class="message-header" style="border-radius: 4px;">
-    <p>
-      {{ torrent.title }} — {{ torrent.published }}
-    </p>
+  <div class="message-header is-half" style="border-radius: 4px;">
     <div>
+      <p>{{ torrent.title }}</p>
+      <p class="is-size-6 has-text-weight-light">{{ torrent.published }}</p>
+    </div>
+    <div style="display: flex; gap: 10px;">
       <a class="button is-success is-outlined" target="_blank" href="http://d.rutor.info/download/{{ torrent.link }}">
         <span class="icon is-small">
-          <i class="fa-solid fa-up-right-from-square"></i>
+          <i class="fa-solid fa-download"></i>
         </span>
       </a>
       <a class="button is-danger is-outlined" href="{% url 'torrents:hidden_torrent' pk=torrent.id %}">
         <span class="icon is-small">
-          <i class="fas fa-trash"></i>
+          <i class="fa-solid fa-ban"></i>
         </span>
       </a>
     </div>
   </div>
-  <!-- <div class="message-body"></div> -->
 </article>
 {% endfor %}
-<script src="https://vjs.zencdn.net/7.18.1/video.min.js"></script>
 {% endblock %}

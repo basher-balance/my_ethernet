@@ -10,7 +10,7 @@
   <link rel="shortcut icon" type="image/png" href="static/favicon.ico" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/fontawesome.min.css"
     integrity="sha512-xX2rYBFJSj86W54Fyv1de80DWBq7zYLn2z0I9bIhQG+rxIF6XVJUpdGnsNHWRa6AvP89vtFupEPDP8eZAtu9qA=="
@@ -22,7 +22,7 @@
     integrity="sha512-OivR4OdSsE1onDm/i3J3Hpsm5GmOVvr9r49K3jJ0dnsxVzZgaOJ5MfxEAxCyGrzWozL9uJGKz6un3A7L+redIQ=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="static/css/global.css">
-  <script src="static/js/index.js"></script>
+  <script src="static/js/global.js"></script>
 </head>
 
 <body>
@@ -39,82 +39,99 @@
       </a>
     </div>
 
-    <div id="navbar" class="navbar-menu has-background-dark">
+    <div id="navbar" class="navbar-menu">
       <div class="navbar-start">
-        <div class="navbar-item">
-          <div class="buttons">
-            <a href="{% url 'pyss:home' %}" class="button is-danger">
-              <span class="icon is-small">
-                <i class="fa-solid fa-house"></i>
-              </span>
-            </a>
-            <a href="{% url 'news:news' %}" class="button is-danger">
-              <span class="icon is-small">
-                <i class="fa-solid fa-newspaper"></i>
-              </span>
-              <span>Новости</span>
-            </a>
-            <a href="{% url 'weathers:weather' %}" class="button is-danger">
-              <span class="icon is-small">
-                <i class="fa-solid fa-cloud-sun"></i>
-              </span>
-              <span>Погода</span>
-            </a>
-            <a href="{% url 'currencies:currency' %}" class="button is-danger">
-              <span class="icon is-small">
-                <i class="fa-solid fa-tenge-sign"></i>
-              </span>
-              <span>Валюта</span>
-            </a>
-            <a href="{% url 'torrents:torrents' %}" class="button is-danger">
-              <span class="icon is-small">
-                <i class="fa-solid fa-network-wired"></i>
-              </span>
-              <span>Торренты</span>
-            </a>
-            <a href="{% url 'hh:hh' %}" class="button is-danger">
-              <span class="icon is-small">
-                <i class="fa-solid fa-person-digging"></i>
-              </span>
-              <span>Вакансии</span>
-            </a>
-            <a href="{% url 'vk:vk' %}" class="button is-danger">
-              <span class="icon is-small">
-                <i class="fa-brands fa-vk"></i>
-              </span>
-              <span>ВКонтакте</span>
-            </a>
-            <a href="{% url 'serials:serials' %}" class="button is-danger">
-              <span class="icon is-small">
-                <i class="fa-solid fa-film"></i>
-              </span>
-              <span>Сериалы</span>
-            </a>
-            <a href="{% url 'manga:manga' %}" class="button is-danger">
-              <span class="icon is-small">
-                <i class="fa-solid fa-book"></i>
-              </span>
-              <span>Манга</span>
-            </a>
-            <a href="{% url 'anime:anime' %}" class="button is-danger">
-              <span class="icon is-small">
+        <a class="navbar-item is-hoverable" href="{% url 'pyss:home' %}">
+          <span class="icon is-medium">
+            <i class="fa-solid fa-house"></i>
+          </span>
+          <span>
+            Главная
+          </span>
+        </a>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            Развлечения
+          </a>
+
+          <div class="navbar-dropdown is-boxed">
+            <a class="navbar-item" href="{% url 'anime:anime' %}">
+              <span class="icon">
                 <i class="fa-solid fa-person-praying"></i>
               </span>
               <span>Аниме</span>
             </a>
-            <a href="{% url 'twitch:twitch' %}" class="button is-danger">
-              <span class="icon is-small">
-                <i class="fa-brands fa-twitch"></i>
+            <a class="navbar-item" href="{% url 'twitch:twitch' %}">
+              <span class="icon-text">
+                <span class="icon">
+                  <i class="fa-brands fa-twitch"></i>
+                </span>
+                <span>Twitch</span>
               </span>
-              <span>Twitch</span>
             </a>
-            <a href="{% url 'youtube:youtube' %}" class="button is-danger">
-              <span class="icon is-small">
-                <i class="fa-brands fa-youtube"></i>
+            <a class="navbar-item" href="{% url 'youtube:youtube' %}">
+              <span class="icon-text">
+                <span class="icon">
+                  <i class="fa-brands fa-youtube"></i>
+                </span>
+                <span>YouTube</span>
               </span>
-              <span>
-                YouTube
+            </a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            Прочее
+          </a>
+
+          <div class="navbar-dropdown is-boxed">
+            <a class="navbar-item" href="{% url 'news:news' %}">
+              <span class="icon">
+                <i class="fa-solid fa-newspaper"></i>
               </span>
+              <span>Новости</span>
+            </a>
+            <a class="navbar-item" href="{% url 'weathers:weather' %}">
+              <span class="icon">
+                <i class="fa-solid fa-cloud-sun"></i>
+              </span>
+              <span>Погода</span>
+            </a>
+            <a class="navbar-item" href="{% url 'currencies:currency' %}">
+              <span class="icon">
+                <i class="fa-solid fa-tenge-sign"></i>
+              </span>
+              <span>Валюта</span>
+            </a>
+            <a class="navbar-item" href="{% url 'torrents:torrents' %}">
+              <span class="icon">
+                <i class="fa-solid fa-network-wired"></i>
+              </span>
+              <span>Торренты</span>
+            </a>
+            <a class="navbar-item" href="{% url 'hh:hh' %}">
+              <span class="icon">
+                <i class="fa-solid fa-person-digging"></i>
+              </span>
+              <span>Вакансии</span>
+            </a>
+            <a class="navbar-item" href="{% url 'vk:vk' %}">
+              <span class="icon">
+                <i class="fa-brands fa-vk"></i>
+              </span>
+              <span>ВКонтакте</span>
+            </a>
+            <a class="navbar-item" href="{% url 'serials:serials' %}">
+              <span class="icon">
+                <i class="fa-solid fa-film"></i>
+              </span>
+              <span>Сериалы</span>
+            </a>
+            <a class="navbar-item" href="{% url 'manga:manga' %}">
+              <span class="icon">
+                <i class="fa-solid fa-book"></i>
+              </span>
+              <span>Манга</span>
             </a>
           </div>
         </div>
@@ -141,7 +158,7 @@
   </section>
   <footer class="has-background-dark">
     <div class="content has-text-centered">
-      <p class="is-size-3">I &lt;3 my chat on Twitch</p>
+      <p class="is-size-3 has-text-danger">I &lt;3 my chat on Twitch</p>
     </div>
   </footer>
   <script src="static/js/disable-dark-reader.js"></script>

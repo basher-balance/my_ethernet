@@ -2,11 +2,17 @@
 {% block title %}ВАЛЮТА{% endblock %}
 {% block title_title %}Валюта{% endblock %}
 {% block subtitle %}
-  Источник: <a href="https://www.currencyconverterapi.com/">Currconv.com</a></a>
+Источник: <a href="https://www.currencyconverterapi.com/">Currconv.com</a></a>
 {% endblock %}
 {% block content %}
+<div class="columns level is-full has-background-white" style="border-radius: 4px;">
   {% for k, v in currency_last.items %}
-    <h1 class="is-size-6 subtitle">{{ k }}</h1>
-    <b>{{ v }}<br></b>
+  <div class="column level-item has-text-centered">
+    <div>
+      <p class="heading is-size-4">{{ k }}</p>
+      <p class="title">{{ v }}</p>
+    </div>
+  </div>
   {% endfor %}
+</div>
 {% endblock %}
