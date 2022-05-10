@@ -20,7 +20,7 @@
             </div>
             <div class="dropdown-menu" id="dropdown-menu" role="menu">
               <div class="dropdown-content">
-                <a class="dropdown-item" href="https://www.youtube.com/watch?v=PPh51zP0UhA" target="_blank">
+                <a class="dropdown-item" href="https://www.youtube.com/watch?v={{ video.id_video }}" target="_blank">
                   <span class="icon is-small">
                     <i class="fa-solid fa-arrow-up-right-from-square"></i>
                   </span>
@@ -40,10 +40,9 @@
       </div>
       <div>
         <figure class="image is-16by9">
-          <iframe class="has-ratio" width="100%" height="100%" src="//www.youtube.com/embed/PPh51zP0UhA"
+          <iframe class="has-ratio" width="100%" height="100%" src="//www.youtube.com/embed/{{ video.id_video }}"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen frameborder></iframe>
-          <!-- {{ video.iframe | safe }} -->
         </figure>
       </div>
     </article>
