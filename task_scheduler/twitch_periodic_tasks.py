@@ -12,13 +12,14 @@ from twitchAPI.oauth import UserAuthenticator
 from twitchAPI.types import AuthScope
 from .managed_file import ManagedFile
 from .keys import my_app_key, my_app_secret, my_id
+from pys.settings import BASE_DIR
 
 
 def twitch_parse():
     logging.warning("It is time to start the dramatiq task twitch")
     Twitch_model.objects.all().delete()
-    token_tw = "/home/ucsm/Документы/py/pyss/token_tw.pickle"
-    refresh_token_tw = "/home/ucsm/Документы/py/pyss/refresh_token_tw.pickle"
+    token_tw = f"{BASE_DIR}/pyss/token_tw.pickle"
+    refresh_token_tw = f"{BASE_DIR}/pyss/refresh_token_tw.pickle"
 
     body = {
         "client_id": my_app_key,
@@ -33,7 +34,7 @@ def twitch_parse():
 
     headers = {
         "Client-ID": my_app_key,
-        "Authorization": "Bearer " + keys_data["access_token"],
+        "Authorization": f'Bearer {keys_data["access_token"]}',
     }
 
     twitch = Twitch(my_app_key, my_app_secret)

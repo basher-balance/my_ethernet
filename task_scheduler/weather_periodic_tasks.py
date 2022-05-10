@@ -11,10 +11,7 @@ import plotly.express as px
 from .keys import appid
 
 
-url = (
-    "https://api.openweathermap.org/data/2.5/onecall?lat=54.8753&lon=69.162&daily&units=metric&appid="
-    + appid
-)
+url = f"https://api.openweathermap.org/data/2.5/onecall?lat=54.8753&lon=69.162&daily&units=metric&appid={appid}"
 city = "Petropavl"
 r = requests.get(url.format(city)).json()
 dt = [
@@ -57,29 +54,8 @@ def wdl():
     return weather_daily_lists
 
 
-# def dd():
-#    diagram_dict = {}
-#    data_temp = [dt, temp_days, icons, temp_maxs, temp_mins, sunsets, sunrises]
-#    fig_data_temp = px.bar(data_temp, x=dt, y=temp_days)
-#    fig_data_sunsets = px.bar(data_temp, x=dt, y=sunsets)
-#    fig_data_sunrises = px.bar(data_temp, x=dt, y=sunrises)
-#    fig_data_icons = px.bar(data_temp, x=dt, y=icons)
-#    fig_temp = fig_data_temp.to_html(full_html=False)
-#    fig_sunset = fig_data_sunsets.to_html(full_html=False)
-#    fig_sunrise = fig_data_sunrises.to_html(full_html=False)
-#    fig_icon = fig_data_icons.to_html(full_html=False)
-#    diagram_dict['temp'] = fig_temp
-#    diagram_dict['sunset'] = fig_sunset
-#    diagram_dict['sunrise'] = fig_sunrise
-#    diagram_dict['icon'] = fig_icon
-#    return diagram_dict
-
-
 def weather_today():
-    url_wether_today = (
-        "https://api.openweathermap.org/data/2.5/onecall?lat=54.8753&lon=69.162&exclude=current&units=metric&appid="
-        + appid
-    )
+    url_wether_today = f"https://api.openweathermap.org/data/2.5/onecall?lat=54.8753&lon=69.162&exclude=current&units=metric&appid={appid}"
     city = "Petropavl"
     r = requests.get(url_wether_today.format(city)).json()
     delete_weather = Weather_Today.objects.all()
