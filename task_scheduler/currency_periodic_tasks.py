@@ -16,8 +16,7 @@ def currency_parse():
     currencies = {"RUB_KZT": "", "EUR_KZT": "", "USD_KZT": ""}
     if (
         r.get(
-            "https://free.currconv.com/api/v7/convert?q=RUB_KZT&compact=ultra&apiKey="
-            + appid_0
+            f"https://free.currconv.com/api/v7/convert?q=RUB_KZT&compact=ultra&apiKey={appid_0}"
         ).status_code
         == 200
     ):
