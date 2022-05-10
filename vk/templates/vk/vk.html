@@ -6,27 +6,52 @@
 <a href="{% url 'vk:delete_post' %}" class="button is-danger mb-5">
   Очистить БД постов ВК
 </a>
-{% for k in list_post_vk %}
-<article class="message is-dark">
-  <div class="message-header">
-    <p>{{ k.data_post }}</p>
-    <div>
-      <a class="button is-success is-outlined" target="_blank" href="{{ k.link_post }}">
-        <span class="icon is-small">
-          <i class="fa-solid fa-up-right-from-square"></i>
-        </span>
-      </a>
-      <a class="button is-danger is-outlined" href="{% url 'vk:hidden_post' pk=k.id %}">
-        <span class="icon is-small">
-          <i class="fas fa-trash"></i>
-        </span>
-      </a>
-    </div>
+<div class="tile is-ancestor columns is-multiline">
+  {% for k in list_post_vk %}
+  <div class="tile is-parent is-4">
+    <article class="tile is-child message is-dark">
+      <div class="message-header">
+        <p>{{ k.data_post }}</p>
+        <div>
+          <div class="dropdown is-hoverable is-right">
+            <div class="dropdown-trigger">
+              <button class="button is-dark has-text-white" aria-haspopup="true" aria-controls="dropdown-menu">
+                <span class="icon is-small">
+                  <i class="fa-solid fa-ellipsis-vertical"></i>
+                </span>
+              </button>
+            </div>
+            <div class="dropdown-menu" id="dropdown-menu" role="menu">
+              <div class="dropdown-content">
+                <a class="dropdown-item" href="{{ k.link_post }}" target="_blank">
+                  <span class="icon is-small">
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                  </span>
+                  Перейти на пост
+                </a>
+                <hr class="dropdown-divider">
+                <a class="dropdown-item has-text-danger" href="{% url 'vk:hidden_post' pk=k.id %}">
+                  <span class="icon is-small">
+                    <i class="fas fa-eye-slash"></i>
+                  </span>
+                  Удалить
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="message-body">
+        <p class="first-letter">{{ k.text_post }}</p>
+        {% if not k.link_image_post == "No image" %}
+        <div class="message-image">
+          <img src={{ k.link_image_post }} />
+        </div>
+        {% endif %}
+      </div>
+    </article>
   </div>
-  <div class="message-body">
-    <p>{{ k.text_post }}</p>
-    <img src={{ k.link_image_post }} />
-  </div>
-</article>
-{% endfor %}
+  {% endfor %}
+  <script>loadCSS('static/css/vk.css');</script>
+</div>
 {% endblock %}
