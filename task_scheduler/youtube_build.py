@@ -9,26 +9,12 @@ from googleapiclient.discovery import build
 
 from .managed_file import ManagedFile
 from .keys import client_secrets_file
-
-user_json = "/home/ucsm/Документы/py/pyss/token.pickle"
+from pys.settings import BASE_DIR 
+user_json = f"{BASE_DIR}/pyss/token.pickle"
 scopes = ["https://www.googleapis.com/auth/youtube.readonly"]
 api_version = "v3"
 api_service_name = "youtube"
 
-#    if os.path.exists(user_json):
-#        creds = Credentials.from_authorized_user_file(USER_TOKEN_FILE, scopes)
-#
-#    # If there are no (valid) credentials available, let the user log in.
-#    if not creds or not creds.valid:
-#
-#        if creds and creds.expired and creds.refresh_token:
-#            creds.refresh(Request())
-#        else:
-#            flow = InstalledAppFlow.from_client_secrets_file(APP_TOKEN_FILE, SCOPES)
-#            creds = flow.run_local_server(port=0)
-#
-#        with open(USER_TOKEN_FILE, 'w') as token:
-#            token.write(creds.to_json())
 credentials = None
 if os.path.exists(user_json):
     print("Loading Credentials From File...")

@@ -35,8 +35,7 @@ def posts_vk_group():
     for sorted_all_respon in sorted_all_respons:
         try:
             link_post = (
-                "http://"
-                + sorted_all_respon["text"].split(": http://")[1].split("\n")[0]
+                f'http://{sorted_all_respon["text"].split(": http://")[1].split("\n")[0]}'
             )
         except IndexError:
             link_post = "http://habr.com"
@@ -51,7 +50,6 @@ def posts_vk_group():
                 data_post=datetime.fromtimestamp(sorted_all_respon["date"]).strftime(
                     "%Y-%m-%d %H:%M:%S"
                 ),
-                # text_post=sorted_all_respon['text'].split(': http://')[0],
                 text_post=sorted_all_respon["text"],
                 link_post=link_post,
                 link_image_post=link_image_post,
@@ -62,5 +60,3 @@ def posts_vk_group():
             vk_published_post.save(force_update=True)
     process_user_stats.send()
 
-
-# posts_vk_group(link, method, access_token, v, owner_id, domain, count)
