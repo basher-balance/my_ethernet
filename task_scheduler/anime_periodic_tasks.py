@@ -37,16 +37,13 @@ def data_scrapping(link, *args, **params):
 # Функция возвращающая ссылку на последнюю серию аниме по названию в заголовке файла, заданному в параметрах
 def data_last_element_anime(id=None):
     for i in range(pages):
+        anime_ID = [
+            link["href"]
+            for link in (data_scrapping(urls_site_naruto + "?page" + str(i + 1), "a"))
+            if id in link.get_text()
+        ]
         if not len(anime_ID):
-            anime_ID = [
-                link["href"]
-                for link in (
-                    data_scrapping(urls_site_naruto + "?page" + str(i + 1), "a")
-                )
-                if id in link.get_text()
-            ]
-        # if len(anime_ID) == 0:
-        #     continue delete if 40 works
+            continue
         else:
             link_anime = url_naruto_base + anime_ID[0]
             # Поиск ссылки на последний эпизод аниме с сабами и без на портале Sibnet
