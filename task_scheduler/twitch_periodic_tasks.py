@@ -34,7 +34,7 @@ def twitch_parse():
 
     headers = {
         "Client-ID": my_app_key,
-        "Authorization": f'Bearer {keys_data["access_token"]}',
+        "Authorization": f'Bearer {keys_data.get("access_token")}',
     }
 
     twitch = Twitch(my_app_key, my_app_secret)
@@ -62,7 +62,6 @@ def twitch_parse():
         twitch.set_user_authentication(token, target_scope, refresh_token)
         online = twitch.get_followed_streams(my_id)
     finally:
-        #        streamer_lists_online = [online['data'][n]['user_login'] for n in range(len(online['data']))]
         for k in range(len(online["data"])):
             try:
                 writting_streamer_in_bd = Twitch_model.objects.create(
