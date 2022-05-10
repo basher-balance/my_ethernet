@@ -67,13 +67,14 @@ def youtube_parse():
         else:
             # print(sorted_list)
             last_video = sorted_list[newItemCount - 1]
-            id_last = last_video["videoId"]
-            embeded = youtube.videos().list(part="player", id=id_last)
-            id_lastvideoe_embeded = embeded.execute()
-            wtf = id_lastvideoe_embeded["items"][0]["player"]["embedHtml"]
+#
+#            id_last = last_video["videoId"]
+#            embeded = youtube.videos().list(part="player", id=id_last)
+#            id_lastvideoe_embeded = embeded.execute()
+#            wtf = id_lastvideoe_embeded["items"][0]["player"]["embedHtml"]
         # finally_iframe_youtube.append(wtf)
         try:
-            new_video = Youtube_model.objects.create(iframe=wtf)
+            new_video = Youtube_model.objects.create(id_video=last_video['videoId'])
         except IntegrityError:
             pass
         else:

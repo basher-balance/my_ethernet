@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Youtube_model(models.Model):
-    iframe = models.CharField("Айфрейм", max_length=300, unique=True)
+    id_video = models.CharField("ИД Видео", max_length=15, unique=True)
     _is_expired = models.BooleanField(default=False)
 
     def hidden(pk):
