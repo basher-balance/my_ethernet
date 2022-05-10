@@ -37,7 +37,7 @@ def data_scrapping(link, *args, **params):
 # Функция возвращающая ссылку на последнюю серию аниме по названию в заголовке файла, заданному в параметрах
 def data_last_element_anime(id=None):
     for i in range(pages):
-        if not len(anime_ID) == 0:
+        if not len(anime_ID):
             anime_ID = [
                 link["href"]
                 for link in (
