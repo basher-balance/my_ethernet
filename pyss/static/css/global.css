@@ -1,20 +1,16 @@
 body {
   background: #000 url("/static/weather.jpeg");
   background-attachment: fixed;
-  color: red;
   background-repeat: repeat;
   background-size: cover;
-  font-family: "Ubuntu Mono", monospace;
+  font-family: "Fira Sans", sans-serif;
   display: flex;
   flex-direction: column;
   min-height: calc(100vh - 3.25rem);
 }
 
 a {
-  padding: 2px;
-  border-radius: 2px;
-  color: green;
-  font-family: "Ubuntu Mono", monospace;
+  font-family: "Fira Sans", sans-serif;
 }
 
 a:hover {
@@ -33,4 +29,12 @@ body > .section {
 
 footer {
   padding: 1rem;
+}
+
+.hidden {
+  display: none;
+}
+
+.navbar {
+  user-select: none;
 }

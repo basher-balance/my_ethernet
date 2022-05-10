@@ -1,51 +1,51 @@
 {% extends "pyss/home.html" %}
 {% block title %}ПОГОДА{% endblock %}
 {% block title_title %}Погода Петропавловск{% endblock %}
-{% block subtitle %}Источник: <a href="https://openweathermap.org/api">Weather API</a>{% endblock %}
+{% block subtitle %}Источник: <a href="https://openweathermap.org/api">OpenWeatherMap</a>{% endblock %}
 {% block content %}
-<div class="tile is-ancestor">
-  <div class="tile is-vertical">
-    <div class="tile">
-      <div class="tile is-parent is-2,5">
-        <article class="tile is-child notification is-success">
-          <div class="content is-4 is-vertical is-parent">
-            <h1 class="is-size-4 subtitle">{{ weather_today.datetime }}</h1>
-            <!--<b>Фаза луны: </b>{{ weather_today.moon_phase }}<br>-->
-            <!--<b>Давление: </b>{{ weather_today.pressure }}<br>-->
-            <b>t утром: </b>{{ weather_today.temp.morn }}<sup>o</sup><br></b>
-            <b>t дневная: </b>{{ weather_today.temp.day }}<sup>o</sup><br></b>
-            <b>t на кануне: </b>{{ weather_today.temp.eve }}<sup>o</sup><br></b>
-            <b>t ночная: </b>{{ weather_today.temp.night }}<sup>o</sup><br></b>
-            <b>min t: </b>{{ weather_today.temp.min }}<sup>o</sup><br></b>
-            <b>Восход: </b>{{ weather_today.sunrise }}<br>
-            <b>Закат: </b>{{ weather_today.sunset }}<br>
-            <b>Вероятность влаги: </b>{{ weather_today.pup }}<br>
-            <b>Влажность: </b>{{ weather_today.humidity }}<br>
-            <b>Облачность: </b>{{ weather_today.cloud }}<br>
-            <!--<b>Ультрафиолетовый индекс: </b>{{ weather_today.uvi }}<br>-->
-            <b>Состояние: </b>{{ weather_today.weather_description }}<br>
-            <img src="http://openweathermap.org/img/w/{{ weather_today.weather_icon }}.png" alt="Фото погоды"><br>
-            <!--<b>Группа погодных параметров: </b>{{ weather_today.weather_main }}<br>-->
-          </div>
-        </article>
+<div class="columns is-multiline">
+  <div class="column is-full">
+    <div class="card">
+      <div class="card-content is-success">
+        <h1 class="is-size-4 subtitle">{{ weather_today.datetime }}</h1>
+        <!-- <b>Фаза луны: </b>{{ weather_today.moon_phase }}<br> -->
+        <!-- <b>Давление: </b>{{ weather_today.pressure }}<br> -->
+        <b>Температура утром: </b>{{ weather_today.temp.morn }}°C<br></b>
+        <b>Температура дневная: </b>{{ weather_today.temp.day }}°C<br></b>
+        <b>Температура на кануне: </b>{{ weather_today.temp.eve }}°C<br></b>
+        <b>Температура ночная: </b>{{ weather_today.temp.night }}°C<br></b>
+        <b>min t: </b>{{ weather_today.temp.min }}°C<br></b>
+        <b>Восход: </b>{{ weather_today.sunrise }}<br>
+        <b>Закат: </b>{{ weather_today.sunset }}<br>
+        <b>Вероятность влаги: </b>{{ weather_today.pup }}<br>
+        <b>Влажность: </b>{{ weather_today.humidity }}<br>
+        <b>Облачность: </b>{{ weather_today.cloud }}<br>
+        <!-- <b>Ультрафиолетовый индекс: </b>{{ weather_today.uvi }}<br> -->
+        <b>Состояние: </b>{{ weather_today.weather_description }}<br>
       </div>
-      {% for x in weather_week %}
-      <div class="tile is-2 is-vertical is-parent">
-        <article class="tile is-child notification is-info">
-          <h1 class="is-size-4 subtitle">{{ x.item1 }}</h1>
-          <b>t: </b>{{ x.item6 }}<sup>o</sup><br>
-          <b>min t: {{ x.item4 }}<sup>o</sup><br></b>
-          <b>max t: {{ x.item5 }}<sup>o</sup><br></b>
-          <b>Восход:</b> {{ x.item2 }}<br>
-          <b>Закат:</b> {{ x.item3 }}<br>
-          <img src="http://openweathermap.org/img/w/{{ x.item7 }}.png" alt="Фото погоды">
-          <figure class="image is-4by3">
-            <img src="https://bulma.io/images/placeholders/640x480.png">
-          </figure>
-        </article>
+      <div class="card-image">
+        <img style="vertical-align: middle;"
+          src="https://openweathermap.org/img/wn/{{ weather_today.weather_icon }}@2x.png" alt="Фото погоды"><br>
       </div>
-      {% endfor %}
     </div>
   </div>
+  {% for x in weather_week %}
+  <div class="column is-half-tablet is-one-fifth-desktop">
+    <div class="card">
+      <div class="card-content is-success">
+        <h1 class="is-size-4 subtitle">{{ x.item1 }}</h1>
+        <b>t: </b>{{ x.item6 }}°C<br>
+        <b>min t:</b> {{ x.item4 }}°C<br>
+        <b>max t:</b> {{ x.item5 }}°C<br>
+        <b>Восход:</b> {{ x.item2 }}<br>
+        <b>Закат:</b> {{ x.item3 }}<br>
+      </div>
+      <div class="card-image">
+        <img style="vertical-align: middle;" src="http://openweathermap.org/img/wn/{{ x.item7 }}@2x.png"
+          alt="Фото погоды">
+      </div>
+    </div>
+  </div>
+  {% endfor %}
 </div>
 {% endblock %}

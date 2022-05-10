@@ -3,23 +3,51 @@
 {% block title_title %}Ютуб{% endblock %}
 {% block subtitle %}Источник: <a href="https://www.youtube.com/">YouTube</a>{% endblock %}</p>
 {% block content %}
-{% for video in list_video %}
-<article class="message is-dark">
-  <div class="message-header">
-    <p>
-      TODO: date, title
-    </p>
-    <div>
-      <a class="button is-danger is-outlined" href="{% url 'youtube:hidden_video' pk=video.id %}">
-        <span class="icon is-small">
-          <i class="fas fa-trash"></i>
-        </span>
-      </a>
-    </div>
+<div class="columns is-multiline">
+  {% for video in list_video %}
+  <div class="column is-half">
+    <article class="message is-dark">
+      <div class="message-header">
+        <p><!-- TODO: title --></p>
+        <div>
+          <div class="dropdown is-hoverable is-right">
+            <div class="dropdown-trigger">
+              <button class="button is-dark has-text-white" aria-haspopup="true" aria-controls="dropdown-menu">
+                <span class="icon is-small">
+                  <i class="fa-solid fa-ellipsis-vertical"></i>
+                </span>
+              </button>
+            </div>
+            <div class="dropdown-menu" id="dropdown-menu" role="menu">
+              <div class="dropdown-content">
+                <a class="dropdown-item" href="https://www.youtube.com/watch?v=PPh51zP0UhA" target="_blank">
+                  <span class="icon is-small">
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                  </span>
+                  Перейти на видео
+                </a>
+                <hr class="dropdown-divider">
+                <a class="dropdown-item has-text-danger" href="{% url 'youtube:hidden_video' pk=video.id %}">
+                  <span class="icon is-small">
+                    <i class="fas fa-eye-slash"></i>
+                  </span>
+                  Скрыть
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <figure class="image is-16by9">
+          <iframe class="has-ratio" width="100%" height="100%" src="//www.youtube.com/embed/PPh51zP0UhA"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen frameborder></iframe>
+          <!-- {{ video.iframe | safe }} -->
+        </figure>
+      </div>
+    </article>
   </div>
-  <div class="message-body">
-    {{ video.iframe | safe }}
-  </div>
-</article>
-{% endfor %}
+  {% endfor %}
+</div>
 {% endblock %}
