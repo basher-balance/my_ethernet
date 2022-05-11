@@ -54,7 +54,7 @@ def wdl():
 
 
 def get_today_weather(city: str):
-    api_url = f"https://api.openweathermap.org/data/2.5/onecall?lat=54.8753&lon=69.162&exclude=current&units=metric&appid={appid}"
+    api_url = f"https://api.openweathermap.org/data/2.5/onecall?lat=54.8753&lon=69.162&exclude=current&lang=ru&units=metric&appid={appid}"
     r = requests.get(api_url.format(city)).json()
     delete_weather = Weather_Today.objects.all()
     delete_weather.delete()
