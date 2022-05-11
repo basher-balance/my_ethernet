@@ -11,15 +11,21 @@ from .tasks import process_user_stats
 
 def hh_parse():
     logging.warning("It is time to start the dramatiq task HeadHunter")
-
-    url = "https://api.hh.ru/vacancies?clusters=true&enable_snippets=true&st=searchVacancy&only_with_salary=true&specialization=1.221&per_page=100&area=1"
-    try:
-        html_text = requests.get(url).text
+    hh_api = 'https://api.hh.ru/vacancies'
+    hh_params = {
+    'st':              'searchVacancy',
+    'area':            '1'
+    'cluster':         'true',
+    'per_page':        '100',
+    'specialization':  '1.221',
+    'enable_snippets': 'true',
+    'only_with_salary':'true',
+    }
+    if (html_text := requests.get(hh_api,params=hh_params)).status_code == requests.codes.ok:
         data = json.loads(html_text)
         total_pages = data["pages"]
-    except:
-        sys.exit(2)  # НЕ ЗНАЮ ЧТО ЭТА ЗА ХУИТА
-
+    else:
+        sys.exit(2)
     #    params_lists = {
     #            "jobs": ['''"разработчик", "тестировщик", "программист", "инженер", "devops", "аналитик", "администратор"'''],
     #            "lang": ["python", "django"],
@@ -29,18 +35,22 @@ def hh_parse():
     #            }
     #
     filter_data = {}
+    words_searching = 'python django'.split()
     for page in range(total_pages):
-        try:
-            current_data = json.loads(requests.get(url + f"&page={page}").text)
-        except:
-            continue
+        hh_params['page'] = page
+        if (response_test := requests.get(url,params=hh_params).status_code).status_code == requests.codes.ok:
+            current_data = response_test.json()
+
         for item in current_data["items"]:
+            
             if item["salary"]["from"] is None:
                 item["salary"]["from"] = 0
+            
             if item["salary"]["to"] is None:
                 item["salary"]["to"] = 0
+            
             if item["schedule"]["id"].lower() == "remote":
-                if any(i in ["python", "django"] for i in item["name"].lower().split()):
+                if any(i in words_searching for i in item["name"].lower().split()):
                     # if "python" or "django" in item["name"].lower().split(' '):
                     try:
                         new_hh = Hh.objects.create(
