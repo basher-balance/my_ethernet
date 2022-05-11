@@ -59,4 +59,3 @@ def posts_vk_group():
         else:
             vk_published_post.save(force_update=True)
     process_user_stats.send()
-
