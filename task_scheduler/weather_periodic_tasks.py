@@ -10,7 +10,7 @@ import plotly.express as px
 from .keys import appid
 
 
-url = f"https://api.openweathermap.org/data/2.5/onecall?lat=54.8753&lon=69.162&daily&units=metric&appid={appid}"
+url = f"https://api.openweathermap.org/data/2.5/onecall?lat=54.8753&lon=69.162&exclude=daily&lang=ru&units=metric&appid={appid}"
 city = "Petropavl"
 r = requests.get(url.format(city)).json()
 dt = [
