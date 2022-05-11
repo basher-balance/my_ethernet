@@ -1,7 +1,6 @@
 from weathers.models import Weather, Weather_Today
 
 import logging
-import os
 
 from .tasks import process_user_stats
 import datetime
@@ -54,10 +53,9 @@ def wdl():
     return weather_daily_lists
 
 
-def weather_today():
-    url_wether_today = f"https://api.openweathermap.org/data/2.5/onecall?lat=54.8753&lon=69.162&exclude=current&units=metric&appid={appid}"
-    city = "Petropavl"
-    r = requests.get(url_wether_today.format(city)).json()
+def get_today_weather(city: str):
+    api_url = f"https://api.openweathermap.org/data/2.5/onecall?lat=54.8753&lon=69.162&exclude=current&units=metric&appid={appid}"
+    r = requests.get(api_url.format(city)).json()
     delete_weather = Weather_Today.objects.all()
     delete_weather.delete()
     weather_today = Weather_Today.objects.create(
@@ -69,8 +67,6 @@ def weather_today():
         moon_phase=r["daily"][0]["moon_phase"],
         pup=r["daily"][0]["pop"],
         pressure=r["daily"][0]["pressure"],
-        #            rain = r['daily'][0]['rain'],
-        # snow = r['daily'][0]['snow'],
         sunrise=datetime.datetime.fromtimestamp(r["daily"][0]["sunrise"]).strftime(
             "%H %M %S"
         ),
@@ -89,6 +85,6 @@ def weather_today():
 def weather_pars():
     logging.warning("It is time to start the dramatiq task weather")
     """Функция выполняющая функции"""
-    weather_today()
+    get_today_weather(city)
     Weather.objects.create(weather_daily=wdl()).save()
     process_user_stats.send()
