@@ -51,6 +51,19 @@
         </a>
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link">
+            База данных
+          </a>
+
+          <div class="navbar-dropdown is-boxed">
+            {% for path in model_paths %}
+            <a class="navbar-item" href="/admin/{{ path }}" target="_blank">
+              {{ path }}
+            </a>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
             Развлечения
           </a>
 
