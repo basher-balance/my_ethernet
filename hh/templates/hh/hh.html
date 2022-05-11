@@ -1,7 +1,7 @@
 {% extends "pyss/home.html" %}
 {% block title %}HeadHunter{% endblock %}
 {% block title_title %}Вакансии на работу{% endblock %}
-{% block subtitle %}Источник: <a href="https://hh.ru/">HeadHunter</a>{% endblock %}
+{% block subtitle %}Источник: <a href="https://hh.ru/">HeadHunter.ru</a>{% endblock %}
 {% block content %}
 <div class="tile is-ancestor columns is-multiline">
   {% for k in hh_list %}
@@ -46,7 +46,7 @@
                   </span>
                   Перейти на страницу
                 </a>
-                <a class="dropdown-item has-text-danger" href="{% url 'hh:hidden_hh' pk=k.id %}">
+                <a id="delete-button" class="dropdown-item has-text-danger" href="{% url 'hh:hidden_hh' pk=k.id %}">
                   <span class="icon is-small">
                     <i class="fas fa-eye-slash"></i>
                   </span>
@@ -63,6 +63,5 @@
     </article>
   </div>
   {% endfor %}
-  <script>loadCSS('static/css/hh.css');</script>
 </div>
 {% endblock %}

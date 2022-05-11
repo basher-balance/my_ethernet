@@ -1,7 +1,7 @@
 {% extends "pyss/home.html" %}
 {% block title %}АНИМЕ{% endblock %}
 {% block title_title %}Аниме{% endblock %}
-{% block subtitle %}Источник: <a href="https://naruto-base.su">Naruto-base</a>{% endblock %}
+{% block subtitle %}Источник: <a href="https://naruto-base.su">Naruto-base.su</a>{% endblock %}
 {% block content %}
 <div class="tile is-ancestor columns is-multiline">
   {% for k in list_anime %}
@@ -23,7 +23,8 @@
             </div>
             <div class="hh dropdown-menu" id="dropdown-menu" role="menu">
               <div class="dropdown-content">
-                <a class="dropdown-item has-text-danger" href="{% url 'anime:hidden_anime' pk=k.id %}">
+                <a id="delete-button" class="dropdown-item has-text-danger"
+                  href="{% url 'anime:hidden_anime' pk=k.id %}">
                   <span class="icon is-small">
                     <i class="fas fa-eye-slash"></i>
                   </span>

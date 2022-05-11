@@ -1,11 +1,8 @@
 {% extends "pyss/home.html" %}
 {% block title %}ПОСТЫ ВК{% endblock %}
 {% block title_title %}Лента ВКонтакте{% endblock %}
-{% block subtitle %}Источник: <a href="https://vk.com/basherbalance">VK.COM</a>{% endblock %}
+{% block subtitle %}Источник: <a href="https://vk.com/basherbalance">Vk.com</a>{% endblock %}
 {% block content %}
-<a href="{% url 'vk:delete_post' %}" class="button is-danger mb-5">
-  Очистить БД постов ВК
-</a>
 <div class="tile is-ancestor columns is-multiline">
   {% for k in list_post_vk %}
   <div class="tile is-parent is-4">
@@ -30,7 +27,7 @@
                   Перейти на пост
                 </a>
                 <hr class="dropdown-divider">
-                <a class="dropdown-item has-text-danger" href="{% url 'vk:hidden_post' pk=k.id %}">
+                <a id="delete-button" class="dropdown-item has-text-danger" href="{% url 'vk:hidden_post' pk=k.id %}">
                   <span class="icon is-small">
                     <i class="fas fa-eye-slash"></i>
                   </span>

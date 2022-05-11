@@ -2,6 +2,14 @@ document.addEventListener('DOMContentLoaded', bootstrap)
 
 function bootstrap() {
   initNavbar()
+  initDeleteButtons()
+}
+
+function initDeleteButtons() {
+  const buttons = document.querySelectorAll('#delete-button')
+  buttons.forEach((button) => {
+    button.addEventListener('click', acceptDelete)
+  })
 }
 
 function initNavbar() {
@@ -47,7 +55,7 @@ function dateFormat(date) {
 
 function acceptDelete(event) {
   event.preventDefault()
-  const isConfirm = confirm('Вы уверены?')
+  const isConfirm = confirm('Вы точно уверены?')
   if (isConfirm) {
     location.href = event.currentTarget.href
   }

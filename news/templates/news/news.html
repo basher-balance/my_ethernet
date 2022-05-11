@@ -14,7 +14,7 @@
     <a href="#">Скрытое</a>
   </li>
   <li>
-    <a id="delete-news" class="button is-danger" href="{% url 'news:delete_news' %}">
+    <a id="delete-button" class="button is-danger" href="{% url 'news:delete_news' %}">
       Очистить новости
     </a>
   </li>
@@ -47,7 +47,7 @@
                   Перейти на новость
                 </a>
                 <hr class="dropdown-divider">
-                <a class="dropdown-item has-text-danger" href="{% url 'news:hidden_news' pk=news.id %}">
+                <a id="delete-button" class="dropdown-item has-text-danger" href="{% url 'news:hidden_news' pk=news.id %}">
                   <span class="icon is-small">
                     <i class="fas fa-eye-slash"></i>
                   </span>
@@ -65,8 +65,4 @@
   </div>
   {% endfor %}
 </div>
-<script>
-  const button = document.querySelector('#delete-news')
-  button.addEventListener('click', acceptDelete)
-</script>
 {% endblock %}
