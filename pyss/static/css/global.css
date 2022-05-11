@@ -38,3 +38,11 @@ footer {
 .navbar {
   user-select: none;
 }
+
+.message.is-dark {
+  background-color: unset;
+}
+
+.message-body {
+  background: #fff;
+}
