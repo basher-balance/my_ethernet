@@ -3,17 +3,19 @@
 {% block title_title %}Вакансии на работу{% endblock %}
 {% block subtitle %}Источник: <a href="https://hh.ru/">HeadHunter</a>{% endblock %}
 {% block content %}
-<div class="columns is-multiline">
+<div class="tile is-ancestor columns is-multiline">
   {% for k in hh_list %}
-  <div class="column is-half-tablet is-one-third-desktop is-one-quarter-widescreen">
-    <article class="message is-dark">
+  <div class="tile is-parent is-4">
+    <article class="tile is-child message is-dark">
       <div class="message-header">
-        <div>
-          <p class="is-size-5 title-ellipsis" title="{{ k.name }}">
+        <div title="{{ k.name }}">
+          <p class="is-size-5 title-ellipsis">
             {{ k.name }}
           </p>
           <div class="is-size-6 has-text-weight-light">
+            {% if not k.salary.from == 0 %}
             от {{ k.salary.from }}
+            {% endif %}
             {% if not k.salary.to == 0 %}
             до {{ k.salary.to }}
             {% endif %}
@@ -35,15 +37,14 @@
                   <span class="icon is-small">
                     <i class="fa-solid fa-calendar"></i>
                   </span>
-                  Добавлено
                   <script>document.write(dateFormat("{{ k.published }}"))</script>
                 </div>
                 <hr class="dropdown-divider">
-                <a class="dropdown-item has-text-link" href="https://hh.ru/vacancy/{{ k.url_id }}" target="_blank">
+                <a class="dropdown-item" href="https://hh.ru/vacancy/{{ k.url_id }}" target="_blank">
                   <span class="icon is-small">
                     <i class="fa-solid fa-arrow-up-right-from-square"></i>
                   </span>
-                  Перейти на hh.ru
+                  Перейти на страницу
                 </a>
                 <a class="dropdown-item has-text-danger" href="{% url 'hh:hidden_hh' pk=k.id %}">
                   <span class="icon is-small">
