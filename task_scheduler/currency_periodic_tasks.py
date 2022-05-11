@@ -8,22 +8,21 @@ from .keys import appid_0
 
 from .tasks import process_user_stats
 
-
 def currency_parse():
     logging.warning("It is time to start the dramatiq task currecncy")
     delete_currency = Currency.objects.all()
+    api_currency    = 'https://free.currconv.com/api/v7/convert'
+    currency_params = {
+        'q':'RUB_KZT',
+        'compact':'ultra',
+        'apiKey':appid_0
+        }
     delete_currency.delete()
     currencies = {"RUB_KZT": "", "EUR_KZT": "", "USD_KZT": ""}
-    if (
-        r.get(
-            "https://free.currconv.com/api/v7/convert?q=RUB_KZT&compact=ultra&apiKey="
-            + appid_0
-        ).status_code
-        == 200
-    ):
+    if (r.get(api_currency,parmas=currency_params).status_code == re.codes.ok):
         for currency in currencies:
-            url = f"https://free.currconv.com/api/v7/convert?q={currency}&compact=ultra&apiKey={appid_0}"
-            req = r.get(url).json()
+            currency_params['q'] = currency
+            req = r.get(api_currency,params=currency_params).json()
             for k, v in req.items():
                 currencies[k] = v
     else:
@@ -31,3 +30,4 @@ def currency_parse():
             currencies[k] = "сервис free.currconv.com в данный момент не доступен"
     Currency.objects.create(currency=currencies)
     process_user_stats.send()
+
