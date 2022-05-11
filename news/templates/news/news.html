@@ -1,33 +1,72 @@
 {% extends "pyss/home.html" %}
 {% block title %}НОВОСТИ{% endblock %}
 {% block title_title %}Новости{% endblock %}
-{% block subtitle %}Источник: <a href="https://mail.ru/">Майл ру</a>{% endblock %}</p>
+{% block subtitle %}Источник: <a href="https://mail.ru/">Mail.ru</a>{% endblock %}</p>
+{% block hero_foot %}
+<ul>
+  <li class="is-active">
+    <a href="/news">Новое</a>
+  </li>
+  <li>
+    <a href="#">Прочитано</a>
+  </li>
+  <li>
+    <a href="#">Скрытое</a>
+  </li>
+  <li>
+    <a id="delete-news" class="button is-danger" href="{% url 'news:delete_news' %}">
+      Очистить новости
+    </a>
+  </li>
+</ul>
+{% endblock %}
 {% block content %}
-<a href="{% url 'news:delete_news' %}" class="button is-danger mb-5">
-  Очистить БД новостей
-</a>
-{% for news in list_news %}
-<article class="message is-dark">
-  <div class="message-header">
-    <p>
-      {{ news.id }}. {{ news.date_added }}
-    </p>
-    <div>
-      <a class="button is-success is-outlined" target="_blank" href="{{ news.link_news }}">
-        <span class="icon is-small">
-          <i class="fa-solid fa-arrow-up-right-from-square"></i>
-        </span>
-      </a>
-      <a class="button is-danger is-outlined" href="{% url 'news:hidden_news' pk=news.id %}">
-        <span class="icon is-small">
-          <i class="fa-solid fa-trash"></i>
-        </span>
-      </a>
-    </div>
+<div class="tile is-ancestor columns is-multiline">
+  {% for news in list_news %}
+  <div class="tile is-parent is-4">
+    <article class="tile is-child  message is-dark">
+      <div class="message-header">
+        <p>
+          {{ news.id }}. {{ news.date_added }}
+        </p>
+        <div>
+          <div class="dropdown is-hoverable is-right">
+            <div class="dropdown-trigger">
+              <button class="button is-dark has-text-white" aria-haspopup="true" aria-controls="dropdown-menu">
+                <span class="icon is-small">
+                  <i class="fa-solid fa-ellipsis-vertical"></i>
+                </span>
+              </button>
+            </div>
+            <div class="dropdown-menu" id="dropdown-menu" role="menu">
+              <div class="dropdown-content">
+                <a class="dropdown-item" href="{{ news.link_news }}" target="_blank">
+                  <span class="icon is-small">
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                  </span>
+                  Перейти на новость
+                </a>
+                <hr class="dropdown-divider">
+                <a class="dropdown-item has-text-danger" href="{% url 'news:hidden_news' pk=news.id %}">
+                  <span class="icon is-small">
+                    <i class="fas fa-eye-slash"></i>
+                  </span>
+                  Скрыть
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="message-body">
+        {{ news.news }}
+      </div>
+    </article>
   </div>
-  <div class="message-body">
-    {{ news.news }}
-  </div>
-</article>
-{% endfor %}
+  {% endfor %}
+</div>
+<script>
+  const button = document.querySelector('#delete-news')
+  button.addEventListener('click', acceptDelete)
+</script>
 {% endblock %}

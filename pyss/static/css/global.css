@@ -23,7 +23,6 @@ nav {
 }
 
 body > .section {
-  padding: 2rem !important;
   flex: 1 1 auto;
 }
 
@@ -45,4 +44,8 @@ footer {
 
 .message-body {
   background: #fff;
+}
+
+.tabs a {
+  margin-bottom: -2px;
 }

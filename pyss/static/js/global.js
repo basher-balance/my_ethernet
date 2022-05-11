@@ -44,3 +44,11 @@ function dateFormat(date) {
     hour12: false
   }).format(new Date(date))
 }
+
+function acceptDelete(event) {
+  event.preventDefault()
+  const isConfirm = confirm('Вы уверены?')
+  if (isConfirm) {
+    location.href = event.currentTarget.href
+  }
+}
