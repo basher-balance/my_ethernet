@@ -2,6 +2,24 @@
 {% block title %}ПОСТЫ ВК{% endblock %}
 {% block title_title %}Лента ВКонтакте{% endblock %}
 {% block subtitle %}Источник: <a href="https://vk.com/basherbalance">Vk.com</a>{% endblock %}
+{% block hero_foot %}
+<ul>
+  <li class="is-active">
+    <a href="/vk">Новое</a>
+  </li>
+  <li>
+    <a href="#">Прочитано</a>
+  </li>
+  <li>
+    <a href="#">Скрытое</a>
+  </li>
+  <li>
+    <a id="delete-button" class="button is-danger" href="{% url 'vk:delete_post' %}">
+      Очистить ленту
+    </a>
+  </li>
+</ul>
+{% endblock %}
 {% block content %}
 <div class="tile is-ancestor columns is-multiline">
   {% for k in list_post_vk %}

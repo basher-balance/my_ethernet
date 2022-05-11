@@ -13,9 +13,8 @@ a {
   font-family: "Fira Sans", sans-serif;
 }
 
-a:hover {
-  background: #f14668;
-  color: #eee;
+.subtitle > a:hover {
+  text-decoration: underline;
 }
 
 nav {
