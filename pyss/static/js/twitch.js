@@ -1,5 +1,3 @@
-// document.addEventListener('DOMContentLoaded', bootstrap)
-
 const container = document.querySelector('#twitch')
 const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value
 
@@ -75,16 +73,15 @@ async function bootstrap() {
             </div>
           </div>
         </div>
-        <figure class="image is-16by9"></figure>
+        <figure class="image is-16by9" style="padding-top: 100%;"></figure>
       </article>
     `
 
     const embed = new Twitch.Embed(column, {
       theme: 'dark',
-      layout: 'video', // temporary fix
+      layout: 'video-with-chat',
       autoplay: false,
       muted: true,
-      width: 600,
       channel: channel.streamer
     })
 
@@ -123,7 +120,6 @@ async function bootstrap() {
 
 
     container.appendChild(column)
-
   }
 }
 

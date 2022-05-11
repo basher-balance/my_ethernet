@@ -1,28 +1,53 @@
 {% extends "pyss/home.html" %}
 {% block title %}ТОРРЕНТЫ{% endblock %}
 {% block title_title %}Торренты{% endblock %}
-{% block subtitle %}Источник: <a href="http://rutor.info/">Rutor.ru</a>{% endblock %}
+{% block subtitle %}Источник: <a href="http://rutor.info/">Rutor.info</a>{% endblock %}
 {% block content %}
-{% for torrent in torrents_list %}
-<article class="message is-dark" style="background-color: transparent;">
-  <div class="message-header is-half" style="border-radius: 4px;">
-    <div>
-      <p>{{ torrent.title }}</p>
-      <p class="is-size-6 has-text-weight-light">{{ torrent.published }}</p>
-    </div>
-    <div style="display: flex; gap: 10px;">
-      <a class="button is-success is-outlined" target="_blank" href="http://d.rutor.info/download/{{ torrent.link }}">
-        <span class="icon is-small">
-          <i class="fa-solid fa-download"></i>
-        </span>
-      </a>
-      <a class="button is-danger is-outlined" href="{% url 'torrents:hidden_torrent' pk=torrent.id %}">
-        <span class="icon is-small">
-          <i class="fa-solid fa-ban"></i>
-        </span>
-      </a>
-    </div>
+<div class="tile is-ancestor columns is-multiline">
+  {% for torrent in torrents_list %}
+  <div class="tile is-parent is-4">
+    <article class="tile is-child message is-dark">
+      <div class="message-header is-half">
+        <div>
+          <p>
+            {{ torrent.published }}
+          </p>
+        </div>
+        <div>
+          <div class="dropdown is-hoverable is-right">
+            <div class="dropdown-trigger">
+              <button class="button is-dark has-text-white" aria-haspopup="true" aria-controls="dropdown-menu">
+                <span class="icon is-small">
+                  <i class="fa-solid fa-ellipsis-vertical"></i>
+                </span>
+              </button>
+            </div>
+            <div class="dropdown-menu" id="dropdown-menu" role="menu">
+              <div class="dropdown-content">
+                <a class="dropdown-item" href="http://d.rutor.info/download/{{ torrent.link }}" target="_blank">
+                  <span class="icon is-small">
+                    <i class="fa-solid fa-download"></i>
+                  </span>
+                  Скачать
+                </a>
+                <hr class="dropdown-divider">
+                <a id="delete-button" class="dropdown-item has-text-danger"
+                  href="{% url 'torrents:hidden_torrent' pk=torrent.id %}">
+                  <span class="icon is-small">
+                    <i class="fas fa-eye-slash"></i>
+                  </span>
+                  Скрыть
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="message-body">
+        {{ torrent.title }}
+      </div>
+    </article>
   </div>
-</article>
-{% endfor %}
+  {% endfor %}
+</div>
 {% endblock %}

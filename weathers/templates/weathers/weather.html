@@ -1,51 +1,52 @@
 {% extends "pyss/home.html" %}
 {% block title %}ПОГОДА{% endblock %}
 {% block title_title %}Погода Петропавловск{% endblock %}
-{% block subtitle %}Источник: <a href="https://openweathermap.org/api">OpenWeatherMap</a>{% endblock %}
+{% block subtitle %}Источник: <a href="https://openweathermap.org/api">OpenWeatherMap.org</a>{% endblock %}
 {% block content %}
 <div class="columns is-multiline">
   <div class="column is-full">
-    <div class="card">
-      <div class="card-content is-success">
-        <h1 class="is-size-4 subtitle">{{ weather_today.datetime }}</h1>
-        <!-- <b>Фаза луны: </b>{{ weather_today.moon_phase }}<br> -->
+    <div class="card has-background-link-dark has-text-light mb-5">
+      <div class="card-content">
+        <div class="weather-title">
+          <img src="https://openweathermap.org/img/wn/{{ weather_today.weather_icon }}@2x.png" alt="Фото погоды">
+          <span class="is-size-2">{{ weather_today.datetime }}</span>
+        </div>
         <!-- <b>Давление: </b>{{ weather_today.pressure }}<br> -->
-        <b>Температура утром: </b>{{ weather_today.temp.morn }}°C<br></b>
-        <b>Температура дневная: </b>{{ weather_today.temp.day }}°C<br></b>
-        <b>Температура на кануне: </b>{{ weather_today.temp.eve }}°C<br></b>
-        <b>Температура ночная: </b>{{ weather_today.temp.night }}°C<br></b>
-        <b>min t: </b>{{ weather_today.temp.min }}°C<br></b>
-        <b>Восход: </b>{{ weather_today.sunrise }}<br>
-        <b>Закат: </b>{{ weather_today.sunset }}<br>
-        <b>Вероятность влаги: </b>{{ weather_today.pup }}<br>
-        <b>Влажность: </b>{{ weather_today.humidity }}<br>
-        <b>Облачность: </b>{{ weather_today.cloud }}<br>
+        <!-- <b>Фаза луны: </b>{{ weather_today.moon_phase }}<br> -->
         <!-- <b>Ультрафиолетовый индекс: </b>{{ weather_today.uvi }}<br> -->
-        <b>Состояние: </b>{{ weather_today.weather_description }}<br>
-      </div>
-      <div class="card-image">
-        <img style="vertical-align: middle;"
-          src="https://openweathermap.org/img/wn/{{ weather_today.weather_icon }}@2x.png" alt="Фото погоды"><br>
-      </div>
-    </div>
-  </div>
-  {% for x in weather_week %}
-  <div class="column is-half-tablet is-one-fifth-desktop">
-    <div class="card">
-      <div class="card-content is-success">
-        <h1 class="is-size-4 subtitle">{{ x.item1 }}</h1>
-        <b>t: </b>{{ x.item6 }}°C<br>
-        <b>min t:</b> {{ x.item4 }}°C<br>
-        <b>max t:</b> {{ x.item5 }}°C<br>
-        <b>Восход:</b> {{ x.item2 }}<br>
-        <b>Закат:</b> {{ x.item3 }}<br>
-      </div>
-      <div class="card-image">
-        <img style="vertical-align: middle;" src="http://openweathermap.org/img/wn/{{ x.item7 }}@2x.png"
-          alt="Фото погоды">
+        <span class="has-text-weight-medium">Темп. утром: </span>{{ weather_today.temp.morn }}°C<br></b>
+        <span class="has-text-weight-medium">Темп. дневная: </span>{{ weather_today.temp.day }}°C<br></b>
+        <span class="has-text-weight-medium">Темп. на кануне: </span>{{ weather_today.temp.eve }}°C<br></b>
+        <span class="has-text-weight-medium">Темп. ночная: </span>{{ weather_today.temp.night }}°C<br></b>
+        <span class="has-text-weight-medium">Мин. темп.: </span>{{ weather_today.temp.min }}°C<br></b>
+        <span class="has-text-weight-medium">Восход: </span>{{ weather_today.sunrise }}<br>
+        <span class="has-text-weight-medium">Закат: </span>{{ weather_today.sunset }}<br>
+        <span class="has-text-weight-medium">Вероятность влаги: </span>{{ weather_today.pup }}<br>
+        <span class="has-text-weight-medium">Влажность: </span>{{ weather_today.humidity }}<br>
+        <span class="has-text-weight-medium">Облачность: </span>{{ weather_today.cloud }}<br>
+        <span class="has-text-weight-medium">Состояние: </span>{{ weather_today.weather_description }}<br>
       </div>
     </div>
+    <div class="tile is-ancestor">
+      {% for x in weather_week %}
+      <div class="tile is-parent">
+        <div class="card has-background-dark has-text-light">
+          <div class="card-content is-success">
+            <div class="weather-title">
+              <img src="http://openweathermap.org/img/wn/{{ x.item7 }}.png" alt="Фото погоды">
+              <span class="is-size-4">{{ x.item1 }}</span>
+            </div>
+            <span class="has-text-weight-medium">Темп.: </span>{{ x.item6 }}°C<br>
+            <span class="has-text-weight-medium">Мин. темп.:</span> {{ x.item4 }}°C<br>
+            <span class="has-text-weight-medium">Макс. темп.:</span> {{ x.item5 }}°C<br>
+            <span class="has-text-weight-medium">Восход:</span> {{ x.item2 }}<br>
+            <span class="has-text-weight-medium">Закат:</span> {{ x.item3 }}<br>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
   </div>
-  {% endfor %}
+  <script>loadCSS('static/css/weather.css');</script>
 </div>
 {% endblock %}
