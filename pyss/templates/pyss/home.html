@@ -31,7 +31,6 @@
       <a class="navbar-item" href="https://twitch.tv/ucsm" target="_blank">
         <img src="static/avatar.png">
       </a>
-
       <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
@@ -61,7 +60,6 @@
           <a class="navbar-link">
             Развлечения
           </a>
-
           <div class="navbar-dropdown is-boxed">
             <a class="navbar-item" href="{% url 'anime:anime' %}">
               <span class="icon">
@@ -91,7 +89,6 @@
           <a class="navbar-link">
             Прочее
           </a>
-
           <div class="navbar-dropdown is-boxed">
             <a class="navbar-item" href="{% url 'news:news' %}">
               <span class="icon">
@@ -146,6 +143,7 @@
       </div>
     </div>
   </nav>
+
   {% if not request.get_full_path == "/" %}
   <section class="hero is-small is-dark">
     <div class="hero-body">
@@ -168,10 +166,12 @@
     </div>
   </section>
   {% endif %}
+
   <section class="section">
     {% block content %}
     {% endblock %}
   </section>
+
   <footer class="has-background-dark">
     <div class="content has-text-centered">
       <p class="is-size-3 has-text-danger">I &lt;3 my chat on Twitch</p>

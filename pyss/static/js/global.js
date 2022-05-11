@@ -65,7 +65,7 @@ function acceptDelete(event) {
 function initEgg() {
   const target = document.querySelector('.navbar-brand > .navbar-item')
   target.addEventListener('mouseenter', (event) => {
-    if (event.altKey && event.ctrlKey ) {
+    if (event.altKey && event.ctrlKey) {
       const modal = document.createElement('div')
       modal.classList.add('modal', 'is-active')
       modal.innerHTML = `
