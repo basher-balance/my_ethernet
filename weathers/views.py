@@ -12,7 +12,7 @@ params = dict(
 
 
 def weather(request):
-    return render(request, "weathers/weathers.html")
+    return render(request, "weathers/weather.html")
 
 
 def open_weather_api(req):
