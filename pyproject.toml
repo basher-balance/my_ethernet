@@ -15,8 +15,6 @@ google-auth-oauthlib = "^0.5.0"
 twitchAPI = "^2.5.2"
 httpx = {version = "^0.22.0", extras = ["http2"]}
 lxml = "^4.8.0"
-plotly = "^5.6.0"
-pandas = "^1.4.1"
 whitenoise = "^6.0.0"
 django-stubs = "^1.10.1"
 django-dramatiq = "^0.10.0"
