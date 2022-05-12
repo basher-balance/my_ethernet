@@ -6,5 +6,6 @@ app_name = "weathers"
 urlpatterns = [
     # страница погоды
     path("weather", views.weather, name="weather"),
-    path("weather/api", views.weather_api),
+    path("weather/forecast", views.weather_request),
+    path("weather/search/", views.weather_onecall_api),
 ]
