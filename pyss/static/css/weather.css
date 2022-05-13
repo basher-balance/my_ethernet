@@ -15,3 +15,13 @@
   right: 12px;
   top: 12px;
 }
+
+.control-input {
+  width: 250px;
+}
+
+@media screen and (max-width: 768px) {
+  .control-input {
+    width: 100%;
+  }
+}

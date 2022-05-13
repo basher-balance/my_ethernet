@@ -2,14 +2,14 @@
 document.body.classList.add('weather-background')
 
 // initial weather location
-const initialValue = {
+const WEATHER_CONFIG = {
   location: 'Петропавловск',
   lat: 54.89,
   lon: 69.18
 }
 
 async function bootstrap() {
-  const { store, setStorage } = weatherStorage()
+  const { store, getStorage, setStorage } = weatherStorage()
 
   const fieldset = document.querySelector('fieldset')
   const input = document.querySelector('input')
@@ -43,10 +43,13 @@ async function bootstrap() {
     input.parentNode.classList.remove('is-loading')
   }
 
-  const submit = document.querySelector('button')
-  submit.addEventListener('click', () => {
-    enableLoading()
-    weatherApi('/weather/search', { query: input.value })
+  const fetchWeather = (location) => {
+    renderForecast(location)
+      .then(() => updateLocation(location))
+  }
+
+  const searchWeather = (query) => {
+    weatherApi('/weather/search', { query })
       .then(([res]) => {
         const location = {
           location: res.local_names.ru ?? res.local_names.en,
@@ -54,20 +57,29 @@ async function bootstrap() {
           lon: Number(res.lon.toFixed(2))
         }
 
-        renderForecast(location)
-          .then(() => updateLocation(location))
+        fetchWeather(location)
       })
       .catch(() => {
         disableLoading()
         input.classList.add('is-danger')
       })
+  }
+
+  const submit = document.querySelector('button')
+  submit.addEventListener('click', () => {
+    enableLoading()
+    const currentStore = getStorage()
+
+    if (currentStore.location === input.value) {
+      fetchWeather(currentStore)
+    } else {
+      searchWeather(input.value)
+    }
   })
 
   setLocationInDom(store.location)
   enableLoading()
-
-  renderForecast(store)
-    .then(() => updateLocation(store))
+  fetchWeather(store)
 }
 
 bootstrap()
@@ -75,12 +87,13 @@ bootstrap()
 async function renderForecast(options) {
   const section = document.querySelector('.section')
   const columns = document.createElement('div')
+  columns.id = 'weather'
   columns.classList.add('columns', 'is-multiline')
 
   const weather = await weatherApi('/weather/forecast', options)
 
   document
-    .querySelectorAll('.columns')
+    .querySelectorAll('#weather')
     .forEach((column) => column.remove())
 
   if ('alerts' in weather) {
@@ -99,22 +112,26 @@ async function renderForecast(options) {
 
 function weatherStorage() {
   const storageKey = 'geolocation'
-  const storageValue = localStorage.getItem(storageKey) ?? initialValue
+
+  const getStorage = () => {
+    const storageValue = localStorage.getItem(storageKey) ?? WEATHER_CONFIG
+
+    try {
+      return JSON.parse(storageValue)
+    } catch {
+      localStorage.removeItem(storageKey)
+      return WEATHER_CONFIG
+    }
+  }
+
   const setStorage = (value) => {
     localStorage.setItem(storageKey, JSON.stringify(value))
   }
 
-  try {
-    return {
-      store: JSON.parse(storageValue),
-      setStorage
-    }
-  } catch {
-    localStorage.removeItem(storageKey)
-    return {
-      store: initialValue,
-      setStorage
-    }
+  return {
+    store: getStorage(),
+    getStorage,
+    setStorage
   }
 }
 
