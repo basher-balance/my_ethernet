@@ -1,30 +1,52 @@
+// background
+document.body.classList.add('weather-background')
+
+// initial weather location
 const initialValue = {
   location: 'Петропавловск',
-  lat: 54.87,
-  lon: 69.16
+  lat: 54.89,
+  lon: 69.18
 }
 
 async function bootstrap() {
-  document.body.classList.add('weather-background')
-  const { location, lat, lon, setLocation } = weatherStorage()
+  const { store, setStorage } = weatherStorage()
 
   const fieldset = document.querySelector('fieldset')
   const input = document.querySelector('input')
+  input.value = store.location
   input.addEventListener('keydown', (event) => {
     if (event.key === 'Enter') {
       submit.click()
     }
   })
-  input.value = location
 
-  const submit = document.querySelector('button')
-  submit.addEventListener('click', () => {
+  const setLocationInDom = (location) => {
+    const title = document.querySelector('.hero-body > .title')
+    title.textContent = `Погода ${location}`
+    input.value = location
+  }
+
+  const updateLocation = (store) => {
+    setLocationInDom(store.location)
+    setStorage(store)
+    disableLoading()
+  }
+
+  const enableLoading = () => {
     fieldset.setAttribute('disabled', 'true')
     input.classList.remove('is-danger')
     input.parentNode.classList.add('is-loading')
-    const query = input.value
+  }
 
-    weatherApi('/weather/search', { query })
+  const disableLoading = () => {
+    fieldset.removeAttribute('disabled')
+    input.parentNode.classList.remove('is-loading')
+  }
+
+  const submit = document.querySelector('button')
+  submit.addEventListener('click', () => {
+    enableLoading()
+    weatherApi('/weather/search', { query: input.value })
       .then(([res]) => {
         const location = {
           location: res.local_names.ru ?? res.local_names.en,
@@ -32,28 +54,25 @@ async function bootstrap() {
           lon: Number(res.lon.toFixed(2))
         }
 
-        setLocation(location)
         renderForecast(location)
-        input.value = location.location
+          .then(() => updateLocation(location))
       })
       .catch(() => {
+        disableLoading()
         input.classList.add('is-danger')
-      })
-      .finally(() => {
-        fieldset.removeAttribute('disabled')
-        input.parentNode.classList.remove('is-loading')
       })
   })
 
-  renderForecast({ location, lat, lon })
+  setLocationInDom(store.location)
+  enableLoading()
+
+  renderForecast(store)
+    .then(() => updateLocation(store))
 }
 
 bootstrap()
 
 async function renderForecast(options) {
-  const title = document.querySelector('.hero-body > .title')
-  title.textContent = `Погода ${options.location}`
-
   const section = document.querySelector('.section')
   const columns = document.createElement('div')
   columns.classList.add('columns', 'is-multiline')
@@ -81,20 +100,20 @@ async function renderForecast(options) {
 function weatherStorage() {
   const storageKey = 'geolocation'
   const storageValue = localStorage.getItem(storageKey) ?? initialValue
-  const setLocation = (value) => {
+  const setStorage = (value) => {
     localStorage.setItem(storageKey, JSON.stringify(value))
   }
 
   try {
     return {
-      ...JSON.parse(storageValue),
-      setLocation
+      store: JSON.parse(storageValue),
+      setStorage
     }
   } catch {
     localStorage.removeItem(storageKey)
     return {
-      ...initialValue,
-      setLocation
+      store: initialValue,
+      setStorage
     }
   }
 }
