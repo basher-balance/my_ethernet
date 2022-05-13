@@ -117,7 +117,7 @@ function renderAlerts(alerts) {
           <p>${key}</p>
         </div>
         <div class="message-body">
-          ${value}
+          ${firstUpper(value)}
         </div>
       </article>
     `
@@ -155,8 +155,8 @@ function renderCurrentlyWeather(data) {
         <span>Восход: </span>${dateFormat(sunrise * 1000)}<br>
         <span>Влажность: </span>${humidity} %<br>
         <span>Облачность: </span>${clouds} %<br>
-        <span>Скорость ветра: </span>${wind_speed} м/c.<br>
-        <span>Состояние: </span>${description}<br>
+        <span>Скорость ветра: </span>${wind_speed} м/c<br>
+        <span>Состояние: </span>${firstUpper(description)}<br>
       </div>
     </div>
   `
