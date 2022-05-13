@@ -62,6 +62,10 @@ function acceptDelete(event) {
   }
 }
 
+function firstUpper(str) {
+  return str[0].toUpperCase() + str.substr(1)
+}
+
 function initEgg() {
   const target = document.querySelector('.navbar-brand > .navbar-item')
   target.addEventListener('mouseenter', (event) => {
