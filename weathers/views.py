@@ -33,8 +33,8 @@ def weather_onecall_api(request):
 
         url = "https://api.openweathermap.org/data/2.5/onecall"
         options = dict(
-            lat=body.get("lat", 54.87),
-            lon=body.get("lon", 69.16),
+            lat=body.get("lat"),
+            lon=body.get("lon"),
         )
 
         response = weather_request(
