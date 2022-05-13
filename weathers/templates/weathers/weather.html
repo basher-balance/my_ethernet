@@ -17,9 +17,6 @@
 {% endblock %}
 {% block content %}
 {% csrf_token %}
-<div class="columns is-multiline">
-  <div class="column is-full"></div>
-  <script src="static/js/weather.js"></script>
-  <script>loadCSS('static/css/weather.css');</script>
-</div>
+<script src="static/js/weather.js"></script>
+<script>loadCSS('static/css/weather.css');</script>
 {% endblock %}

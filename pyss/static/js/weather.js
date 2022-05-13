@@ -27,7 +27,7 @@ async function bootstrap() {
     weatherApi('/weather/search', { query })
       .then(([res]) => {
         const location = {
-          location: res.local_names.ru,
+          location: res.local_names.ru ?? res.local_names.en,
           lat: Number(res.lat.toFixed(2)),
           lon: Number(res.lon.toFixed(2))
         }
@@ -54,9 +54,27 @@ async function renderForecast(options) {
   const title = document.querySelector('.hero-body > .title')
   title.textContent = `Погода ${options.location}`
 
+  const section = document.querySelector('.section')
+  const columns = document.createElement('div')
+  columns.classList.add('columns', 'is-multiline')
+
   const weather = await weatherApi('/weather/forecast', options)
-  renderCurrentlyWeather(weather.current)
-  renderDailyWeather(weather.daily)
+
+  document
+    .querySelectorAll('.columns')
+    .forEach((column) => column.remove())
+
+  if ('alerts' in weather) {
+    const alerts = columns.cloneNode(true)
+    alerts.append(...renderAlerts(weather.alerts))
+    section.appendChild(alerts)
+  }
+
+  const current = renderCurrentlyWeather(weather.current)
+  const daily = renderDailyWeather(weather.daily)
+  columns.append(current, ...daily)
+  section.appendChild(columns)
+
   console.log(weather)
 }
 
@@ -81,6 +99,35 @@ function weatherStorage() {
   }
 }
 
+function renderAlerts(alerts) {
+  const columns = []
+
+  const events = alerts.reduce((acc, alert) => {
+    if (!alert.description) return acc
+    acc.set(alert.event, alert.description)
+    return acc
+  }, new Map())
+
+  for (const [key, value] of events.entries()) {
+    const column = document.createElement('div')
+    column.classList.add('column')
+    column.innerHTML = `
+      <article class="message is-danger">
+        <div class="message-header">
+          <p>${key}</p>
+        </div>
+        <div class="message-body">
+          ${value}
+        </div>
+      </article>
+    `
+
+    columns.push(column)
+  }
+
+  return columns
+}
+
 function renderCurrentlyWeather(data) {
   const {
     dt,
@@ -94,8 +141,9 @@ function renderCurrentlyWeather(data) {
   } = data
   const { icon, description } = weather[0]
 
-  const container = document.querySelector('.column')
-  container.innerHTML = `
+  const column = document.createElement('div')
+  column.classList.add('column', 'is-full')
+  column.innerHTML = `
     <div class="card has-background-dark has-text-light mb-5">
       <div class="card-content">
         <div class="weather-title">
@@ -112,13 +160,12 @@ function renderCurrentlyWeather(data) {
       </div>
     </div>
   `
+
+  return column
 }
 
 function renderDailyWeather(weathers) {
-  document
-    .querySelectorAll('.is-one-third')
-    .forEach((el) => el.remove())
-  const container = document.querySelector('.columns')
+  const columns = []
 
   for (const weather of weathers) {
     const {
@@ -153,8 +200,10 @@ function renderDailyWeather(weathers) {
       </div>
     `
 
-    container.appendChild(column)
+    columns.push(column)
   }
+
+  return columns
 }
 
 async function weatherApi(url, body) {
