@@ -1,8 +1,12 @@
-document.body.classList.add('weather-background')
-const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value
+const initialValue = {
+  location: 'Петропавловск',
+  lat: 54.87,
+  lon: 69.16
+}
 
 async function bootstrap() {
-  const { location, lat, lon, setItem } = weatherStorage()
+  document.body.classList.add('weather-background')
+  const { location, lat, lon, setLocation } = weatherStorage()
 
   const fieldset = document.querySelector('fieldset')
   const input = document.querySelector('input')
@@ -28,7 +32,7 @@ async function bootstrap() {
           lon: Number(res.lon.toFixed(2))
         }
 
-        setItem(location)
+        setLocation(location)
         renderForecast(location)
         input.value = location.location
       })
@@ -58,26 +62,21 @@ async function renderForecast(options) {
 
 function weatherStorage() {
   const storageKey = 'geolocation'
-  const initialValue = {
-    location: 'Петропавловск',
-    lat: 54.87,
-    lon: 69.16
-  }
   const storageValue = localStorage.getItem(storageKey) ?? initialValue
-  const setItem = (value) => {
+  const setLocation = (value) => {
     localStorage.setItem(storageKey, JSON.stringify(value))
   }
 
   try {
     return {
       ...JSON.parse(storageValue),
-      setItem
+      setLocation
     }
   } catch {
     localStorage.removeItem(storageKey)
     return {
       ...initialValue,
-      setItem
+      setLocation
     }
   }
 }
@@ -106,9 +105,9 @@ function renderCurrentlyWeather(data) {
         <span>Темп.: </span>${temp} °C<br></b>
         <span>Давление: </span>${Math.round(pressure * 0.75)} mmHg<br>
         <span>Восход: </span>${dateFormat(sunrise * 1000)}<br>
-        <span>Влажность: </span>${humidity}<br>
-        <span>Облачность: </span>${clouds}<br>
-        <span>Скорость ветка: </span>${wind_speed}<br>
+        <span>Влажность: </span>${humidity} %<br>
+        <span>Облачность: </span>${clouds} %<br>
+        <span>Скорость ветра: </span>${wind_speed} м/c.<br>
         <span>Состояние: </span>${description}<br>
       </div>
     </div>
@@ -158,18 +157,9 @@ function renderDailyWeather(weathers) {
   }
 }
 
-// GeoLocation API
-// https://developer.mozilla.org/ru/docs/Web/API/Geolocation_API
-// function getCurrentPosition(callback) {
-//   navigator.geolocation.getCurrentPosition(
-//     ({ coords }) => callback(coords),
-//     (err) => alert(err.message),
-//     { enableHighAccuracy: true }
-//   )
-// }
-
 async function weatherApi(url, body) {
   try {
+    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value
     const response = await fetch(url, {
       method: 'POST',
       headers: {
