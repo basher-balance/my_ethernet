@@ -29,7 +29,7 @@
   <nav class="navbar is-fixed-top is-dark" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
       <a class="navbar-item" href="https://twitch.tv/ucsm" target="_blank">
-        <img src="static/avatar.png">
+        <img src="static/images/avatar.png">
       </a>
       <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
         <span aria-hidden="true"></span>
@@ -160,6 +160,8 @@
         {% block subtitle %}
         {% endblock %}
       </p>
+      {% block hero_body %}
+      {% endblock %}
     </div>
     <div class="hero-foot">
       <nav class="tabs is-boxed is-fullwidth pl-5 pr-5">

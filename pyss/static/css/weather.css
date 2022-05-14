@@ -3,3 +3,25 @@
   flex-direction: row;
   align-items: center;
 }
+
+.weather-background {
+  background: url("/static/images/weather.jpg");
+  background-attachment: fixed;
+  background-repeat: repeat;
+  background-size: cover;
+}
+
+.control.is-loading::after {
+  right: 12px;
+  top: 12px;
+}
+
+.control-input {
+  width: 250px;
+}
+
+@media screen and (max-width: 768px) {
+  .control-input {
+    width: 100%;
+  }
+}
