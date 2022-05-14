@@ -34,9 +34,7 @@ def posts_vk_group():
     sorted_all_respons = sorted(all_respons, reverse=True, key=itemgetter("date"))
     for sorted_all_respon in sorted_all_respons:
         try:
-            link_post = (
-                f'http://{sorted_all_respon["text"].split(": http://")[1].split("\n")[0]}'
-            )
+            link_post = fr"http://{sorted_all_respon['text'].split(': http://')[1].split('/n')[0]}"
         except IndexError:
             link_post = "http://habr.com"
         try:
