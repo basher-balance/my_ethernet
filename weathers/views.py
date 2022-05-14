@@ -1,18 +1,63 @@
-from django.shortcuts import render, redirect
-from .models import Weather, Weather_Today
+from django.http import JsonResponse
+from .keys import appid
+from django.shortcuts import render
+import requests
+import json
+from django.core.exceptions import BadRequest
 
 
 def weather(request):
-    """Выводит данные из моделей Weather и Weather_Today"""
-    weather_week = list(Weather.objects.all().values_list("weather_daily"))
-    weather_today = list(Weather_Today.objects.values())
-    # weather_diagram = list(Weather.objects.all().values_list('diagram'))
-    return render(
-        request,
-        "weathers/weather.html",
-        {
-            "weather_week": weather_week[0][0][1:],
-            "weather_today": weather_today[0],
-            #'weather_diagram': weather_diagram[0][0][1:],
-        },
+    return render(request, "weathers/weather.html")
+
+
+# TODO refactoring
+def weather_direct_api(request):
+    if request.method == "POST":
+        body = json.loads(request.body)
+        query = body.get("query")
+
+        url = "https://api.openweathermap.org/geo/1.0/direct"
+        options = dict(q=query)
+        response = weather_request(
+            url,
+            options,
+        )
+        if not len(response):
+            raise BadRequest
+        return JsonResponse(response, safe=False)
+
+
+def weather_onecall_api(request):
+    if request.method == "POST":
+        body = json.loads(request.body)
+
+        url = "https://api.openweathermap.org/data/2.5/onecall"
+        options = dict(
+            lat=body.get("lat"),
+            lon=body.get("lon"),
+        )
+
+        response = weather_request(
+            url,
+            options,
+        )
+        return JsonResponse(response)
+
+
+def weather_request(url, options):
+    params = dict(
+        limit=1,
+        lang="ru",
+        units="metric",
+        appid=appid,
     )
+
+    params.update(options)
+
+    response = requests.get(
+        url=url,
+        params=params,
+    )
+
+    data = response.json()
+    return data

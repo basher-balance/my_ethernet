@@ -42,14 +42,12 @@ def data_last_element_anime(id=None):
             for link in (data_scrapping(urls_site_naruto + "?page" + str(i + 1), "a"))
             if id in link.get_text()
         ]
-        if len(anime_ID) == 0:
-            pass
+        if not len(anime_ID):
+            continue
         else:
             link_anime = url_naruto_base + anime_ID[0]
             # Поиск ссылки на последний эпизод аниме с сабами и без на портале Sibnet
             last_episode_sub = data_scrapping(link_anime, "a", id="ep6")
-            # last_episode = data_scrapping(link_anime, 'a', id="ep14")
-            # result_sub = re.search(r'\d{7}', str(last_episode_sub))[0]
             try:
                 result_dub = re.search(r"\d{7}", str(last_episode_sub))[0]
             except TypeError:
@@ -58,7 +56,7 @@ def data_last_element_anime(id=None):
                 link_name_and_element_anime = data_scrapping(link_anime, "h1")[0].text
                 # link_result_sub = 'https://video.sibnet.ru/shell.php?videoid=' + result_sub
                 link_result_dub = (
-                    "https://video.sibnet.ru/shell.php?videoid=" + result_dub
+                    f"https://video.sibnet.ru/shell.php?videoid={result_dub}"
                 )
                 try:
                     anime_title_anime = Anime.objects.create(

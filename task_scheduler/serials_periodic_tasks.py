@@ -9,8 +9,6 @@ from .tasks import process_user_stats
 
 def parse_serials():
     logging.warning("It is time to start the dramatiq task serials")
-    imgs_serial_list = []
-    titles_serial_list = []
     feed_data = feedparser.parse("http://seasonvar.ru/rss.php")
     for z in feed_data["entries"]:
         if "сезон полностью" in z["title"].split(" серия")[0].split(",")[-1].lstrip():
@@ -33,30 +31,13 @@ def parse_serials():
                 obj, created = Serial.objects.update_or_create(
                     title=z["title"].split(",")[0].split("(")[0].rstrip(),
                     defaults={
-                        'img': z["link"].split("-")[1],
-                        'serial_and_season': "".join(z["title"].split(",")[:-1]),
-                        'episode': ep
-                        },
-                    )
+                        "img": z["link"].split("-")[1],
+                        "serial_and_season": "".join(z["title"].split(",")[:-1]),
+                        "episode": ep,
+                    },
+                )
 
-
-                #                new_serial = Serial.objects.create(
-#                    title=z["title"].split(",")[0].split("(")[0].rstrip(),
-#                    img=z["link"].split("-")[1],
-#                    serial_and_season="".join(z["title"].split(",")[:-1]),
-#                    episode=ep,
-#                )
-#                new_serial.save(force_cteate=True)
             except IntegrityError:
                 pass
             finally:
                 process_user_stats.send()
-            #            new_serial = Serial.objects.create(title=z['title'].split(',')[0].split('(')[0].rstrip(), img = z["link"].split("-")[1])
-
-
-#            new_serial = Serial.objects.create(title=z['title'].split(',')[0].split('(')[0].rstrip(), img = z["link"].split("-")[1], serial_and_season=''.join(z["title"].split(',')[:-1]), episode=ep)
-#            new_serial.save()
-#        except IntegrityError:
-#            pass
-#        finally:
-#            process_user_stats.send()
