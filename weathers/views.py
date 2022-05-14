@@ -1,5 +1,5 @@
 from django.http import JsonResponse
-from .keys import appid
+from task_scheduler.keys import appid
 from django.shortcuts import render
 import requests
 import json
