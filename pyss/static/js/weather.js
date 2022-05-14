@@ -138,22 +138,22 @@ function weatherStorage() {
 function renderAlerts(alerts) {
   const columns = []
 
-  const events = alerts.reduce((acc, alert) => {
+  const weatherAlerts = alerts.reduce((acc, alert) => {
     if (!alert.description) return acc
     acc.set(alert.event, alert.description)
     return acc
   }, new Map())
 
-  for (const [key, value] of events.entries()) {
+  for (const [alertName, alertDescription] of weatherAlerts.entries()) {
     const column = document.createElement('div')
     column.classList.add('column')
     column.innerHTML = `
       <article class="message is-danger">
         <div class="message-header">
-          <p>${key}</p>
+          <p>${alertName}</p>
         </div>
         <div class="message-body">
-          ${firstUpper(value)}
+          ${firstUpper(alertDescription)}
         </div>
       </article>
     `
