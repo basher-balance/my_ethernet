@@ -1,0 +1,22 @@
+version:
+  '3'
+services:
+  redis:
+    container_name:
+      'redis'
+    image:
+      'redis:alpine'
+    ports:
+      - "6378:6379"
+    volumes:
+      - 'redisdata:/data'
+  web:
+    build: .
+    command: python manage.py run_scheduler runserver 0.0.0.0:8001
+    ports:
+      - "8001:8001"
+    depends_on:
+      - redis 
+volumes:
+  redisdata:
+
