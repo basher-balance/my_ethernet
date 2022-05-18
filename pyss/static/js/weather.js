@@ -14,6 +14,11 @@ async function bootstrap() {
   const fieldset = document.querySelector('fieldset')
   const input = document.querySelector('input')
   input.value = store.location
+
+  fieldset.addEventListener('animationend', () => {
+    fieldset.classList.remove('input-shake')
+  })
+
   input.addEventListener('keydown', (event) => {
     if (event.key === 'Enter') {
       submit.click()
@@ -43,6 +48,10 @@ async function bootstrap() {
     input.parentNode.classList.remove('is-loading')
   }
 
+  const shakeInput = () => {
+    fieldset.classList.add('input-shake')
+  }
+
   const fetchWeather = (location) => {
     weatherApi('/weather/forecast', location)
       .then((response) => {
@@ -65,6 +74,7 @@ async function bootstrap() {
         renderForecast(weather)
       })
       .catch(() => {
+        shakeInput()
         disableLoading()
         input.classList.add('is-danger')
       })
@@ -72,6 +82,11 @@ async function bootstrap() {
 
   const submit = document.querySelector('button')
   submit.addEventListener('click', () => {
+    if (!input.value) {
+      shakeInput()
+      return
+    }
+
     enableLoading()
     const currentStore = getStorage()
 
