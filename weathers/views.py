@@ -1,13 +1,15 @@
 import requests
 import json
 
-from django.http import JsonResponse
-
 from task_scheduler.keys import appid
+from django.http import JsonResponse
 from django.core.exceptions import BadRequest
 from django.views.decorators.http import require_POST
 from django.views.generic import TemplateView
 
+
+direct_url = "https://api.openweathermap.org/geo/1.0/direct"
+onecall_url = "https://api.openweathermap.org/data/2.5/onecall"
 
 
 class WeatherView(TemplateView):
@@ -15,40 +17,37 @@ class WeatherView(TemplateView):
 
 
 @require_POST
-def weather_direct_api(request):
-    url = "https://api.openweathermap.org/geo/1.0/direct"
-    response = request_handler(request, url)
-    if not len(response):
-        raise BadRequest
-    return JsonResponse(response, safe=False)
+def weather_search_api(request):
+    body = json.loads(request.body)
+    query = body.get("query")
+    direct_options = dict(q=query)
+
+    direct_response = api_request(direct_url, direct_options)
+    if not direct_response:
+        raise BadRequest()
+
+    weather_options = dict(
+        lat=direct_response[0].get("lat"),
+        lon=direct_response[0].get("lon"),
+    )
+    weather_response = api_request(onecall_url, weather_options)
+    return JsonResponse({
+        "direct": direct_response,
+        "weather": weather_response,
+    })
 
 
 @require_POST
-def weather_onecall_api(request):
-
-    url = "https://api.openweathermap.org/data/2.5/onecall"
-    response = request_handler(request, url)
+def weather_forecast_api(request):
+    body = json.loads(request.body)
+    lat = body.get("lat")
+    lon = body.get("lon")
+    options = dict(lat=lat, lon=lon)
+    response = api_request(onecall_url, options)
     return JsonResponse(response)
 
 
-def request_handler(req, url: str):
-    body = json.loads(req.body)
-    query = body.get("query")
-    if "direct" in url:
-        options = dict(q=query)
-        response = weather_request(url, options)
-        return response
-    elif "onecall" in url:
-        options = dict(
-            lat=body.get("lat"),
-            lon=body.get("lon"),
-        )
-
-        response = weather_request(url, options)
-        return response
-
-
-def weather_request(url, options):
+def api_request(url, options):
     params = dict(
         limit=1,
         lang="ru",
@@ -63,5 +62,4 @@ def weather_request(url, options):
         params=params,
     )
 
-    data = response.json()
-    return data
+    return response.json()

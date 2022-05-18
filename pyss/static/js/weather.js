@@ -44,20 +44,25 @@ async function bootstrap() {
   }
 
   const fetchWeather = (location) => {
-    renderForecast(location)
-      .then(() => updateLocation(location))
+    weatherApi('/weather/forecast', location)
+      .then((response) => {
+        updateLocation(location)
+        renderForecast(response)
+      })
   }
 
   const searchWeather = (query) => {
     weatherApi('/weather/search', { query })
-      .then(([res]) => {
+      .then(({ direct, weather }) => {
+        const { local_names, lat, lon } = direct[0]
         const location = {
-          location: res.local_names.ru ?? res.local_names.en,
-          lat: Number(res.lat.toFixed(2)),
-          lon: Number(res.lon.toFixed(2))
+          location: local_names.ru ?? local_names.en,
+          lat: Number(lat.toFixed(2)),
+          lon: Number(lon.toFixed(2))
         }
 
-        fetchWeather(location)
+        updateLocation(location)
+        renderForecast(weather)
       })
       .catch(() => {
         disableLoading()
@@ -84,13 +89,11 @@ async function bootstrap() {
 
 bootstrap()
 
-async function renderForecast(options) {
+function renderForecast(weather) {
   const section = document.querySelector('.section')
   const columns = document.createElement('div')
   columns.id = 'weather'
   columns.classList.add('columns', 'is-multiline')
-
-  const weather = await weatherApi('/weather/forecast', options)
 
   document
     .querySelectorAll('#weather')
@@ -106,8 +109,6 @@ async function renderForecast(options) {
   const daily = renderDailyWeather(weather.daily)
   columns.append(current, ...daily)
   section.appendChild(columns)
-
-  console.log(weather)
 }
 
 function weatherStorage() {
