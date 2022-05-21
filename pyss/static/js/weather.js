@@ -14,6 +14,11 @@ async function bootstrap() {
   const fieldset = document.querySelector('fieldset')
   const input = document.querySelector('input')
   input.value = store.location
+
+  fieldset.addEventListener('animationend', () => {
+    fieldset.classList.remove('input-shake')
+  })
+
   input.addEventListener('keydown', (event) => {
     if (event.key === 'Enter') {
       submit.click()
@@ -43,23 +48,33 @@ async function bootstrap() {
     input.parentNode.classList.remove('is-loading')
   }
 
+  const shakeInput = () => {
+    fieldset.classList.add('input-shake')
+  }
+
   const fetchWeather = (location) => {
-    renderForecast(location)
-      .then(() => updateLocation(location))
+    weatherApi('/weather/forecast', location)
+      .then((response) => {
+        updateLocation(location)
+        renderForecast(response)
+      })
   }
 
   const searchWeather = (query) => {
     weatherApi('/weather/search', { query })
-      .then(([res]) => {
+      .then(({ direct, weather }) => {
+        const { local_names, lat, lon } = direct[0]
         const location = {
-          location: res.local_names.ru ?? res.local_names.en,
-          lat: Number(res.lat.toFixed(2)),
-          lon: Number(res.lon.toFixed(2))
+          location: local_names.ru ?? local_names.en,
+          lat: Number(lat.toFixed(2)),
+          lon: Number(lon.toFixed(2))
         }
 
-        fetchWeather(location)
+        updateLocation(location)
+        renderForecast(weather)
       })
       .catch(() => {
+        shakeInput()
         disableLoading()
         input.classList.add('is-danger')
       })
@@ -67,6 +82,11 @@ async function bootstrap() {
 
   const submit = document.querySelector('button')
   submit.addEventListener('click', () => {
+    if (!input.value) {
+      shakeInput()
+      return
+    }
+
     enableLoading()
     const currentStore = getStorage()
 
@@ -84,13 +104,11 @@ async function bootstrap() {
 
 bootstrap()
 
-async function renderForecast(options) {
+function renderForecast(weather) {
   const section = document.querySelector('.section')
   const columns = document.createElement('div')
   columns.id = 'weather'
   columns.classList.add('columns', 'is-multiline')
-
-  const weather = await weatherApi('/weather/forecast', options)
 
   document
     .querySelectorAll('#weather')
@@ -106,8 +124,6 @@ async function renderForecast(options) {
   const daily = renderDailyWeather(weather.daily)
   columns.append(current, ...daily)
   section.appendChild(columns)
-
-  console.log(weather)
 }
 
 function weatherStorage() {
