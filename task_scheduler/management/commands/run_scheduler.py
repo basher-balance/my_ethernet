@@ -13,7 +13,7 @@ from task_scheduler.twitch_periodic_tasks import twitch_parse
 from task_scheduler.youtube_periodic_tasks import youtube_parse
 from task_scheduler.serials_periodic_tasks import parse_serials
 from task_scheduler.torrents_periodic_tasks import torrents_parse
-from task_scheduler.hh_periodic_tasks import hh_parse
+from task_scheduler.hh_periodic_tasks import create_object
 
 
 class Command(BaseCommand):
@@ -23,7 +23,7 @@ class Command(BaseCommand):
         self.stdout.write(self.style.NOTICE("Preparing scheduler"))
         scheduler = BlockingScheduler(timezone=pytz.UTC)
         # Запускаю функции парсинга при запуске планировщика
-        hh_parse()
+        create_object()
         torrents_parse()
         parse_serials()
         youtube_parse()
@@ -34,7 +34,7 @@ class Command(BaseCommand):
         manga_parse()
         last_series_anime()
         # Создаю интервалы обновления
-        time_update_hh = IntervalTrigger(minutes=60)
+        time_update_hh= IntervalTrigger(minutes=60)
         time_update_torrents = IntervalTrigger(minutes=45)
         time_update_serials = IntervalTrigger(minutes=45)
         time_update_youtube = IntervalTrigger(minutes=15)
@@ -46,7 +46,7 @@ class Command(BaseCommand):
         time_update_anime= IntervalTrigger(minutes=100)
 
         # Добавляю в планировщик с установленными интервалами
-        scheduler.add_job(hh_parse, time_update_hh)
+        scheduler.add_job(create_object, time_update_hh)
         scheduler.add_job(torrents_parse, time_update_torrents)
         scheduler.add_job(parse_serials, time_update_serials)
         scheduler.add_job(youtube_parse, time_update_youtube)
