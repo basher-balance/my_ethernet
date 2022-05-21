@@ -43,7 +43,7 @@ class Command(BaseCommand):
         time_update_news = IntervalTrigger(minutes=60)
         time_update_currency = IntervalTrigger(minutes=60)
         time_update_manga = IntervalTrigger(minutes=100)
-        time_update_anime = IntervalTrigger(minutes=100)
+        time_update_anime= IntervalTrigger(minutes=100)
 
         # Добавляю в планировщик с установленными интервалами
         scheduler.add_job(hh_parse, time_update_hh)
