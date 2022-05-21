@@ -64,4 +64,4 @@ async def main():
         create_object(clear_hh)
         #print(jsons_list[0]['items'][0]['salary'])
         #print(jsons_list)
-asyncio.run(main()) 
+asyncio.run(main())
