@@ -52,23 +52,28 @@ async def get_name_and_id_anime():
 
         tasks_two = (get_html(client, link) for link in list_url_anime)
         list_content_anime = await asyncio.gather(*tasks_two)
-        dict_name_id = {}
-        for content_anime in list_content_anime:
-            soup = BeautifulSoup(content_anime, 'lxml')
-            name_anime = soup.find('h1', attrs={'itemprop':'name'}).string
-            id_video = str(soup.find('a', id='ep6')).split("'")[1]
-            dict_name_id[name_anime] = id_video
-            try:
-                anime_title_anime = Anime.objects.create(
-                        title_anime=name_anime,
-                        id_anime=id_video,
-                    )
-                anime_title_anime.save(force_update=True)
-            except IntegrityError:
-                pass
+        return list_content_anime
+
+list_anime_text = asyncio.run(get_name_and_id_anime())
+
+
+def parse_content_anime():
+    for content_anime in list_anime_text:
+        soup = BeautifulSoup(content_anime, 'lxml')
+        name_anime = soup.find('h1', attrs={'itemprop':'name'}).string
+        id_video = str(soup.find('a', id='ep6')).split("'")[1]
+        try:
+            anime_title_anime = Anime.objects.create(
+                    title_anime=name_anime,
+                    id_anime=id_video,
+                )
+                
+            anime_title_anime.save(force_update=True)
+        except IntegrityError:
+            pass
 
 
 def last_series_anime():
     logging.warning("It is time to start the dramatiq task anime")
-    asyncio.run(get_name_and_id_anime())
+    parse_content_anime()
     process_user_stats.send()
