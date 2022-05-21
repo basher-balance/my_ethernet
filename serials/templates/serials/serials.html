@@ -32,14 +32,14 @@
                   {{ serial.data }}
                 </div>
                 <hr class="dropdown-divider">
-                <a id="delete-button" class="dropdown-item" href="{% url 'serials:hidden_serial' pk=serial.id %}">
+                <a class="dropdown-item" href="{% url 'serials:hidden_serial' pk=serial.id %}">
                   <span class="icon is-small">
                     <i class="fas fa-eye-slash"></i>
                   </span>
                   Скрыть
                 </a>
                 <hr class="dropdown-divider">
-                <a id="delete-button" class="dropdown-item has-text-danger"
+                <a class="dropdown-item has-text-danger"
                   href="{% url 'serials:del_serial' pk=serial.id %}">
                   <span class="icon is-small">
                     <i class="fa-solid fa-trash"></i>

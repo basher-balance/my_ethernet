@@ -2,8 +2,8 @@ from django.db import IntegrityError
 from anime.models import Anime
 import logging
 import os
-import requests
-import re
+import asyncio
+import httpx
 
 from bs4 import BeautifulSoup
 from .tasks import process_user_stats
@@ -16,65 +16,64 @@ list_anime = [
     "Рыцарь-скелет вступает в параллельный мир",
     "Восхождение героя щита 2 сезон",
     "Перестану быть героем",
-    "Тусовщик Кунмин",
-    "Величайший Повелитель Демонов перерождается как типичное ничтожество",
+    #    "Тусовщик Кунмин",
+    "Величайший Повелитель Демонов перерождается как",
 ]
-urls_site_naruto = "https://naruto-base.su/novosti/drugoe_anime_ru"
-url_naruto_base = "https://naruto-base.su/"
+url_base = "https://naruto-base.su"
+link = f"{url_base}/novosti/drugoe_anime_ru"
 # Количество страниц, которое будет просматривать код
-pages = 7
+pages = 3
 
 
-def data_scrapping(link, *args, **params):
-    # Функция возвращающая данные из заданной страницы с заданными параметрами
-    data = requests.get(link)
-    data_insert = data.text
-    borsch = BeautifulSoup(data_insert, "lxml")
-    element_borsch = borsch.findAll(args, params)
-    return element_borsch
+async def get_html(client, url):
+        response = await client.get(url)
+        return response.text
 
 
-# Функция возвращающая ссылку на последнюю серию аниме по названию в заголовке файла, заданному в параметрах
-def data_last_element_anime(id=None):
-    for i in range(pages):
-        anime_ID = [
-            link["href"]
-            for link in (data_scrapping(urls_site_naruto + "?page" + str(i + 1), "a"))
-            if id in link.get_text()
-        ]
-        if len(anime_ID) == 0:
-            pass
-        else:
-            link_anime = url_naruto_base + anime_ID[0]
-            # Поиск ссылки на последний эпизод аниме с сабами и без на портале Sibnet
-            last_episode_sub = data_scrapping(link_anime, "a", id="ep6")
-            # last_episode = data_scrapping(link_anime, 'a', id="ep14")
-            # result_sub = re.search(r'\d{7}', str(last_episode_sub))[0]
-            try:
-                result_dub = re.search(r"\d{7}", str(last_episode_sub))[0]
-            except TypeError:
-                pass
-            else:
-                link_name_and_element_anime = data_scrapping(link_anime, "h1")[0].text
-                # link_result_sub = 'https://video.sibnet.ru/shell.php?videoid=' + result_sub
-                link_result_dub = (
-                    "https://video.sibnet.ru/shell.php?videoid=" + result_dub
+async def get_name_and_id_anime():
+    async with httpx.AsyncClient() as client:
+        tasks = (
+                get_html(
+                    client, f'{link}?page{page}') for page in range(1, pages)
                 )
-                try:
-                    anime_title_anime = Anime.objects.create(
-                        title_anime=link_name_and_element_anime,
-                        link_anime=link_result_dub,
-                    )
-                except IntegrityError:
-                    pass
-                else:
-                    anime_title_anime.save(force_update=True)
-                # puk[link_name_and_element_anime] = link_result_dub
-                break
+        list_content = await asyncio.gather(*tasks)
+        list_url_anime = []
+        for content in list_content:
+            soup = BeautifulSoup(content, "lxml")
+            tags_h2 = soup.find_all('h2')
+            for tag_h2 in tags_h2:
+                tag_title = tag_h2.get_text()
+                tag_href = tag_h2.find('a').get('href')
+                for anime in list_anime:
+                    if anime in tag_title:
+                        link_to_anime = f'{url_base}{tag_href}'
+                        list_url_anime.append(link_to_anime)
+                        list_anime.remove(anime)
+
+        tasks_two = (get_html(client, link) for link in list_url_anime)
+        list_content_anime = await asyncio.gather(*tasks_two)
+        return list_content_anime
+
+list_anime_text = asyncio.run(get_name_and_id_anime())
+
+
+def parse_content_anime():
+    for content_anime in list_anime_text:
+        soup = BeautifulSoup(content_anime, 'lxml')
+        name_anime = soup.find('h1', attrs={'itemprop':'name'}).string
+        id_video = str(soup.find('a', id='ep6')).split("'")[1]
+        try:
+            anime_title_anime = Anime.objects.create(
+                    title_anime=name_anime,
+                    id_anime=id_video,
+                )
+                
+            anime_title_anime.save(force_update=True)
+        except IntegrityError:
+            pass
 
 
 def last_series_anime():
     logging.warning("It is time to start the dramatiq task anime")
-    for anime in list_anime:
-        data_last_element_anime(id=anime)
+    parse_content_anime()
     process_user_stats.send()

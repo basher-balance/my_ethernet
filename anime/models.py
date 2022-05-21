@@ -5,7 +5,8 @@ class Anime(models.Model):
     """Модель аниме"""
 
     title_anime = models.CharField("Название и серия", max_length=50)
-    link_anime = models.URLField("Ссылка на anime", unique=True)
+#    link_anime = models.URLField("Ссылка на anime", unique=True)
+    id_anime = models.PositiveIntegerField("ID видео для портала sibnet", unique=True)
     date_added = models.DateTimeField(auto_now_add=True)
     _is_expired = models.BooleanField(default=False)
 

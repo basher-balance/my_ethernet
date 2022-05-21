@@ -4,6 +4,7 @@ from . import views
 
 app_name = "weathers"
 urlpatterns = [
-    # страница погоды
-    path("weather", views.weather, name="weather"),
+    path("weather", views.WeatherView.as_view(), name="weather"),
+    path("weather/forecast", views.weather_forecast_api),
+    path("weather/search", views.weather_search_api),
 ]

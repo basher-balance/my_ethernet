@@ -6,7 +6,7 @@ from .models import Anime
 def get_fresh_anime(request):
     list_anime = list(
         Anime.objects.filter(_is_expired=False).values(
-            "title_anime", "link_anime", "date_added", "id"
+            "title_anime", "id_anime", "date_added", "id"
         )
     )
     return render(request, "anime/anime.html", {"list_anime": list_anime})
