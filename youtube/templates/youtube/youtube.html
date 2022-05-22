@@ -22,14 +22,14 @@
             </div>
             <div class="dropdown-menu" id="dropdown-menu" role="menu">
               <div class="dropdown-content">
-                <a class="dropdown-item" href="https://www.youtube.com/watch?v={{ video.id_video }}" target="_blank">
+                <a class="dropdown-item has-text-link" href="https://www.youtube.com/watch?v={{ video.id_video }}" target="_blank">
                   <span class="icon is-small">
                     <i class="fa-solid fa-arrow-up-right-from-square"></i>
                   </span>
                   Перейти на видео
                 </a>
                 <hr class="dropdown-divider">
-                <a class="dropdown-item has-text-danger"
+                <a class="dropdown-item has-text-warning"
                   href="{% url 'youtube:hidden_video' pk=video.id %}">
                   <span class="icon is-small">
                     <i class="fas fa-eye-slash"></i>

@@ -24,14 +24,14 @@
             </div>
             <div class="dropdown-menu" id="dropdown-menu" role="menu">
               <div class="dropdown-content">
-                <a class="dropdown-item" href="http://d.rutor.info/download/{{ torrent.link }}" target="_blank">
+                <a class="dropdown-item has-text-success" href="http://d.rutor.info/download/{{ torrent.link }}" target="_blank">
                   <span class="icon is-small">
                     <i class="fa-solid fa-download"></i>
                   </span>
                   Скачать
                 </a>
                 <hr class="dropdown-divider">
-                <a class="dropdown-item has-text-danger"
+                <a class="dropdown-item has-text-warning"
                   href="{% url 'torrents:hidden_torrent' pk=torrent.id %}">
                   <span class="icon is-small">
                     <i class="fas fa-eye-slash"></i>

@@ -40,14 +40,14 @@
             </div>
             <div class="dropdown-menu" id="dropdown-menu" role="menu">
               <div class="dropdown-content">
-                <a class="dropdown-item" href="{{ news.link_news }}" target="_blank">
+                <a class="dropdown-item has-text-link" href="{{ news.link_news }}" target="_blank">
                   <span class="icon is-small">
                     <i class="fa-solid fa-arrow-up-right-from-square"></i>
                   </span>
                   Перейти на новость
                 </a>
                 <hr class="dropdown-divider">
-                <a class="dropdown-item has-text-danger" href="{% url 'news:hidden_news' pk=news.id %}">
+                <a class="dropdown-item has-text-warning" href="{% url 'news:hidden_news' pk=news.id %}">
                   <span class="icon is-small">
                     <i class="fas fa-eye-slash"></i>
                   </span>

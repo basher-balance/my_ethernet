@@ -2,6 +2,7 @@ import feedparser
 from django.db import IntegrityError
 from serials.models import Serial
 import logging
+import os
 
 from .tasks import process_user_stats
 

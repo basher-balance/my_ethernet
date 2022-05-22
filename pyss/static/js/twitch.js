@@ -49,7 +49,7 @@ async function bootstrap() {
                     На весь экран
                   </a>
                   <hr class="dropdown-divider">
-                  <a class="dropdown-item" href="https://twitch.tv/${channel.streamer}" target="_blank">
+                  <a class="dropdown-item has-text-link" href="https://twitch.tv/${channel.streamer}" target="_blank">
                     <span class="icon is-small">
                       <i class="fa-solid fa-arrow-up-right-from-square"></i>
                     </span>
@@ -66,7 +66,7 @@ async function bootstrap() {
                     <span class="icon is-small">
                       <i class="fas fa-eye-slash"></i>
                     </span>
-                    Скрыть
+                    Удалить 
                   </a>
                 </div>
               </div>
