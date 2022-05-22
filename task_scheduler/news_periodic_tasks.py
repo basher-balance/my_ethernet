@@ -1,5 +1,5 @@
 from django.db import IntegrityError
-from news.models import New
+from news.models import News
 import logging
 import os
 
@@ -21,7 +21,7 @@ def parse_news():
     list_ftg = list(find_title_tags)
     # Загружаю главную новость майл ру в базу если такой новости еще нет
     try:
-        general_new = New.objects.create(
+        general_new = News.objects.create(
             news=list_ftg[1].get_text(), link_news=list_ftg[0]["href"]
         )
         general_new.save(force_update=True)
@@ -35,7 +35,7 @@ def parse_news():
         for find_tag in find_tags:
             # Загружаю их в базу если таких нет
             try:
-                news_text_and_link = New.objects.create(
+                news_text_and_link = News.objects.create(
                     news=find_tag.find(
                         class_="news__list__item__link__text"
                     ).get_text(),

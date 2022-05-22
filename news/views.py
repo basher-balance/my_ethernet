@@ -1,11 +1,11 @@
 from django.shortcuts import render, redirect
-from .models import New
+from .models import News
 
 
 def get_fresh_news(request):
     """Передаёт в переменную список нескрытых новостей из БД"""
     list_news = list(
-        New.objects.filter(_is_expired=False).values(
+        News.objects.filter(_is_expired=False).values(
             "news", "link_news", "date_added", "id"
         )
     )
@@ -13,10 +13,10 @@ def get_fresh_news(request):
 
 
 def hidden_news(request, pk):
-    New.hidden(pk)
+    News.hidden(pk)
     return redirect("news:news")
 
 
 def delete_news(request):
-    New.objects.all().delete()
+    News.objects.all().delete()
     return redirect("news:news")

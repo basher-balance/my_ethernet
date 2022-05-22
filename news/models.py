@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class New(models.Model):
+class News(models.Model):
     """Новости с mail.ru"""
 
     news = models.TextField("Новость", max_length=200, unique=True)
@@ -10,6 +10,6 @@ class New(models.Model):
     _is_expired = models.BooleanField(default=False)
 
     def hidden(pk):
-        r = New.objects.get(pk=pk)
+        r = News.objects.get(pk=pk)
         r._is_expired = True
         r.save()
