@@ -1,7 +1,6 @@
 from django.db import IntegrityError
-from anime.models import Anime
+from anime.models import Anime, ListAnime
 import logging
-import os
 import asyncio
 import httpx
 
@@ -9,20 +8,13 @@ from bs4 import BeautifulSoup
 from .tasks import process_user_stats
 
 
-list_anime = [
-    "Семья шпиона",
-    "Мир отомэ-игр — это тяжёлый мир для мобов",
-    "Госпожа Кагуя: в любви как на войне",
-    "Рыцарь-скелет вступает в параллельный мир",
-    "Восхождение героя щита 2 сезон",
-    "Перестану быть героем",
-    #    "Тусовщик Кунмин",
-    "Величайший Повелитель Демонов перерождается как",
-]
+data = list(ListAnime.objects.values('title'))
+list_anime = [k['title'] for k in data]
+list_a = [k['title'] for k in data]
 url_base = "https://naruto-base.su"
 link = f"{url_base}/novosti/drugoe_anime_ru"
 # Количество страниц, которое будет просматривать код
-pages = 3
+pages = 4
 
 
 async def get_html(client, url):
@@ -52,6 +44,7 @@ async def get_name_and_id_anime():
 
         tasks_two = (get_html(client, link) for link in list_url_anime)
         list_content_anime = await asyncio.gather(*tasks_two)
+
         return list_content_anime
 
 list_anime_text = asyncio.run(get_name_and_id_anime())
@@ -60,17 +53,21 @@ list_anime_text = asyncio.run(get_name_and_id_anime())
 def parse_content_anime():
     for content_anime in list_anime_text:
         soup = BeautifulSoup(content_anime, 'lxml')
-        name_anime = soup.find('h1', attrs={'itemprop':'name'}).string
+        name_anime = soup.find('h1', attrs={'itemprop':'name'}).get_text()
         id_video = str(soup.find('a', id='ep6')).split("'")[1]
-        try:
-            anime_title_anime = Anime.objects.create(
-                    title_anime=name_anime,
+        for a in list_a:
+            if a in name_anime:
+                obj, created = Anime.objects.update_or_create(
                     id_anime=id_video,
-                )
-                
-            anime_title_anime.save(force_update=True)
-        except IntegrityError:
-            pass
+                    defaults={
+                        "title_anime": name_anime,
+                        },
+                    )
+    for undetected_anime in list_anime:
+        obj = ListAnime.objects.get(
+            title=undetected_anime,
+        )
+        obj.delete()
 
 
 def last_series_anime():

@@ -57,6 +57,8 @@ INSTALLED_APPS = [
     "torrents",
     # Вакаснии
     "hh",
+    # Дашборд
+    "dashboard",
     # Основное приложение-планировщик
     "django_dramatiq",
     "task_scheduler.apps.TaskSchedulerConfig",
@@ -106,17 +108,27 @@ WSGI_APPLICATION = "pys.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+#DATABASES = {
+#    "default": {
+#        "ENGINE": "django.db.backends.sqlite3",
+#        "NAME": BASE_DIR / "db.sqlite3",
+#        "OPTIONS": {
+#            "timeout": 20,  # in seconds
+#            # see also
+#            # https://docs.python.org/3.7/library/sqlite3.html#sqlite3.connect
+#        },
+#    }
+#}
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-        "OPTIONS": {
-            "timeout": 20,  # in seconds
-            # see also
-            # https://docs.python.org/3.7/library/sqlite3.html#sqlite3.connect
-        },
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'project_database',
+        'USER' : 'postgres',
+        'PASSWORD' : 'ucsm',
+        'HOST' : '127.0.0.1',
+        'PORT' : '5432',
+        }
     }
-}
 
 
 DRAMATIQ_REDIS_URL = os.getenv("REDIS_URL", "redis://127.0.0.1:6379/0")
@@ -156,9 +168,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "ru-ru"
 
-TIME_ZONE = "Asia/Dhaka"
+TIME_ZONE = "Asia/Almaty"
 
 USE_I18N = True
 

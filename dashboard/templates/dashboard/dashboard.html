@@ -1,0 +1,30 @@
+
+{% extends "pyss/home.html" %}
+{% block title %}DASHBOARD{% endblock %}
+{% block title_title %}DASHBOARD{% endblock %}
+{% block subtitle %}Источник: {% endblock %}
+{% block content %}
+<div class="columns is-multiline">
+  {% for m in list_undetected_anime %}
+  <article class="column message is-dark" style="background-color: transparent;">
+    <div class="message-header" style="border-radius: 4px;">
+      <p>
+      {{ m.title_undetected_anime }} - {{ m.date_added }}
+      </p>
+      <div style="display: flex; gap: 1rem;">
+        <a class="button is-success is-outlined" target="_blank" href="">
+          <span class="icon is-small">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          </span>
+        </a>
+        <a class="button is-warning is-outlined" href="">
+          <span class="icon is-small">
+            <i class="fas fa-trash"></i>
+          </span>
+        </a>
+      </div>
+    </div>
+  </article>
+  {% endfor %}
+</div>
+{% endblock %}

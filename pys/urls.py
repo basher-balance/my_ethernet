@@ -30,4 +30,5 @@ urlpatterns = [
     path("", include("serials.urls")),
     path("", include("torrents.urls")),
     path("", include("hh.urls")),
+    path("", include("dashboard.urls")),
 ]
