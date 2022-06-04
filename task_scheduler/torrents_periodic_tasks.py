@@ -1,10 +1,8 @@
 import feedparser
-from django.db import IntegrityError
-from torrents.models import Torrent
 import logging
-import os
 
 from .tasks import process_user_stats
+from torrents.models import Torrent
 
 
 serial = {
@@ -19,14 +17,11 @@ def torrents_parse():
         for z in range(len(d["entries"])):
             title_entries = d["entries"][z]["title"]
             if k in title_entries and v in title_entries:
-                try:
-                    new_torrent = Torrent.objects.create(
-                        title=d["entries"][z]["title"],
-                        link=d["entries"][z]["link"].split("/")[-1],
-                        published=d["entries"][z]["published"],
+                new_torrent, created = Torrent.objects.update_or_create(
+                    title=d["entries"][z]["title"],
+                    defaults = {
+                        "link": d["entries"][z]["link"].split("/")[-1],
+                        "published": d["entries"][z]["published"],
+                        },
                     )
-                    new_torrent.save()
-                except IntegrityError:
-                    pass
-                finally:
-                    process_user_stats.send()
+    process_user_stats.send()

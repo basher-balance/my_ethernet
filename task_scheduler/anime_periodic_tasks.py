@@ -54,15 +54,19 @@ def parse_content_anime():
     for content_anime in list_anime_text:
         soup = BeautifulSoup(content_anime, 'lxml')
         name_anime = soup.find('h1', attrs={'itemprop':'name'}).get_text()
-        id_video = str(soup.find('a', id='ep6')).split("'")[1]
-        for a in list_a:
-            if a in name_anime:
-                obj, created = Anime.objects.update_or_create(
-                    id_anime=id_video,
-                    defaults={
-                        "title_anime": name_anime,
-                        },
-                    )
+        try:
+            id_video = str(soup.find('a', id='ep6')).split("'")[1]
+        except IndexError as e:
+            print(f'аниме с сабами еще не вышло {e}')
+        else:
+            for a in list_a:
+                if a in name_anime:
+                    obj, created = Anime.objects.update_or_create(
+                        id_anime=id_video,
+                        defaults={
+                            "title_anime": name_anime,
+                            },
+                        )
     for undetected_anime in list_anime:
         obj = ListAnime.objects.get(
             title=undetected_anime,

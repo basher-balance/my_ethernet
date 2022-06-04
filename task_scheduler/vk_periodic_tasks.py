@@ -6,7 +6,6 @@ from datetime import datetime
 from operator import itemgetter
 
 import logging
-import os
 from .tasks import process_user_stats
 from .keys import service_key_access_vk
 

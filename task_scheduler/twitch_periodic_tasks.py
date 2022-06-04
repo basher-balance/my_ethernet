@@ -1,11 +1,8 @@
 import logging
-import os
 import pickle
 import requests
 
-from django.db import IntegrityError
 from .tasks import process_user_stats
-from .keys import appid
 from twitch.models import Twitch_model
 from twitchAPI.twitch import Twitch
 from twitchAPI.oauth import UserAuthenticator
@@ -63,12 +60,7 @@ def twitch_parse():
         online = twitch.get_followed_streams(my_id)
     finally:
         for k in range(len(online["data"])):
-            try:
-                writting_streamer_in_bd = Twitch_model.objects.create(
+            writting_streamer_in_bd, created = Twitch_model.objects.update_or_create(
                     streamer=online["data"][k]["user_login"]
                 )
-            except IntegrityError:
-                pass
-            else:
-                writting_streamer_in_bd.save(force_update=True)
     process_user_stats.send()
