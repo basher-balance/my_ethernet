@@ -23,7 +23,7 @@ pika = "^1.2.0"
 APScheduler = "^3.9.1"
 dramatiq = "^1.12.3"
 redis = "^4.2.1"
-psycopg2 = "^2.9.3"
+psycopg2-binary = "^2.9.3"
 
 [tool.poetry.dev-dependencies]
 
