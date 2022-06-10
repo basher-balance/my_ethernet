@@ -1,13 +1,14 @@
 import requests
 import json
+import os
 
-from task_scheduler.keys import appid
 from django.http import JsonResponse
 from django.core.exceptions import BadRequest
 from django.views.decorators.http import require_POST
 from django.views.generic import TemplateView
 
 
+appid = os.environ.get("OPENWEATHERMAP_KEY")
 direct_url = "https://api.openweathermap.org/geo/1.0/direct"
 onecall_url = "https://api.openweathermap.org/data/2.5/onecall"
 

@@ -48,6 +48,18 @@
             Главная
           </span>
         </a>
+        <a class="navbar-item is-hoverable" href="{% url 'dashboard:dashboard' %}">
+          <span class="icon">
+            <i class="fa-solid fa-dashboard"></i>
+          </span>
+          <span>Панель</span>
+        </a>
+        <a class="navbar-item is-hoverable" href="http://localhost:5050" target="_blank">
+          <span class="icon">
+            <i class="fa-solid fa-database"></i>
+          </span>
+          <span>PgAdmin</span>
+        </a>
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link">
             База данных
@@ -142,12 +154,6 @@
                 <i class="fa-solid fa-book"></i>
               </span>
               <span>Манга</span>
-            </a>
-            <a class="navbar-item" href="{% url 'dashboard:dashboard' %}">
-              <span class="icon">
-                <i class="fa-solid fa-book"></i>
-              </span>
-              <span>ДашБОРД</span>
             </a>
           </div>
         </div>

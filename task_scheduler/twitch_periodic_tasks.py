@@ -1,6 +1,7 @@
 import logging
 import pickle
 import requests
+import os
 
 from .tasks import process_user_stats
 from twitch.models import Twitch_model
@@ -8,7 +9,6 @@ from twitchAPI.twitch import Twitch
 from twitchAPI.oauth import UserAuthenticator
 from twitchAPI.types import AuthScope
 from .managed_file import ManagedFile
-from .keys import my_app_key, my_app_secret, my_id
 from pys.settings import BASE_DIR
 
 
@@ -17,10 +17,13 @@ def twitch_parse():
     Twitch_model.objects.all().delete()
     token_tw = f"{BASE_DIR}/pyss/token_tw.pickle"
     refresh_token_tw = f"{BASE_DIR}/pyss/refresh_token_tw.pickle"
+    client_id = os.environ.get("TWITCH_CLIENT_ID")
+    client_secret = os.environ.get("TWITCH_CLIENT_SECRET")
+    twitch_channel_id = os.environ.get("TWITCH_CHANNEL_ID")
 
     body = {
-        "client_id": my_app_key,
-        "client_secret": my_app_secret,
+        "client_id": client_id,
+        "client_secret": client_secret,
         "grant_type": "client_credentials",
     }
 
@@ -30,11 +33,11 @@ def twitch_parse():
     keys_data = r.json()
 
     headers = {
-        "Client-ID": my_app_key,
+        "Client-ID": client_id,
         "Authorization": f'Bearer {keys_data.get("access_token")}',
     }
 
-    twitch = Twitch(my_app_key, my_app_secret)
+    twitch = Twitch(client_id, client_secret)
     target_scope = [AuthScope.USER_READ_FOLLOWS]
     auth = UserAuthenticator(twitch, target_scope, force_verify=False)
 
@@ -47,7 +50,7 @@ def twitch_parse():
             token = pickle.load(t)
             refresh_token = pickle.load(r_t)
         twitch.set_user_authentication(token, target_scope, refresh_token)
-        online = twitch.get_followed_streams(my_id)
+        online = twitch.get_followed_streams(twitch_channel_id)
     except:
         token, refresh_token = auth.authenticate()
         with (
@@ -57,10 +60,10 @@ def twitch_parse():
             pickle.dump(token, new_token)
             pickle.dump(refresh_token, new_ref_token)
         twitch.set_user_authentication(token, target_scope, refresh_token)
-        online = twitch.get_followed_streams(my_id)
+        online = twitch.get_followed_streams(twitch_channel_id)
     finally:
         for k in range(len(online["data"])):
             writting_streamer_in_bd, created = Twitch_model.objects.update_or_create(
-                    streamer=online["data"][k]["user_login"]
-                )
+                streamer=online["data"][k]["user_login"]
+            )
     process_user_stats.send()

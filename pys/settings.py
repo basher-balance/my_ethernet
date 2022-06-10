@@ -12,57 +12,34 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
+import environ
 import redis
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+env = environ.Env()
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-1wel6b#x*!ll1ou00p8iy5^!ps4d&g$q(h(0d$2tslit2)qqer"
-
-# SECURITY WARNING: don't run with debug turned on in production!
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+SECRET_KEY = env.str('SECRET_KEY')
 DEBUG = True
-
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
 INSTALLED_APPS = [
-    # Мои приложения
     "pyss",
-    # Новости
     "news",
-    # Погода
     "weathers",
-    # Валюта
     "currencies",
-    # Манга
     "manga",
-    # Вконтакет
     "vk",
-    # Аниме
     "anime",
-    # Твитч
     "twitch",
-    # Ютуб
     "youtube",
-    # Сериалы
     "serials",
-    # Торренты
     "torrents",
-    # Вакаснии
     "hh",
-    # Дашборд
     "dashboard",
-    # Основное приложение-планировщик
     "django_dramatiq",
     "task_scheduler.apps.TaskSchedulerConfig",
-    # Приложения django по умолчанию.
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -108,27 +85,16 @@ WSGI_APPLICATION = "pys.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-#DATABASES = {
-#    "default": {
-#        "ENGINE": "django.db.backends.sqlite3",
-#        "NAME": BASE_DIR / "db.sqlite3",
-#        "OPTIONS": {
-#            "timeout": 20,  # in seconds
-#            # see also
-#            # https://docs.python.org/3.7/library/sqlite3.html#sqlite3.connect
-#        },
-#    }
-#}
 DATABASES = {
     "default": {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'project_database',
-        'USER' : 'postgres',
-        'PASSWORD' : 'ucsm',
-        'HOST' : '127.0.0.1',
-        'PORT' : '5432',
-        }
-    }
+        "ENGINE": 'django.db.backends.postgresql_psycopg2',
+        "NAME": env.str("DB_NAME"),
+        "USER": env.str("DB_USER"),
+        "PASSWORD": env.str("DB_PASSWORD"),
+        "HOST": env.str("DB_HOST"),
+        "PORT": env.str("DB_PORT"),
+    },
+}
 
 
 DRAMATIQ_REDIS_URL = os.getenv("REDIS_URL", "redis://127.0.0.1:6379/0")
