@@ -12,15 +12,15 @@ def currency_parse():
     delete_currency = Currency.objects.all()
     delete_currency.delete()
 
-    api_key = os.environ.get("CURCONV_KEY")
+    curconv_token = os.environ.get("CURCONV_TOKEN")
     currencies = {
         "RUB_KZT": "",
         "EUR_KZT": "",
-        "USD_KZT": ""
+        "USD_KZT": "",
     }
 
     for currency in currencies:
-        url = f"https://free.currconv.com/api/v7/convert?q={currency}&compact=ultra&apiKey={api_key}"
+        url = f"https://free.currconv.com/api/v7/convert?q={currency}&compact=ultra&apiKey={curconv_token}"
         response = requests.get(url)
 
         if (response.status_code == 200):

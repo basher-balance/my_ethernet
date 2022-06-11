@@ -8,7 +8,7 @@ from django.views.decorators.http import require_POST
 from django.views.generic import TemplateView
 
 
-appid = os.environ.get("OPENWEATHERMAP_KEY")
+weather_token = os.environ.get("WEATHER_TOKEN")
 direct_url = "https://api.openweathermap.org/geo/1.0/direct"
 onecall_url = "https://api.openweathermap.org/data/2.5/onecall"
 
@@ -53,7 +53,7 @@ def api_request(url, options):
         limit=1,
         lang="ru",
         units="metric",
-        appid=appid,
+        appid=weather_token,
     )
 
     params.update(options)
