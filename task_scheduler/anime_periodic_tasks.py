@@ -18,16 +18,16 @@ pages = 4
 
 
 async def get_html(client, url):
-        response = await client.get(url)
-        return response.text
+    response = await client.get(url)
+    return response.text
 
 
 async def get_name_and_id_anime():
     async with httpx.AsyncClient() as client:
         tasks = (
-                get_html(
-                    client, f'{link}?page{page}') for page in range(1, pages)
-                )
+            get_html(
+                client, f'{link}?page{page}') for page in range(1, pages)
+        )
         list_content = await asyncio.gather(*tasks)
         list_url_anime = []
         for content in list_content:
@@ -53,7 +53,7 @@ list_anime_text = asyncio.run(get_name_and_id_anime())
 def parse_content_anime():
     for content_anime in list_anime_text:
         soup = BeautifulSoup(content_anime, 'lxml')
-        name_anime = soup.find('h1', attrs={'itemprop':'name'}).get_text()
+        name_anime = soup.find('h1', attrs={'itemprop': 'name'}).get_text()
         try:
             id_video = str(soup.find('a', id='ep6')).split("'")[1]
         except IndexError as e:
@@ -65,8 +65,8 @@ def parse_content_anime():
                         id_anime=id_video,
                         defaults={
                             "title_anime": name_anime,
-                            },
-                        )
+                        },
+                    )
     for undetected_anime in list_anime:
         obj = ListAnime.objects.get(
             title=undetected_anime,

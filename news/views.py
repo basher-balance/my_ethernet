@@ -4,12 +4,21 @@ from .models import New
 
 def get_fresh_news(request):
     """Передаёт в переменную список нескрытых новостей из БД"""
+
     list_news = list(
         New.objects.filter(_is_expired=False).values(
-            "news", "link_news", "date_added", "id"
-        )
+            "news",
+            "link_news",
+            "date_added",
+            "id",
+        ),
     )
-    return render(request, "news/news.html", {"list_news": list_news})
+
+    return render(
+        request,
+        "news/news.html",
+        {"list_news": list_news},
+    )
 
 
 def hidden_news(request, pk):

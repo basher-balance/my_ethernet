@@ -5,10 +5,19 @@ from .models import Vk
 def vk(request):
     list_post_vk = list(
         Vk.objects.filter(_is_expired=False).values(
-            "data_post", "text_post", "link_post", "link_image_post", "id"
-        )
+            "data_post",
+            "text_post",
+            "link_post",
+            "link_image_post",
+            "id",
+        ),
     )
-    return render(request, "vk/vk.html", {"list_post_vk": list_post_vk})
+
+    return render(
+        request,
+        "vk/vk.html",
+        {"list_post_vk": list_post_vk},
+    )
 
 
 def hidden_post(request, pk):

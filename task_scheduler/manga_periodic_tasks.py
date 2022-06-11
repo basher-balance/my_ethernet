@@ -26,7 +26,8 @@ def manga_parse():
     )
     link_onepunch = f"https://mangapoisk.ru/manga/vanpanchmen/chapter/{tc}"
     try:
-        manga_create = Manga.objects.create(name="onepanchman", link=link_onepunch)
+        manga_create = Manga.objects.create(
+            name="onepanchman", link=link_onepunch)
     except IntegrityError:
         pass
     else:

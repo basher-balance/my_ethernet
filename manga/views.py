@@ -4,17 +4,23 @@ from .models import Manga
 
 def get_manga(request):
     """Получает из БД название и ссылку на мангу"""
+
     name_and_link = list(
-        Manga.objects.filter(_is_expired=False).values("name", "link", "id")
+        Manga.objects.filter(_is_expired=False).values(
+            "name",
+            "link",
+            "id",
+        ),
     )
+
     return render(
         request,
         "manga/manga.html",
         {
             "name_and_link": name_and_link,
-            #        'title': name_and_link[0]['name'],
-            #        'link': name_and_link[0]['link'],
-            #        'id': name_and_link[0]['id'],
+            # "title": name_and_link[0]["name"],
+            # "link": name_and_link[0]["link"],
+            # "id": name_and_link[0]["id"],
         },
     )
 

@@ -1,4 +1,5 @@
-import feedparser, logging
+import feedparser
+import logging
 
 from serials.models import Serial
 from .tasks import process_user_stats
@@ -25,7 +26,7 @@ def parse_serials():
 #from .tasks import process_user_stats
 #
 #
-#def parse_serials():
+# def parse_serials():
 #    logging.warning("It is time to start the dramatiq task serials")
 #    feed_data = feedparser.parse("http://seasonvar.ru/rss.php")
 #    for z in feed_data["entries"]:

@@ -4,12 +4,21 @@ from .models import Torrent
 
 def get_fresh_torrent(request):
     """Передаёт в переменную список нескрытых новостей из БД"""
+
     torrents_list = list(
         Torrent.objects.filter(_is_expired=False).values(
-            "title", "link", "published", "id"
-        )
+            "title",
+            "link",
+            "published",
+            "id",
+        ),
     )
-    return render(request, "torrents/torrents.html", {"torrents_list": torrents_list})
+
+    return render(
+        request,
+        "torrents/torrents.html",
+        {"torrents_list": torrents_list},
+    )
 
 
 def hidden_torrent(request, pk):

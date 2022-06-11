@@ -7,6 +7,7 @@ from .models import Twitch_model
 def streamers_view(request):
     return render(request, "twitch/twitch.html")
 
+
 def streamers_api(request):
     if request.method == 'GET':
         streamers = list(Twitch_model.objects.all().values("streamer", "id"))

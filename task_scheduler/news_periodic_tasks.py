@@ -19,8 +19,8 @@ def parse_news():
     # Загружаю главную новость майл ру в базу если такой новости еще нет
     general_new, created = New.objects.update_or_create(
         news=list_ftg[1].get_text(),
-        defaults = {
-        "link_news": list_ftg[0]["href"]
+        defaults={
+            "link_news": list_ftg[0]["href"]
         },
     )
     # Ищу обычные новости на стартовой странице майл ру
@@ -33,8 +33,8 @@ def parse_news():
             news=find_tag.find(
                 class_="news__list__item__link__text"
             ).get_text(),
-            defaults = {
+            defaults={
                 "link_news": find_tag["href"],
-                },
+            },
         )
     process_user_stats.send()

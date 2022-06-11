@@ -6,8 +6,13 @@ import json
 def get_fresh_hh(request):
     hh_list = list(
         Hh.objects.filter(_is_expired=False).values(
-            "name", "salary", "url_id", "published", "requirement", "id"
-        )
+            "name",
+            "salary",
+            "url_id",
+            "published",
+            "requirement",
+            "id",
+        ),
     )
 
     def mutate_hh_items(hh_item):
@@ -17,7 +22,11 @@ def get_fresh_hh(request):
     mapped_hh_list = map(mutate_hh_items, hh_list)
     hh = list(mapped_hh_list)
 
-    return render(request, "hh/hh.html", {"hh_list": hh})
+    return render(
+        request,
+        "hh/hh.html",
+        {"hh_list": hh},
+    )
 
 
 def hidden_hh(request, pk):

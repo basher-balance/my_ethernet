@@ -19,9 +19,9 @@ def torrents_parse():
             if k in title_entries and v in title_entries:
                 new_torrent, created = Torrent.objects.update_or_create(
                     title=d["entries"][z]["title"],
-                    defaults = {
+                    defaults={
                         "link": d["entries"][z]["link"].split("/")[-1],
                         "published": d["entries"][z]["published"],
-                        },
-                    )
+                    },
+                )
     process_user_stats.send()

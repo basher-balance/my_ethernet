@@ -25,30 +25,31 @@ def posts_vk_group():
             "count": 100,
         },
     )
-    all_respons = response.json()["response"]["items"]
-    sorted_all_respons = sorted(
-        all_respons,
+    responses = response.json()["response"]["items"]
+    sorted_responses = sorted(
+        responses,
         reverse=True,
         key=itemgetter("date"),
     )
-    for sorted_all_respon in sorted_all_respons:
+    for response in sorted_responses:
         try:
-            link = sorted_all_respon['text'].split(': http://')[1].split('/n')[0]
+            text = response['text']
+            link = text.split(': http://')[1].split('/n')[0]
             link_post = f"http://{link}"
         except IndexError:
             link_post = "http://habr.com"
         try:
-            link_image_post = sorted_all_respon["attachments"][0]["photo"]["sizes"][-1][
+            link_image_post = response["attachments"][0]["photo"]["sizes"][-1][
                 "url"
             ]
         except KeyError:
             link_image_post = "No image"
         try:
             vk_published_post = Vk.objects.create(
-                data_post=datetime.fromtimestamp(sorted_all_respon["date"]).strftime(
+                data_post=datetime.fromtimestamp(response["date"]).strftime(
                     "%Y-%m-%d %H:%M:%S"
                 ),
-                text_post=sorted_all_respon["text"],
+                text_post=response["text"],
                 link_post=link_post,
                 link_image_post=link_image_post,
             )
