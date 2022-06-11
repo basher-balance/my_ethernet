@@ -10,6 +10,11 @@ class Vk(models.Model):
     link_image_post = models.URLField("Ссылка на картинку")
     _is_expired = models.BooleanField(default=False)
 
+
+    def __str__(self):
+        return self.text_post[:50]
+
+
     def hidden(pk):
         r = Vk.objects.get(pk=pk)
         r._is_expired = True

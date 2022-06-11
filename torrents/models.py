@@ -9,7 +9,14 @@ class Torrent(models.Model):
     )
     _is_expired = models.BooleanField(default=False)
 
-    def hidden(pk):
-        r = Torrent.objects.get(pk=pk)
-        r._is_expired = True
-        r.save()
+
+    def __str__(self):
+        return self.title
+
+
+class ListSerials(models.Model):
+    '''Список сериалов в БД, который будет парситься'''
+    title = models.CharField("Название", max_length=50, unique=True)
+    
+    def __str__(self):
+        return self.title

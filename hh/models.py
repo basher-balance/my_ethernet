@@ -9,7 +9,6 @@ class Hh(models.Model):
     requirement = models.CharField("Подробности", max_length=150)
     _is_expired = models.BooleanField(default=False)
 
-    def hidden(pk):
-        r = Hh.objects.get(pk=pk)
-        r._is_expired = True
-        r.save()
+
+    def __str__(self):
+        return self.name

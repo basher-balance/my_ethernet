@@ -11,6 +11,11 @@ class Serial(models.Model):
     )
     _is_expired = models.BooleanField(default=False)
 
+
+    def __str__(self):
+        return self.title
+
+
     class Meta:
         ordering = ('-data',)
 

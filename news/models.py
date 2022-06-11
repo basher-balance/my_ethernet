@@ -9,6 +9,11 @@ class New(models.Model):
     date_added = models.DateTimeField(auto_now_add=True)
     _is_expired = models.BooleanField(default=False)
 
+
+    def __str__(self):
+        return self.news
+
+
     def hidden(pk):
         r = New.objects.get(pk=pk)
         r._is_expired = True

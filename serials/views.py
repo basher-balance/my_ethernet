@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
-from django.db import IntegrityError
 from .models import Serial
-from anime.models import ListAnime 
+from anime.models import ListAnime
+from torrents.models import ListSerials
 
 def get_fresh_serials(request):
     serials_list = list(
@@ -23,12 +23,12 @@ def del_serial(request, pk):
 
 
 def add_anime_parse(request, pk):
-    try:
-        obj = Serial.objects.get(pk=pk).title
-        add_obj = ListAnime.objects.create(
-                title=obj
-                )
-        add_obj.save()
-    except IntegrityError as e:
-        print(e)
+    obj = Serial.objects.get(pk=pk).title
+    add_obj, created = ListAnime.objects.update_or_create( title=obj)
+    return redirect("serials:serials")
+
+
+def add_torrent(request, pk):
+    obj = Serial.objects.get(pk=pk).title
+    add_obj, created = ListSerials.objects.update_or_create(title=obj)
     return redirect("serials:serials")

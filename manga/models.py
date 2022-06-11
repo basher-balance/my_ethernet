@@ -7,7 +7,6 @@ class Manga(models.Model):
     link = models.URLField("Ссылка на аниме", unique=True)
     _is_expired = models.BooleanField(default=False)
 
-    def hidden(pk):
-        r = Manga.objects.get(pk=pk)
-        r._is_expired = True
-        r.save()
+
+    def __str__(self):
+        return self.name

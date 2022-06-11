@@ -8,6 +8,8 @@ class Anime(models.Model):
     id_anime = models.PositiveIntegerField("ID видео для портала sibnet", unique=True)
     date_added = models.DateTimeField(auto_now_add=True)
     _is_expired = models.BooleanField(default=False)
+    def __str__(self):
+        return self.title_anime
 
     def hidden(pk):
         r = Anime.objects.get(pk=pk)
@@ -17,3 +19,6 @@ class Anime(models.Model):
 class ListAnime(models.Model):
     '''Список анимe в БД, который будет парситься'''
     title = models.CharField("Название", max_length=50, unique=True)
+    
+    def __str__(self):
+        return self.title
