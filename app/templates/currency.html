@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+{% block title %}ВАЛЮТА{% endblock %}
+{% block title_title %}Валюта{% endblock %}
+
+{% block subtitle %}
+Источник: <a href="https://www.currencyconverterapi.com/">Currconv.com</a>
+{% endblock %}
+
+{% block content %}
+<div class="columns level is-full has-background-white" style="border-radius: 4px;">
+  {% for k, v in currency_last.items %}
+  <div class="column level-item has-text-centered">
+    <div>
+      <p class="heading is-size-4">{{ k }}</p>
+      <p class="title">{{ v }}</p>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

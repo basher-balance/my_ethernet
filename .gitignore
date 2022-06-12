@@ -2,9 +2,9 @@
 .vim
 .env
 __pycache__
-pyss/refresh_token_tw.pickle
-pyss/token.pickle
-pyss/token_tw.pickle
+layout/refresh_token_tw.pickle
+layout/token.pickle
+layout/token_tw.pickle
 youtube.json
 Procfile
 mysqlite.db

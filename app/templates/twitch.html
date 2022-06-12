@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block title %}TWITCH{% endblock %}
+{% block title_title %}Стримы{% endblock %}
+
+{% block subtitle %}
+Источник: <a href="https://www.twitch.tv/">Twitch.tv</a>
+{% endblock %}
+
+{% block content %}
+{% csrf_token %}
+<div id="twitch" class="columns is-multiline"></div>
+<script src="https://embed.twitch.tv/embed/v1.js"></script>
+{% load static %}
+<script src="static/js/twitch.js"></script>
+{% endblock %}
