@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% block title %}МАНГА{% endblock %}
+{% block title_title %}Манга{% endblock %}
+
+{% block subtitle %}
+Источник: <a href="https://mangalib.me/">Mangalib.me</a>
+{% endblock %}
+
+{% block content %}
+<div class="columns is-multiline">
+  {% for m in name_and_link %}
+  <article class="column message is-dark" style="background-color: transparent;">
+    <div class="message-header" style="border-radius: 4px;">
+      <p>
+        {{ m.name }}
+      </p>
+      <div style="display: flex; gap: 1rem;">
+        <a class="button is-success is-outlined" target="_blank" href="{{ m.link }}">
+          <span class="icon is-small">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          </span>
+        </a>
+        <a class="button is-warning is-outlined" href="{% url 'manga:hidden_manga' pk=m.id %}">
+          <span class="icon is-small">
+            <i class="fas fa-trash"></i>
+          </span>
+        </a>
+      </div>
+    </div>
+  </article>
+  {% endfor %}
+</div>
+{% endblock %}
