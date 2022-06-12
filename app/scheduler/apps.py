@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class TaskSchedulerConfig(AppConfig):
+class SchedulerConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
-    name = "task_scheduler"
+    name = "scheduler"

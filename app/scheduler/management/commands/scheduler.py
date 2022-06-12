@@ -4,16 +4,16 @@ import pytz
 
 from apscheduler.triggers.interval import IntervalTrigger
 
-from task_scheduler.news_periodic_tasks import parse_news
-from task_scheduler.currency_periodic_tasks import currency_parse
-from task_scheduler.manga_periodic_tasks import manga_parse
-from task_scheduler.vk_periodic_tasks import posts_vk_group
-from task_scheduler.anime_periodic_tasks import last_series_anime
-from task_scheduler.twitch_periodic_tasks import twitch_parse
-from task_scheduler.youtube_periodic_tasks import youtube_parse
-from task_scheduler.serials_periodic_tasks import parse_serials
-from task_scheduler.torrents_periodic_tasks import torrents_parse
-from task_scheduler.hh_periodic_tasks import create_object
+from scheduler.news_periodic_tasks import parse_news
+from scheduler.currency_periodic_tasks import currency_parse
+from scheduler.manga_periodic_tasks import manga_parse
+from scheduler.vk_periodic_tasks import posts_vk_group
+from scheduler.anime_periodic_tasks import last_series_anime
+from scheduler.twitch_periodic_tasks import twitch_parse
+from scheduler.youtube_periodic_tasks import youtube_parse
+from scheduler.serials_periodic_tasks import parse_serials
+from scheduler.torrents_periodic_tasks import torrents_parse
+from scheduler.hh_periodic_tasks import create_object
 
 
 class Command(BaseCommand):
