@@ -4,7 +4,7 @@ from django.db import models
 class Vk(models.Model):
     """Модель вк"""
 
-    data_post = models.CharField("Дата публикации", max_length=20)
+    data_post = models.CharField("Дата публикации")
     text_post = models.TextField("Заголовок поста")
     link_post = models.URLField("Ссылка на публикацию", unique=True)
     link_image_post = models.URLField("Ссылка на картинку")

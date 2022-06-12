@@ -1,4 +1,3 @@
-from django.db import IntegrityError
 from anime.models import Anime, ListAnime
 import logging
 import asyncio

@@ -2,14 +2,18 @@ from django.db import models
 
 
 class Serial(models.Model):
-    title = models.CharField("Название сериала", max_length=100, unique=True)
+    title = models.CharField("Название сериала", unique=True)
     img = models.PositiveIntegerField("ID картинки сериала")
-    serial_and_season = models.CharField("Название сериала и сезона", max_length=100)
-    episode = models.CharField("Количество серий либо сезон полностью", max_length=20)
+    serial_and_season = models.CharField("Название сериала и сезона")
+    episode = models.CharField("Количество серий либо сезон полностью")
     data = models.DateTimeField(
-        "Автоматически созданная дата после загрузки элемента базы", auto_now=True
+        "Автоматически созданная дата после загрузки элемента базы",
+        auto_now=True,
     )
     _is_expired = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.title
 
     class Meta:
         ordering = ('-data',)
