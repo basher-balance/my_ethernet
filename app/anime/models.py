@@ -4,7 +4,10 @@ from django.db import models
 class Anime(models.Model):
     """Модель аниме"""
 
-    title_anime = models.CharField("Название и серия")
+    title_anime = models.CharField(
+        "Название и серия",
+        max_length=128,
+    )
     id_anime = models.PositiveIntegerField(
         "ID видео для портала sibnet",
         unique=True
@@ -23,7 +26,11 @@ class Anime(models.Model):
 
 class ListAnime(models.Model):
     '''Список анимe в БД, который будет парситься'''
-    title = models.CharField("Название", unique=True)
+    title = models.CharField(
+        "Название",
+        max_length=128,
+        unique=True,
+    )
 
     def __str__(self):
         return self.title

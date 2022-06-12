@@ -3,7 +3,11 @@ from django.db import models
 
 class Dashboard(models.Model):
     '''Модель информационной панели'''
-    title_undetected_anime = models.CharField("Название аниме", unique=True)
+    title_undetected_anime = models.CharField(
+        "Название аниме",
+        max_length=128,
+        unique=True,
+    )
     date_added = models.DateTimeField(
         "Дата обнаружения необнаруженного аниме",
         auto_now_add=True,

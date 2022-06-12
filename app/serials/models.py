@@ -2,10 +2,20 @@ from django.db import models
 
 
 class Serial(models.Model):
-    title = models.CharField("Название сериала", unique=True)
+    title = models.CharField(
+        "Название сериала",
+        max_length=128,
+        unique=True,
+    )
     img = models.PositiveIntegerField("ID картинки сериала")
-    serial_and_season = models.CharField("Название сериала и сезона")
-    episode = models.CharField("Количество серий либо сезон полностью")
+    serial_and_season = models.CharField(
+        "Название сериала и сезона",
+        max_length=128,
+    )
+    episode = models.CharField(
+        "Количество серий либо сезон полностью",
+        max_length=128,
+    )
     data = models.DateTimeField(
         "Автоматически созданная дата после загрузки элемента базы",
         auto_now=True,
