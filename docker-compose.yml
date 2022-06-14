@@ -12,6 +12,7 @@ services:
       - ./.env
     depends_on:
       - postgres
+      - redis
     restart: on-failure
 
   postgres:
@@ -33,6 +34,29 @@ services:
     networks:
       - postgres
     restart: unless-stopped
+
+  redis:
+    image: redis:alpine
+
+  celery:
+    build: ./app
+    command: celery -A core worker -l info
+    volumes:
+      - ./app/:/usr/src/app/
+    env_file:
+      - ./.env
+    depends_on:
+      - redis
+
+  celery-beat:
+    build: ./app
+    command: celery -A core beat -l info
+    volumes:
+      - ./app/:/usr/src/app/
+    env_file:
+      - ./.env
+    depends_on:
+      - redis
 
 networks:
   postgres:

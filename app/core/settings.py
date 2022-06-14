@@ -10,9 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+from celery.schedules import crontab
 from pathlib import Path
 import environ
-import redis
 import os
 
 
@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     "torrents",
     "hh",
     "dashboard",
-    "django_dramatiq",
     "scheduler.apps.SchedulerConfig",
     "django.contrib.admin",
     "django.contrib.auth",
@@ -102,20 +101,14 @@ DATABASES = {
     },
 }
 
-
-DRAMATIQ_REDIS_URL = os.environ.get("REDIS_URL")
-DRAMATIQ_BROKER = {
-    "BROKER": "dramatiq.brokers.redis.RedisBroker",
-    "OPTIONS": {
-        "connection_pool": redis.ConnectionPool.from_url(DRAMATIQ_REDIS_URL),
+REDIS_URL = os.environ.get("REDIS_URL")
+CELERY_BROKER_URL = REDIS_URL
+CELERY_RESULT_BACKEND = REDIS_URL
+CELERY_BEAT_SCHEDULE = {
+    "sample_task": {
+        "task": "core.tasks.sample_task",
+        "schedule": crontab(minute="*/1"),
     },
-    "MIDDLEWARE": [
-        "dramatiq.middleware.AgeLimit",
-        "dramatiq.middleware.TimeLimit",
-        "dramatiq.middleware.Retries",
-        "django_dramatiq.middleware.AdminMiddleware",
-        "django_dramatiq.middleware.DbConnectionsMiddleware",
-    ],
 }
 
 # Password validation
