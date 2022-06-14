@@ -131,8 +131,12 @@ CELERY_BEAT_SCHEDULE = {
         "schedule": crontab(minute="0", hour="*/1"),
     },
     "torrents": {
-        "task": "torrents.task.torrents_task",
+        "task": "torrents.tasks.torrents_task",
         "schedule": crontab(minute="0", hour="*/3"),
+    },
+    "news": {
+        "task": "news.tasks.news_task",
+        "schedule": crontab(minute="0", hour="*/1"),
     },
 }
 
