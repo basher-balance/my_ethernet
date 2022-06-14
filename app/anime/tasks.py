@@ -1,10 +1,8 @@
+from celery import shared_task
+from bs4 import BeautifulSoup
 from anime.models import Anime, ListAnime
-import logging
 import asyncio
 import httpx
-
-from bs4 import BeautifulSoup
-from .tasks import process_user_stats
 
 
 data = list(ListAnime.objects.values('title'))
@@ -73,7 +71,6 @@ def parse_content_anime():
         obj.delete()
 
 
-def last_series_anime():
-    logging.warning("It is time to start the dramatiq task anime")
+@shared_task
+def anime_task():
     parse_content_anime()
-    process_user_stats.send()

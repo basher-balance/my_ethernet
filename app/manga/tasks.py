@@ -6,7 +6,7 @@ import httpx
 
 
 @shared_task
-def parse_manga():
+def manga_task():
     url = "https://mangapoisk.ru/manga/vanpanchmen"
     # Получаю ссылку на последнюю главу манги "Ванпанчмен"
     r_http = httpx.Client(http2=True)

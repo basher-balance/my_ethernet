@@ -115,7 +115,11 @@ CELERY_BEAT_SCHEDULE = {
     #     "schedule": crontab(minute="*/1"),
     # },
     "manga": {
-        "task": "manga.tasks.parse_manga",
+        "task": "manga.tasks.manga_task",
+        "schedule": crontab(minute="0", hour="*/2"),
+    },
+    "anime": {
+        "task": "anime.tasks.anime_task",
         "schedule": crontab(minute="0", hour="*/2"),
     },
 }
