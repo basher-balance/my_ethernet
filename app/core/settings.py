@@ -107,11 +107,12 @@ CELERY_RESULT_BACKEND = REDIS_URL
 
 # Scheduler
 # https://crontab.guru
+# https://docs.celeryq.dev/en/stable/userguide/periodic-tasks.html#crontab-schedules
 
 CELERY_BEAT_SCHEDULE = {
     # "core": {
     #     "task": "core.tasks.global_task",
-    #     "schedule": crontab(minute="1"),
+    #     "schedule": crontab(minute="*/1"),
     # },
     "manga": {
         "task": "manga.tasks.parse_manga",
