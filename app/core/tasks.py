@@ -7,6 +7,6 @@ logger = get_task_logger(__name__)
 
 
 @shared_task
-def sample_task():
-    logger.log("hello test_task")
-    call_command("test_task")
+def custom_command():
+    logger.info("custom command")
+    call_command("my_custom_command")

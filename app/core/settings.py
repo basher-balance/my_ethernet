@@ -12,10 +12,10 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from celery.schedules import crontab
 from pathlib import Path
+import core.tasks
 import environ
 import os
 
-import core.tasks
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 ENV_FILE = os.path.join(BASE_DIR, ".env")
