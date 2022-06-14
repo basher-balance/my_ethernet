@@ -15,6 +15,7 @@ from pathlib import Path
 import environ
 import os
 
+import core.tasks
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 ENV_FILE = os.path.join(BASE_DIR, ".env")
