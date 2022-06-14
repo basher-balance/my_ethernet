@@ -58,6 +58,13 @@ services:
     depends_on:
       - redis
 
+  flower:
+    image: mher/flower
+    ports:
+      - 5555:5555
+    env_file:
+      - ./.env
+
 networks:
   postgres:
     driver: bridge

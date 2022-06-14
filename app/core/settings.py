@@ -101,7 +101,7 @@ DATABASES = {
     },
 }
 
-REDIS_URL = os.environ.get("REDIS_URL")
+REDIS_URL = os.environ.get("CELERY_BROKER_URL")
 CELERY_BROKER_URL = REDIS_URL
 CELERY_RESULT_BACKEND = REDIS_URL
 
@@ -111,11 +111,11 @@ CELERY_RESULT_BACKEND = REDIS_URL
 CELERY_BEAT_SCHEDULE = {
     # "core": {
     #     "task": "core.tasks.global_task",
-    #     "schedule": crontab("*/1 * * * *"),
+    #     "schedule": crontab(minute="1"),
     # },
     "manga": {
         "task": "manga.tasks.parse_manga",
-        "schedule": crontab("*0 */2 * * *"),
+        "schedule": crontab(minute="0", hour="*/2"),
     },
 }
 
