@@ -31,6 +31,12 @@ ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
 # Application definition
 
 INSTALLED_APPS = [
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
     "layout",
     "news",
     "weathers",
@@ -44,13 +50,6 @@ INSTALLED_APPS = [
     "torrents",
     "hh",
     "dashboard",
-    "scheduler.apps.SchedulerConfig",
-    "django.contrib.admin",
-    "django.contrib.auth",
-    "django.contrib.contenttypes",
-    "django.contrib.sessions",
-    "django.contrib.messages",
-    "django.contrib.staticfiles",
 ]
 
 MIDDLEWARE = [
@@ -105,10 +104,18 @@ DATABASES = {
 REDIS_URL = os.environ.get("REDIS_URL")
 CELERY_BROKER_URL = REDIS_URL
 CELERY_RESULT_BACKEND = REDIS_URL
+
+# Scheduler
+# https://crontab.guru
+
 CELERY_BEAT_SCHEDULE = {
-    "sample_task": {
-        "task": "core.tasks.sample_task",
-        "schedule": crontab(minute="*/1"),
+    # "core": {
+    #     "task": "core.tasks.global_task",
+    #     "schedule": crontab("*/1 * * * *"),
+    # },
+    "manga": {
+        "task": "manga.tasks.parse_manga",
+        "schedule": crontab("*0 */2 * * *"),
     },
 }
 

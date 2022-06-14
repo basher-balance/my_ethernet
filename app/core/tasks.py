@@ -6,7 +6,6 @@ from django.core.management import call_command
 logger = get_task_logger(__name__)
 
 
-@shared_task
-def custom_command():
-    logger.info("custom command")
-    call_command("my_custom_command")
+# @shared_task
+# def global_task():
+#     logger.info("global task")

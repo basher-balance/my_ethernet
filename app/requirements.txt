@@ -1,7 +1,6 @@
 aiohttp==3.8.1
 aiosignal==1.2.0
 anyio==3.5.0
-apscheduler==3.9.1
 asgiref==3.5.0
 async-timeout==4.0.2
 attrs==21.4.0
