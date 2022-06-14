@@ -122,6 +122,10 @@ CELERY_BEAT_SCHEDULE = {
         "task": "anime.tasks.anime_task",
         "schedule": crontab(minute="0", hour="*/2"),
     },
+    "currencies": {
+        "task": "currencies.tasks.currencies_task",
+        "schedule": crontab(minute="0", hour="*/1"),
+    },
 }
 
 # Password validation

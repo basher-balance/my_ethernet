@@ -1,13 +1,14 @@
+from celery import shared_task
+from currencies.models import Currency
 import requests
-import logging
 import os
 
-from currencies.models import Currency
-from .tasks import process_user_stats
+CURCONV_TOKEN = os.environ.get("CURCONV_TOKEN")
 
-
-def currency_parse():
-    logging.warning("It is time to start the dramatiq task currency")
+@shared_task
+def currencies_task():
+    if CURCONV_TOKEN == None:
+        return
 
     delete_currency = Currency.objects.all()
     delete_currency.delete()
@@ -29,4 +30,3 @@ def currency_parse():
             currencies[currency] = "Cервис currconv.com в данный момент не доступен"
 
     Currency.objects.create(currency=currencies)
-    process_user_stats.send()
