@@ -25,8 +25,9 @@ if not credentials or not credentials.valid:
     else:
         print("fetching New Tokens...")
         client_secrets_file = os.environ.get("YOUTUBE_FILE_TOKENS")
+        file_path = os.path.join(BASE_DIR, client_secrets_file)
         flow = InstalledAppFlow.from_client_secrets_file(
-            client_secrets_file,
+            file_path,
             scopes,
         )
         flow.run_local_server(
