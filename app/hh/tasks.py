@@ -1,10 +1,9 @@
+from celery import shared_task
 from django.db import IntegrityError
 from hh.models import Hh
-from .tasks import process_user_stats
 import httpx
 import asyncio
 import requests
-import logging
 import json
 
 api_hh = 'https://api.hh.ru/vacancies'
@@ -41,7 +40,7 @@ async def filter_hh(json_hh):
             clear_hh['items'].append(item)
 
 
-async def main():
+async def request_hh():
     total_pages = requests.get(api_hh, params=params).json()['pages']
     async with httpx.AsyncClient() as client:
         tasks = [parse_hh(client, i) for i in range(total_pages)]
@@ -49,9 +48,9 @@ async def main():
             await filter_hh(await i)
 
 
-def create_object():
-    logging.warning("It is time to start the dramatiq task HeadHunter")
-    asyncio.run(main())
+@shared_task
+def hh_task():
+    asyncio.run(request_hh())
     for item in clear_hh['items']:
         try:
             new_hh = Hh.objects.create(
@@ -70,5 +69,3 @@ def create_object():
             new_hh.save()
         except IntegrityError:
             pass
-        finally:
-            process_user_stats.send()

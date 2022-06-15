@@ -138,6 +138,10 @@ CELERY_BEAT_SCHEDULE = {
         "task": "news.tasks.news_task",
         "schedule": crontab(minute="0", hour="*/1"),
     },
+    "hh": {
+        "task": "hh.tasks.hh_task",
+        "schedule": crontab(minute="0", hour="*/2"),
+    },
 }
 
 # Password validation
