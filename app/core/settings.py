@@ -150,6 +150,10 @@ CELERY_BEAT_SCHEDULE = {
         "task": "twitch.tasks.twitch_task",
         "schedule": crontab(minute="*/10"),
     },
+    "vk": {
+        "task": "vk.tasks.vk_task",
+        "schedule": crontab(minute="0", hour="*/2"),
+    },
 }
 
 # Password validation

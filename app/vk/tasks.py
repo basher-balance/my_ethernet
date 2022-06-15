@@ -1,16 +1,15 @@
+from celery import shared_task
 import requests
-import logging
 import os
 
 from django.db import IntegrityError
 from vk.models import Vk
 from datetime import datetime
 from operator import itemgetter
-from .tasks import process_user_stats
 
 
-def posts_vk_group():
-    logging.warning("It is time to start the dramatiq task vk")
+@shared_task
+def vk_task():
     link = "https://api.vk.com/method/"
     method = "wall.get"
     access_token = os.environ.get("VK_ACCESS_TOKEN")
@@ -57,4 +56,3 @@ def posts_vk_group():
             pass
         else:
             vk_published_post.save(force_update=True)
-    process_user_stats.send()
