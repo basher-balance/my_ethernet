@@ -1,46 +1,50 @@
-import logging
-
-from youtube.models import Youtube_model
-
-from .tasks import process_user_stats
-from .youtube_build import youtube
-
 import asyncio
+from celery import shared_task
 import httpx
+
+from utils.youtube_build import youtube
+from youtube.models import Youtube_model
 
 
 def getSubs() -> dict:
     reqSubs = youtube.subscriptions().list(
-        part="snippet,contentDetails", maxResults=100, mine=True
+        part="snippet,contentDetails",
+        maxResults=100,
+        mine=True,
     )
     return reqSubs.execute()
 
 
 def getChannel(channelId: str) -> dict:
     reqChannel = youtube.channels().list(
-        part="contentDetails", id=channelId
+        part="contentDetails",
+        id=channelId,
     )
     return reqChannel.execute()
 
 
 async def get_html(client, url):
-        response = await client.get(url)
-        return response.text
+    response = await client.get(url)
+    return response.text
 
 
 async def get_name_and_id_anime(list_channel_id: list):
     async with httpx.AsyncClient() as client:
         tasks = (
-                get_html(
-                    client, getChannel(channel)) for channel in list_channel_id
-                )
+            get_html(
+                client,
+                getChannel(channel),
+            ) for channel in list_channel_id
+        )
         list_content = await asyncio.gather(*tasks)
         return list_content
 
 
 def getPlaylistsItems(uploads: str) -> dict:
     req_playlistItems = youtube.playlistItems().list(
-        part="contentDetails", playlistId=uploads, maxResults=1
+        part="contentDetails",
+        playlistId=uploads,
+        maxResults=1,
     )
     return req_playlistItems.execute()
 
@@ -48,9 +52,9 @@ def getPlaylistsItems(uploads: str) -> dict:
 def getListChannelId(dictMySubs: dict) -> list:
     quantitySubs = range(dictMySubs['pageInfo']['totalResults'])
     list_ChannelId_MySubs = [
-            dictMySubs["items"][mysab]["snippet"]["resourceId"]["channelId"]
-            for mysab in quantitySubs
-            ]
+        dictMySubs["items"][mysab]["snippet"]["resourceId"]["channelId"]
+        for mysab in quantitySubs
+    ]
     return list_ChannelId_MySubs
 
 
@@ -64,8 +68,8 @@ def getVideoId(items: dict) -> str:
 
 def createCellDB(video: str) -> None:
     fieldYoutubeModel, created = Youtube_model.objects.update_or_create(
-            id_video=video
-            )
+        id_video=video
+    )
 
 
 # Получаю словарь по каналам, которые я отслеживаю
@@ -76,11 +80,12 @@ chanelIds = getListChannelId(mySubs)
 list_anime_text = asyncio.run(get_name_and_id_anime(chanelIds))
 
 
-def writeYoutubeVideosInDB() -> None:
+@shared_task
+def youtube_task() -> None:
     # Получаю словарь по каналам, которые я отслеживаю
-#    mySubs = getSubs()
+    #    mySubs = getSubs()
     # Получаю уникальные идентификаторы этих каналов
-#    chanelIds = getListChannelId(mySubs)
+    #    chanelIds = getListChannelId(mySubs)
     # Получаю список плейлистов с этих каналов
     # test
     print(list_anime_text)
@@ -91,10 +96,6 @@ def writeYoutubeVideosInDB() -> None:
 #        createCellDB(video_id)
 
 
-def youtube_parse():
-    logging.warning("It is time to start the dramatiq task youtube")
-    writeYoutubeVideosInDB()
-    process_user_stats.send()
 #import logging
 #
 #from django.db import IntegrityError
@@ -104,7 +105,7 @@ def youtube_parse():
 #from .youtube_build import youtube
 #
 #
-#def youtube_parse():
+# def youtube_parse():
 #    logging.warning("It is time to start the dramatiq task youtube")
 #
 #    # Получаю список ID каналов, на которые я подписан, на которых есть непросмотренные видео.
@@ -162,10 +163,10 @@ def youtube_parse():
 #            new_video, created = Youtube_model.objects.update_or_create(
 #                    id_video=last_video['videoId']
 #                    )
-##        try:
+# try:
 ##            new_video = Youtube_model.objects.create(id_video=last_video['videoId'])
-##        except IntegrityError:
-##            pass
-##        else:
-##            new_video.save(force_update=True)
+# except IntegrityError:
+# pass
+# else:
+# new_video.save(force_update=True)
 #    process_user_stats.send()

@@ -1,9 +1,6 @@
-import logging
-
+from celery import shared_task
 from youtube.models import Youtube_model
-
-from .tasks import process_user_stats
-from .youtube_build import youtube
+from utils.youtube_build import youtube
 
 
 def getSubs() -> dict:
@@ -55,7 +52,8 @@ def createCellDB(video: str) -> None:
     )
 
 
-def writeYoutubeVideosInDB() -> None:
+@shared_task
+def youtube_task() -> None:
     # Получаю словарь по каналам, которые я отслеживаю
     mySubs = getSubs()
     # Получаю уникальные идентификаторы этих каналов
@@ -68,10 +66,6 @@ def writeYoutubeVideosInDB() -> None:
         createCellDB(video_id)
 
 
-def youtube_parse():
-    logging.warning("It is time to start the dramatiq task youtube")
-    writeYoutubeVideosInDB()
-    process_user_stats.send()
 #import logging
 #
 #from django.db import IntegrityError

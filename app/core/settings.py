@@ -142,6 +142,10 @@ CELERY_BEAT_SCHEDULE = {
         "task": "hh.tasks.hh_task",
         "schedule": crontab(minute="0", hour="*/2"),
     },
+    "youtube": {
+        "task": "youtube.tasks.youtube_task",
+        "schedule": crontab(minute="0", hour="*/1"),
+    },
 }
 
 # Password validation
