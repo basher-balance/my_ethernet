@@ -1,19 +1,18 @@
-import logging
-import pickle
 import requests
+import pickle
 import os
 
-from .tasks import process_user_stats
+from celery import shared_task
 from twitch.models import Twitch_model
 from twitchAPI.twitch import Twitch
 from twitchAPI.oauth import UserAuthenticator
 from twitchAPI.types import AuthScope
-from .managed_file import ManagedFile
+from utils.managed_file import ManagedFile
 from core.settings import BASE_DIR
 
 
-def twitch_parse():
-    logging.warning("It is time to start the dramatiq task twitch")
+@shared_task
+def twitch_task():
     Twitch_model.objects.all().delete()
     token_tw = f"{BASE_DIR}/layout/token_tw.pickle"
     refresh_token_tw = f"{BASE_DIR}/layout/refresh_token_tw.pickle"
@@ -66,4 +65,3 @@ def twitch_parse():
             writting_streamer_in_bd, created = Twitch_model.objects.update_or_create(
                 streamer=online["data"][k]["user_login"]
             )
-    process_user_stats.send()
