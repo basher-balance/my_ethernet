@@ -42,17 +42,7 @@ async def main():
         tasks        = [parse_hh(client,i) for i in range(total_pages)]
         for i in asyncio.as_completed(tasks):
             await filter_hh(await i)
-        # jsons_list   = await asyncio.gather(*tasks)
-        # tasks_filter = (filter_hh(json_file) for json_file in jsons_list)
-        # await asyncio.gather(*tasks_filter)
-        
-#        create_object()
-        #print(jsons_list[0]['items'][0]['salary'])
-        #print(jsons_list)
-#start = time.time()
-#print(clear_hh)
-#print(len(clear_hh['items']))
-#print(time.time()-start)
+
 
 def create_object():
     logging.warning("It is time to start the dramatiq task HeadHunter")
