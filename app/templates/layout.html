@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ru" class="has-navbar-fixed-top">
+
+<head>
+  {% load static %}
+  <meta charset="utf-8">
+  <meta name="darkreader" content="NO-DARKREADER-PLUGIN">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}НЕВАЖНО{% endblock %}</title>
+  <link rel="shortcut icon" type="image/png" href="static/favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/fontawesome.min.css"
+    integrity="sha512-xX2rYBFJSj86W54Fyv1de80DWBq7zYLn2z0I9bIhQG+rxIF6XVJUpdGnsNHWRa6AvP89vtFupEPDP8eZAtu9qA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/solid.min.css"
+    integrity="sha512-qzgHTQ60z8RJitD5a28/c47in6WlHGuyRvMusdnuWWBB6fZ0DWG/KyfchGSBlLVeqAz+1LzNq+gGZkCSHnSd3g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/brands.min.css"
+    integrity="sha512-OivR4OdSsE1onDm/i3J3Hpsm5GmOVvr9r49K3jJ0dnsxVzZgaOJ5MfxEAxCyGrzWozL9uJGKz6un3A7L+redIQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="static/css/global.css">
+  <script src="static/js/global.js"></script>
+  {% block extra_head %}{% endblock %}
+</head>
+
+<body>
+  <nav class="navbar is-fixed-top is-dark" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://twitch.tv/ucsm" target="_blank">
+        <img src="static/images/avatar.png">
+      </a>
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+
+    <div id="navbar" class="navbar-menu">
+      <div class="navbar-start">
+        <a class="navbar-item is-hoverable" href="{% url 'layout:layout' %}">
+          <span class="icon is-medium">
+            <i class="fa-solid fa-house"></i>
+          </span>
+          <span>
+            Главная
+          </span>
+        </a>
+        <a class="navbar-item is-hoverable" href="{% url 'dashboard:dashboard' %}">
+          <span class="icon">
+            <i class="fa-solid fa-dashboard"></i>
+          </span>
+          <span>Панель</span>
+        </a>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            Сервисы
+          </a>
+
+          <div class="navbar-dropdown is-boxed">
+
+            <a class="navbar-item" href="http://localhost:5050" target="_blank">
+              <span class="icon">
+                <i class="fa-solid fa-database"></i>
+              </span>
+              <span>PgAdmin</span>
+            </a>
+            <a class="navbar-item" href="http://localhost:5555" target="_blank">
+              <span class="icon">
+                <i class="fa-solid fa-calendar-days"></i>
+              </span>
+              <span>Scheduler</span>
+            </a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            База данных
+          </a>
+
+          <div class="navbar-dropdown is-boxed">
+            {% for path in model_paths %}
+            <a class="navbar-item" href="/admin/{{ path }}" target="_blank">
+              {{ path }}
+            </a>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            Развлечения
+          </a>
+          <div class="navbar-dropdown is-boxed">
+            <a class="navbar-item" href="{% url 'anime:anime' %}">
+              <span class="icon">
+                <i class="fa-solid fa-person-praying"></i>
+              </span>
+              <span>Аниме</span>
+            </a>
+            <a class="navbar-item" href="{% url 'twitch:twitch' %}">
+              <span class="icon-text">
+                <span class="icon">
+                  <i class="fa-brands fa-twitch"></i>
+                </span>
+                <span>Twitch</span>
+              </span>
+            </a>
+            <a class="navbar-item" href="{% url 'youtube:youtube' %}">
+              <span class="icon-text">
+                <span class="icon">
+                  <i class="fa-brands fa-youtube"></i>
+                </span>
+                <span>YouTube</span>
+              </span>
+            </a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            Прочее
+          </a>
+          <div class="navbar-dropdown is-boxed">
+            <a class="navbar-item" href="{% url 'news:news' %}">
+              <span class="icon">
+                <i class="fa-solid fa-newspaper"></i>
+              </span>
+              <span>Новости</span>
+            </a>
+            <a class="navbar-item" href="{% url 'weathers:weather' %}">
+              <span class="icon">
+                <i class="fa-solid fa-cloud-sun"></i>
+              </span>
+              <span>Погода</span>
+            </a>
+            <a class="navbar-item" href="{% url 'currencies:currency' %}">
+              <span class="icon">
+                <i class="fa-solid fa-tenge-sign"></i>
+              </span>
+              <span>Валюта</span>
+            </a>
+            <a class="navbar-item" href="{% url 'torrents:torrents' %}">
+              <span class="icon">
+                <i class="fa-solid fa-network-wired"></i>
+              </span>
+              <span>Торренты</span>
+            </a>
+            <a class="navbar-item" href="{% url 'hh:hh' %}">
+              <span class="icon">
+                <i class="fa-solid fa-person-digging"></i>
+              </span>
+              <span>Вакансии</span>
+            </a>
+            <a class="navbar-item" href="{% url 'vk:vk' %}">
+              <span class="icon">
+                <i class="fa-brands fa-vk"></i>
+              </span>
+              <span>ВКонтакте</span>
+            </a>
+            <a class="navbar-item" href="{% url 'serials:serials' %}">
+              <span class="icon">
+                <i class="fa-solid fa-film"></i>
+              </span>
+              <span>Сериалы</span>
+            </a>
+            <a class="navbar-item" href="{% url 'manga:manga' %}">
+              <span class="icon">
+                <i class="fa-solid fa-book"></i>
+              </span>
+              <span>Манга</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  {% if not request.get_full_path == "/" %}
+  <section class="hero is-small is-dark">
+    <div class="hero-body">
+      <p class="title">
+        {% block title_title %}
+        {% endblock %}
+      </p>
+      <p class="subtitle">
+        {% block subtitle %}
+        {% endblock %}
+      </p>
+      {% block hero_body %}
+      {% endblock %}
+    </div>
+    <div class="hero-foot">
+      <nav class="tabs is-boxed is-fullwidth pl-5 pr-5">
+        <div class="container">
+          {% block hero_foot %}
+          {% endblock %}
+        </div>
+      </nav>
+    </div>
+  </section>
+  {% endif %}
+
+  <section class="section">
+    {% block content %}
+    {% endblock %}
+  </section>
+
+  <footer class="has-background-dark">
+    <div class="content has-text-centered">
+      <p class="is-size-3 has-text-danger">I &lt;3 my chat on Twitch</p>
+    </div>
+  </footer>
+
+  <script src="static/js/disable-dark-reader.js"></script>
+</body>
+
+</html>
