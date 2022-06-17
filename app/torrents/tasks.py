@@ -14,9 +14,9 @@ def torrents_task():
             title_entries = data_rss["entries"][i]["title"]
             if serial in title_entries:
                 Torrent.objects.update_or_create(
-                    title=data_rss["entries"][i]["title"],
+                    link=data_rss["entries"][i]["link"].split("/")[-1],
                     defaults={
-                        "link": data_rss["entries"][i]["link"].split("/")[-1],
+                        "title": data_rss["entries"][i]["title"],
                         # "published": data_rss["entries"][i]["published"],
                     },
                 )
