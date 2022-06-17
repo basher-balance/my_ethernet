@@ -19,7 +19,3 @@ class Hh(models.Model):
         r = Hh.objects.get(pk=pk)
         r._is_expired = True
         r.save()
-
-
-    def __str__(self):
-        return self.name
